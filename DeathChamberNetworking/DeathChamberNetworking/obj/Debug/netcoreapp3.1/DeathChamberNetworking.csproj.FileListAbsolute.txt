@@ -1,0 +1,13 @@
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\bin\Debug\netcoreapp3.1\DeathChamberNetworking.exe
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\bin\Debug\netcoreapp3.1\DeathChamberNetworking.deps.json
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\bin\Debug\netcoreapp3.1\DeathChamberNetworking.runtimeconfig.json
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\bin\Debug\netcoreapp3.1\DeathChamberNetworking.runtimeconfig.dev.json
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\bin\Debug\netcoreapp3.1\DeathChamberNetworking.dll
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\bin\Debug\netcoreapp3.1\DeathChamberNetworking.pdb
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.csprojAssemblyReference.cache
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.AssemblyInfoInputs.cache
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.AssemblyInfo.cs
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.csproj.CoreCompileInputs.cache
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.dll
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.pdb
+C:\Users\arran\Documents\Github\DeathChamber\DeathChamberNetworking\DeathChamberNetworking\obj\Debug\netcoreapp3.1\DeathChamberNetworking.genruntimeconfig.cache
