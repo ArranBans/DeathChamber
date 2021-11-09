@@ -1,0 +1,24 @@
+Coop - optional
+low poly
+tf2 graphics
+
+start on surface
+dig down to get resources
+instance - base - keep running for a long time
+
+enter the gungeon esque rooms
+explore rooms
+find new guns and gear - dungeon
+goal - score
+
+tarkov esque influence
+base - store loadouts and guns
+if die in dungeon, lose your shit
+supply drop guns from base
+if die lose both gun from base and gun from crate
+
+8 gun types
+very similar guns within types
+
+adding movement mechanics with sword
+humbling progression
