@@ -22,3 +22,5 @@ very similar guns within types
 
 adding movement mechanics with sword
 humbling progression
+
+name idea CRYPT
