@@ -14,7 +14,7 @@ namespace DeathChamberNetworking
             Thread mainthread = new Thread(new ThreadStart(MainThread));
             mainthread.Start();
 
-            Server.Start(3, 5225);
+            Server.Start(10, 5225);
 
             //Console.ReadKey();
         }
