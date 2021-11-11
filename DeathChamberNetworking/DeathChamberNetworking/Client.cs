@@ -185,13 +185,21 @@ namespace DeathChamberNetworking
                         ServerSend.SpawnPlayer(id, _client.player);
                     }
                 }
+                else
+                {
+                    //Console.WriteLine($"Client {_client.id} has no player");
+                }
             }
 
             foreach (Client _client in Server.clients.Values)
             {
                 if (_client.player != null)
                 {
-                    ServerSend.SpawnPlayer(id, player);
+                    ServerSend.SpawnPlayer(_client.id, player);
+                }
+                else
+                {
+                    //Console.WriteLine($"Client {_client.id} has no player");
                 }
             }
         }

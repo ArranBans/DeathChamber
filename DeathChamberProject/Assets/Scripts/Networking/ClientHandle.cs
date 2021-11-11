@@ -21,12 +21,14 @@ public class ClientHandle : MonoBehaviour
 
     public static void SpawnPlayer(Packet _packet)
     {
+        Debug.Log($"SpawnPlayerReceived");
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
 
         testGameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        Debug.Log($"Spawning Player {_id}, {_username}");
     }
 
     public static void PlayerPosition(Packet _packet)

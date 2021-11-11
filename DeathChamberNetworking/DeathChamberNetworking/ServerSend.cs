@@ -90,6 +90,7 @@ namespace DeathChamberNetworking
                 _packet.Write(_player.rotation);
 
                 SendTCPData(_toClient, _packet);
+                Console.WriteLine($"Told player {_toClient}, {_player.username} to spawn in player {_player.id}");
             }
         }
 

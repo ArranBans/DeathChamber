@@ -48,7 +48,7 @@ namespace DeathChamberNetworking
             
             
             Move(_inputDirection);
-            Console.WriteLine($"{inputs[0]},{inputs[1]}, {inputs[2]}, {inputs[3]}, ");
+            //Console.WriteLine($"{inputs[0]},{inputs[1]}, {inputs[2]}, {inputs[3]}, ");
         }
 
         private void Move(Vector2 _inputDirection)
