@@ -15,6 +15,8 @@ public class ClientHandle : MonoBehaviour
         ClientSend.WelcomeReceived();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+
+        ClientSend.UDPTest("Hello Server!");
     }
 
     public static void SpawnPlayer(Packet _packet)
@@ -42,4 +44,5 @@ public class ClientHandle : MonoBehaviour
 
         testGameManager.players[_id].transform.rotation = _rotation;
     }
+
 }

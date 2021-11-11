@@ -20,6 +20,7 @@ namespace DeathChamberNetworking
     {
         welcomeReceived = 1,
         playeMovement,
+        UDPTest
     }
 
     public class Packet : IDisposable

@@ -30,5 +30,12 @@ namespace DeathChamberNetworking
 
             Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
         }
+
+        public static void UDPTest(int _fromClient, Packet _packet)
+        {
+            string _msg = _packet.ReadString();
+
+            Console.WriteLine($"Client {_fromClient} says: {_msg}!!!");
+        }
     }
 }

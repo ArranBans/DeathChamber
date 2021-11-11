@@ -19,7 +19,7 @@ public class testPlayerController : MonoBehaviour
             Input.GetKey(KeyCode.D)
         };
 
-        Debug.Log($"Sent Server ({_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]})");
+        //Debug.Log($"Sent Server ({_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]})");
 
         ClientSend.PlayerMovement(_inputs);
     }

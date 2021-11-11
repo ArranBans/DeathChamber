@@ -55,7 +55,7 @@ namespace DeathChamberNetworking
         {
             
             Vector3 _forward = Vector3.Transform(new Vector3(0, 0, 1), rotation);
-            Vector3 _right = Vector3.Normalize(Vector3.Cross(_forward, new Vector3(0, 1, 0)));
+            Vector3 _right = Vector3.Normalize(Vector3.Cross(_forward, new Vector3(0, -1, 0)));
 
             Vector3 _movedirection = _right * _inputDirection.X + _forward * _inputDirection.Y;
             position += _movedirection * moveSpeed;

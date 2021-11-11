@@ -16,7 +16,7 @@ public class ClientSend : MonoBehaviour
         Client.instance.udp.SendData(_packet);
     }
 
-    #region
+    #region packets
     public static void WelcomeReceived()
     {
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
@@ -41,6 +41,17 @@ public class ClientSend : MonoBehaviour
             _packet.Write(testGameManager.players[Client.instance.myId].transform.rotation);
 
             SendUDPData(_packet);
+        }
+    }
+
+    public static void UDPTest(string _message)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.UDPTest))
+        {
+            _packet.Write(_message);
+
+            SendUDPData(_packet);
+            Debug.Log("UDPTest Send");
         }
     }
     #endregion

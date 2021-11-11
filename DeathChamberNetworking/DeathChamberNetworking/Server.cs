@@ -79,13 +79,18 @@ namespace DeathChamberNetworking
                     if(clients[_clientId].udp.endPoint == null)
                     {
                         clients[_clientId].udp.Connect(_clientEndPoint);
+                        Console.WriteLine($"Client {_clientId} connected to {_clientEndPoint} over UDP");
                         return;
                     }
 
-                    if(clients[_clientId].udp.endPoint.ToString() != _clientEndPoint.ToString())
+                    if(clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
                     {
                         
                         clients[_clientId].udp.HandleData(_packet);
+                    }
+                    else
+                    {
+                        Console.WriteLine("UDP Recieved Failed");
                     }
                 }
             }
@@ -120,7 +125,8 @@ namespace DeathChamberNetworking
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-                { (int)ClientPackets.playeMovement, ServerHandle.PlayerMovement }
+                { (int)ClientPackets.playeMovement, ServerHandle.PlayerMovement },
+                { (int)ClientPackets.UDPTest, ServerHandle.UDPTest }
             };
             Console.WriteLine("Initialised Packets...");
         }
