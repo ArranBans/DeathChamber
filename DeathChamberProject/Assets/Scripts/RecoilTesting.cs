@@ -13,11 +13,6 @@ public class RecoilTesting : MonoBehaviour
     public float xRotRecoil;
     public float yRotRecoil;
     public float zRotRecoil;
-    [Header("Rotational Correction")]
-    public float xRotReturn = 1;
-    public float yRotReturn = 1;
-    public float zRotReturn = 1;
-
     [Header("Transforms")]
     public Transform recoilLocation;
     private Vector3 startPos;

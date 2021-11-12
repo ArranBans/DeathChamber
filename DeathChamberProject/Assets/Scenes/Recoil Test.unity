@@ -320,7 +320,7 @@ MonoBehaviour:
   yPosRecoil: 0
   zPosRecoil: 0
   xRotRecoil: -0.6
-  yRotRecoil: 0
+  yRotRecoil: 0.5
   zRotRecoil: 0
   xRotReturn: 1
   yRotReturn: 1
