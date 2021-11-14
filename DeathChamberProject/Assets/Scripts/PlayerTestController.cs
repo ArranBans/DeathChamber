@@ -57,9 +57,7 @@ public class PlayerTestController : MonoBehaviour
     }
     private void Update()
     {
-        
 
-        
 
         _xRot -= Input.GetAxisRaw("Mouse Y") * turnSpeed;
         _yRot += Input.GetAxisRaw("Mouse X") * turnSpeed;
@@ -82,7 +80,7 @@ public class PlayerTestController : MonoBehaviour
             Input.GetKey(KeyCode.S),
             Input.GetKey(KeyCode.D),
             Input.GetKey(KeyCode.Space),
-            Input.GetKey(KeyCode.Space)
+            Input.GetKey(KeyCode.LeftShift)
         };
 
         return _inputs;

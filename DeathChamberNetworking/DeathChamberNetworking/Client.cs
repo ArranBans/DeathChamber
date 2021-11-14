@@ -74,6 +74,7 @@ namespace DeathChamberNetworking
                     int _byteLength = stream.EndRead(_result);
                     if(_byteLength <= 0)
                     {
+                        Server.clients[id].Disconnect();
                         return;
                     }
 
@@ -86,6 +87,7 @@ namespace DeathChamberNetworking
                 catch(Exception _ex)
                 {
                     Console.WriteLine($"Error receiving TCP data: {_ex}");
+                    Server.clients[id].Disconnect();
                 }
             }
 
@@ -134,6 +136,15 @@ namespace DeathChamberNetworking
 
                 return false;
             }
+
+            public void Disconnect()
+            {
+                socket.Close();
+                stream = null;
+                receiveBuffer = null;
+                receivedData = null;
+                socket = null;
+            }
         }
 
         public class UDP
@@ -170,6 +181,11 @@ namespace DeathChamberNetworking
                     }
                 });
             }
+
+            public void Disconnect()
+            {
+                endPoint = null;
+            }
         }
 
         public void SendIntoGame(string _playername)
@@ -202,6 +218,16 @@ namespace DeathChamberNetworking
                     //Console.WriteLine($"Client {_client.id} has no player");
                 }
             }
+        }
+
+        private void Disconnect()
+        {
+            Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has diconnected...");
+
+            player = null;
+
+            tcp.Disconnect();
+            udp.Disconnect();
         }
     }
 }
