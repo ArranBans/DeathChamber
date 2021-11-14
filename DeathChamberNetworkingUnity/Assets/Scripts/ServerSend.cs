@@ -92,12 +92,13 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void PlayerPosition(Player _player)
+    public static void PlayerPosition(Player _player, int _tick)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
             _packet.Write(_player.id);
             _packet.Write(_player.transform.position);
+            _packet.Write(_tick);
 
             SendUDPDataToAll(_packet);
         }
@@ -110,6 +111,16 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_player.transform.rotation);
 
             SendUDPDataToAll(_player.id, _packet);
+        }
+    }
+
+    public static void PlayerDisconnected(int _playerId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerDisconnected))
+        {
+            _packet.Write(_playerId);
+
+            SendTCPDataToAll(_packet);
         }
     }
     #endregion

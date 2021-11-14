@@ -1,0 +1,55 @@
+CLIENT PREDICTION CONCEPT
+
+----------------------------------------------------------------- CORRECT PREDICTION -------------------------------------------------------------------------
+server position 2,0
+predicted position 2,0
+-input pressed (w)
+-send server input with tick that you pressed input (w, 3)
+-predict movement and store in position states with position and tick and apply ((3,0), 3) //position = clientpos.add(new PositionState((3,0), 3)).position
+-server sends back position with tick that that position links to ((1,0), 1)
+-store server position state in position states 
+	serverState = new PositionState((1,0), 1"sTick1");
+-reapply movement since this state
+	Vector3 predictedState = serverState; // predicted state is recalculated on our most recent position provided by the server
+	for(int x = sTick1; x < clientpos.count; x++)
+	{
+		predictedState = predictMovement(clientpos[x].inputs, predictedState);// move predicted state by the input specified in clientpos[x]
+	}
+	(w, w) = (3,0) = correct prediction
+-potential leeway
+	if(predictedState + leeway < clientpos[clientpos.count].position)
+	{
+		//correct position
+	}
+	else if(predictedState - leeway> clientpos[clientpos.count].position)
+	{
+		//correct position
+	}
+	// we leave the position as we applied it initially because our prediction was within the leeway for our most recent prediction with new information
+
+----------------------------------------------------------------- INCORRECT PREDICTION -------------------------------------------------------------------------
+server position 4,0
+predicted position 2,0
+-input pressed (w)
+-send server input with tick that you pressed input (w, 3)
+-predict movement and store in position states with position and tick and apply ((3,0), 3) //position = clientpos.add(new PositionState((3,0), 3)).position
+-server sends back position with tick that that position links to ((4,0), 2)
+-store server position state in position states 
+	serverState = new PositionState((4,0), 2"sTick1");
+-reapply movement since this state
+	Vector3 predictedState = serverState; // predicted state is recalculated on our most recent position provided by the server
+	for(int x = sTick1; x < clientpos.count; x++)
+	{
+		predictedState = predictMovement(clientpos[x].inputs, predictedState);// move predicted state by the input specified in clientpos[x]
+	}
+	(w, w) = (5,0) = incorrect prediction
+-potential leeway
+	if(predictedState + leeway < clientpos[clientpos.count].position)
+	{
+		//correct position
+	}
+	else if(predictedState - leeway> clientpos[clientpos.count].position)
+	{
+		//correct position - this because we predicted 3,0 initially (clientpos[clientpos.count].position) but since we were working with bad information we repredict the movement which now gives us 5,0 so we lerp between 3,0 and 5,0 overtime
+		//store new predicted position in clientpos to replace what we had predicted before.
+	}

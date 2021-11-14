@@ -9,6 +9,8 @@ public class PlayerTestController : MonoBehaviour
     //public List<Item> inventory = new List<Item>();
     [HideInInspector]public float moveSpeed;
     [HideInInspector]public float jumpForce;
+    [HideInInspector] public float sprintSpeed;
+    private int tick = 0;
 
     private Rigidbody rb;
     bool[] pInputs;
@@ -46,17 +48,23 @@ public class PlayerTestController : MonoBehaviour
         {
             _xMovement += 1;
         }
+        if (pInputs[5])
+        {
+            _zMovement *= sprintSpeed;
+        }
         #endregion
 
         Vector3 moveVector = transform.TransformDirection(new Vector3(_xMovement, 0, _zMovement)) * moveSpeed;
         rb.velocity = new Vector3(moveVector.x, rb.velocity.y, moveVector.z);
     }
        
-    public void GetInputs(bool[] _inputs, float _moveSpeed, float _jumpForce)
+    public void GetInputs(bool[] _inputs, float _moveSpeed, float _jumpForce, float _sprintSpeed, int _tick)
     {
         pInputs = _inputs;
         moveSpeed = _moveSpeed;
         jumpForce = _jumpForce;
+        sprintSpeed = _sprintSpeed;
+        tick = _tick;
     }
 
 }

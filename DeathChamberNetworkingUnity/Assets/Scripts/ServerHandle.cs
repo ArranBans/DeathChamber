@@ -25,8 +25,9 @@ public class ServerHandle
             _inputs[i] = _packet.ReadBool();
         }
         Quaternion _rotation = _packet.ReadQuaternion();
+        int _tick = _packet.ReadInt();
 
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        Server.clients[_fromClient].player.SetInput(_inputs, _rotation, _tick);
     }
 
     public static void UDPTest(int _fromClient, Packet _packet)

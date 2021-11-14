@@ -227,9 +227,11 @@ public class Client
         {
             UnityEngine.Object.Destroy(player.gameObject);
             player = null;
-        }); 
+        });  
 
         tcp.Disconnect();
         udp.Disconnect();
+
+        ServerSend.PlayerDisconnected(id);
     }
 }

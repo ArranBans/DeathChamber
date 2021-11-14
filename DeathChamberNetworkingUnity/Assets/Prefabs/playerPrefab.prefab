@@ -48,8 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
-  moveSpeed: 5
+  moveSpeed: 3
   jumpspeed: 5
+  sprintSpeed: 2.5
   ptController: {fileID: 2965046099710884454}
 --- !u!54 &7203498573334304904
 Rigidbody:
@@ -82,6 +83,7 @@ MonoBehaviour:
   inventorySize: 0
   moveSpeed: 0
   jumpForce: 0
+  sprintSpeed: 0
 --- !u!1 &6742040595745447518
 GameObject:
   m_ObjectHideFlags: 0

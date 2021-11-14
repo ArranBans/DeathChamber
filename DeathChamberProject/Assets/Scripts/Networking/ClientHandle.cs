@@ -35,9 +35,11 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
+        int _tick = _packet.ReadInt();
 
-        Debug.Log($"Packet ID: {_id} should hold position {_position}");
-        testGameManager.players[_id].transform.position = _position;
+        testGameManager.players[_id].GetComponent<testPlayerController>().ServerPositionStates.Add(new PositionState(_position, _tick));
+        //Debug.Log($"Packet ID: {_id} should hold position {_position}");
+        //testGameManager.players[_id].transform.position = _position;
     }
     public static void PlayerRotation(Packet _packet)
     {
@@ -47,4 +49,11 @@ public class ClientHandle : MonoBehaviour
         testGameManager.players[_id].transform.rotation = _rotation;
     }
 
+    public static void PlayerDisconnected(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        Destroy(testGameManager.players[_id].gameObject);
+        testGameManager.players.Remove(_id);
+    }
 }

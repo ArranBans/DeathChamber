@@ -28,7 +28,7 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void PlayerMovement(bool[] _inputs)
+    public static void PlayerMovement(bool[] _inputs, int _tick)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playeMovement))
         {
@@ -39,6 +39,8 @@ public class ClientSend : MonoBehaviour
             }
 
             _packet.Write(testGameManager.players[Client.instance.myId].transform.rotation);
+
+            _packet.Write(_tick);
 
             SendUDPData(_packet);
         }

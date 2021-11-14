@@ -9,8 +9,10 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float jumpspeed = 5;
+    public float sprintSpeed = 1.5f;
     private bool[] inputs;
     public PlayerTestController ptController;
+    private int tick = 0;
 
     public void Initialise(int _id, string _username, Vector3 _spawnPos)
     {
@@ -23,20 +25,21 @@ public class Player : MonoBehaviour
     public void FixedUpdate()
     {
 
-        ptController.GetInputs(inputs, moveSpeed, jumpspeed);
+        ptController.GetInputs(inputs, moveSpeed, jumpspeed, sprintSpeed, tick);
         MovePlayer();
         //Debug.Log($"{inputs[0]},{inputs[1]}, {inputs[2]}, {inputs[3]}, ");
     }
 
     private void MovePlayer()
     {
-        ServerSend.PlayerPosition(this);
+        ServerSend.PlayerPosition(this, tick);
         ServerSend.PlayerRotation(this);
     }
 
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    public void SetInput(bool[] _inputs, Quaternion _rotation, int _tick)
     {
         inputs = _inputs;
         transform.rotation = _rotation;
+        tick = _tick;
     }
 }
