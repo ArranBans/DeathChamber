@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
-  moveSpeed: 3
+  moveSpeed: 0.2
   jumpspeed: 5
   sprintSpeed: 2.5
   ptController: {fileID: 2965046099710884454}

@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 5
-  moveSpeed: 0
+  moveSpeed: 13.32
   sprintSpeed: 2.5
 --- !u!54 &763496376351210315
 Rigidbody:

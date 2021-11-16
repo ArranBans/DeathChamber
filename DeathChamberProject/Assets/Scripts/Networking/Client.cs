@@ -34,12 +34,6 @@ public class Client : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        tcp = new TCP();
-        udp = new UDP();
-    }
-
     private void OnApplicationQuit()
     {
         Disconnect();
@@ -47,7 +41,11 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer()
     {
+        tcp = new TCP();
+        udp = new UDP();
+
         InitialiseClientData();
+
         isConnected = true;
         tcp.Connect();
     }
