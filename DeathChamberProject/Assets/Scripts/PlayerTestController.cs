@@ -13,9 +13,11 @@ public class PlayerTestController : MonoBehaviour
     public float jumpForce;
     private Rigidbody rb;
     //[HideInInspector]
+    public GameObject camobj;
     public Camera cam;
     float _xRot;
     float _yRot;
+    public Quaternion camDRot;
 
     private void Start()
     {
@@ -63,12 +65,10 @@ public class PlayerTestController : MonoBehaviour
         _yRot += Input.GetAxisRaw("Mouse X") * turnSpeed;
         
         _xRot = Mathf.Clamp(_xRot, -70f, 70f);
-        Debug.Log($"{_xRot}");
-        cam.transform.localRotation = Quaternion.Euler(_xRot, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
-        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
-        
+        //Debug.Log($"{_xRot}");
 
-        
+        camobj.transform.localRotation = Quaternion.Euler(_xRot, camobj.transform.localRotation.eulerAngles.y, camobj.transform.localRotation.eulerAngles.z);
+        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
     }
 
     private bool[] pInputs() // W, A, S, D, Space, Shift
