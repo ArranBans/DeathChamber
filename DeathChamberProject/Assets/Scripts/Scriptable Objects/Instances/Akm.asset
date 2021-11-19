@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
-  m_Name: Pistol
+  m_Name: Akm
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
   WorldModel: {fileID: 0}
@@ -18,31 +18,31 @@ MonoBehaviour:
   itemType: 2
   xPosRecoil: 0
   yPosRecoil: 0
-  zPosRecoil: -0.075
+  zPosRecoil: -0.08
   xRotRecoil: 0
-  yRotRecoil: 0
-  zRotRecoil: 0
-  xRotOffset: -7
+  yRotRecoil: 0.5
+  zRotRecoil: 0.5
+  xRotOffset: -1.84
   camXPosRecoil: 0
   camYPosRecoil: 0
-  camZPosRecoil: -0.09
-  camXRotRecoil: 1
-  camYRotRecoil: 1.25
-  camZRotRecoil: 1
-  camXRotOffset: -1.83
+  camZPosRecoil: 0
+  camXRotRecoil: 0.66
+  camYRotRecoil: 0.6
+  camZRotRecoil: 0
+  camXRotOffset: -2.64
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 15.08
-  recoilSnappiness: 15.83
+  recoilReturnSpeed: 12
+  recoilSnappiness: 0
   recoilTime: 0.02
-  cameraRecoilTime: 0.066
-  semiAuto: 1
-  fullAuto: 0
+  cameraRecoilTime: 0.005
+  semiAuto: 0
+  fullAuto: 1
   boltAction: 0
-  fireRate: 12
-  defaultFireMode: 0
-  maxAmmo: 84
-  magAmmo: 17
-  ammoType: 1
+  fireRate: 10
+  defaultFireMode: 1
+  maxAmmo: 0
+  magAmmo: 0
+  ammoType: 0
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
@@ -55,6 +55,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 0
-  aimPos: {x: 0, y: -0.173, z: 0.76}
-  hipPos: {x: 0.12, y: -0.43, z: 0.6}
+  aimPos: {x: 0, y: -0.255, z: 0.25}
+  hipPos: {x: 0.132, y: -0.416, z: 0.263}
   aimFov: 0
