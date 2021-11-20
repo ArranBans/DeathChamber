@@ -32,9 +32,10 @@ MonoBehaviour:
   camXRotOffset: -0.5
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 13
-  recoilSnappiness: 0
-  recoilTime: 0.015
+  recoilSnappiness: 1000
+  recoilTime: 0.005
   cameraRecoilTime: 0.04
+  cameraReturn: 1
   semiAuto: 1
   fullAuto: 1
   boltAction: 0
@@ -48,10 +49,10 @@ MonoBehaviour:
   bulletMass: 0
   bulletSpawnPoint: {fileID: 0}
   bulletObject: {fileID: 0}
-  tiltSway: 0
-  hMoveSway: 0
-  vMoveSway: 0
-  aimSwayModifier: 0
+  tiltSway: -0.5
+  hMoveSway: -0.005
+  vMoveSway: -0.005
+  aimSwayModifier: 0.2
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 0

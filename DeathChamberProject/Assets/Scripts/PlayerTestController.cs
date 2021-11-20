@@ -15,8 +15,8 @@ public class PlayerTestController : MonoBehaviour
     //[HideInInspector]
     public GameObject camobj;
     public Camera cam;
-    float _xRot;
-    float _yRot;
+    public float _xRot;
+    public float _yRot;
     public Quaternion camDRot;
 
     private void Start()

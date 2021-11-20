@@ -29,6 +29,7 @@ public class GunSO : ItemSO
     public float recoilSnappiness;
     public float recoilTime;
     public float cameraRecoilTime;
+    public bool cameraReturn;
     [Header("Firemode Variables")]
     public bool semiAuto;
     public bool fullAuto;

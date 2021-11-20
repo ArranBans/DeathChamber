@@ -28,6 +28,8 @@ public class Gun : MonoBehaviour
     private Vector3 _rotRecoil;
     private Vector3 _camPosRecoil;
     private Vector3 _camRotRecoil;
+    private bool recoiling;
+    private bool aiming;
 
     void Start()
     {
@@ -65,6 +67,18 @@ public class Gun : MonoBehaviour
         _camRotRecoil.z = Random.Range(+camRotRecoil.z, -camRotRecoil.z);
         #endregion
 
+        #region Mouse Handling
+        float[] inputs = new float[]
+        {
+            Input.GetAxisRaw("Mouse X"),
+            Input.GetAxisRaw("Mouse Y")
+        };
+
+        inputs[0] = Mathf.Clamp(inputs[0], -0.6f, 0.6f);
+        inputs[1] = Mathf.Clamp(inputs[1], -0.6f, 0.6f);
+        #endregion
+
+        #region Firemode Handling
         switch (fireMode)
         {
             case GunSO.FireMode.boltAction:
@@ -92,48 +106,97 @@ public class Gun : MonoBehaviour
                     break;
                 }
         }
+        #endregion
 
-        if(Input.GetKey(KeyCode.Mouse1))
+        #region Aiming
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             desiredPos = gunSO.aimPos;
+            aiming = true;
         }
         else
         {
             desiredPos = gunSO.hipPos;
+            aiming = false;
         }
+        #endregion
 
-        if(Time.time >= timeToRecoilCompensate)
+        #region Recoil
+        if (recoiling)
         {
+            Recoil();
+        }
+         //&& recoiling == true
+        if (Time.time >= timeToRecoilCompensate)
+        {
+            recoiling = false;
             transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, gunSO.recoilReturnSpeed * Time.deltaTime);
             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, gunSO.recoilReturnSpeed * Time.deltaTime);
         }
 
         if (Time.time >= timeToCamRecoilCompensate)
         {
+            recoiling = false;
             cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, camDPos, gunSO.recoilReturnSpeed * Time.deltaTime);
-            cam.transform.localRotation = Quaternion.Lerp(cam.transform.localRotation, Quaternion.identity, gunSO.recoilReturnSpeed * Time.deltaTime);
+            if(gunSO.cameraReturn)
+            {
+                cam.transform.localRotation = Quaternion.Lerp(cam.transform.localRotation, Quaternion.identity, gunSO.recoilReturnSpeed * Time.deltaTime);
+            }
+            else
+            {
+                cam.transform.localRotation = Quaternion.Lerp(cam.transform.localRotation, Quaternion.Euler(cam.transform.localRotation.eulerAngles.x, 0, 0), gunSO.recoilReturnSpeed * Time.deltaTime);
+            }
+            
         }
-        //Debug.Log("Recoil Returned");
+        #endregion
+
+        #region WeaponSway
+        float _hsway = gunSO.hMoveSway;
+        float _vsway = gunSO.vMoveSway;
+        float _tiltsway = gunSO.tiltSway;
+        if(aiming)
+        {
+            _hsway *= gunSO.aimSwayModifier;
+            _vsway *= gunSO.aimSwayModifier;
+            _tiltsway *= 0.05f;
+        }
+        transform.localPosition = new Vector3(transform.localPosition.x + inputs[0] * _hsway, transform.localPosition.y + inputs[1] * _vsway, transform.localPosition.z);
+        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z + inputs[0] * _tiltsway);
+        #endregion
     }
 
     void Fire()
     {
         Debug.Log("Firing");
         //GameObject bullet = Instantiate(gunSO.bulletObject, gunSO.bulletSpawnPoint.position, gunSO.bulletSpawnPoint.rotation);
-        Recoil(); 
+        recoiling = true;
+        timeToRecoilCompensate = Time.time + gunSO.recoilTime;
+        timeToCamRecoilCompensate = Time.time + gunSO.cameraRecoilTime;
     }
     void Recoil()
     {
-        transform.localPosition = new Vector3(transform.localPosition.x + _posRecoil.x, transform.localPosition.y + posRecoil.y, transform.localPosition.z + posRecoil.z);
-        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x + _rotRecoil.x, transform.localRotation.eulerAngles.y + _rotRecoil.y, transform.localRotation.eulerAngles.z + _rotRecoil.z);
+        //transform.localPosition = new Vector3(transform.localPosition.x + _posRecoil.x, transform.localPosition.y + posRecoil.y, transform.localPosition.z + posRecoil.z);
+        //transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x + _rotRecoil.x, transform.localRotation.eulerAngles.y + _rotRecoil.y, transform.localRotation.eulerAngles.z + _rotRecoil.z);
 
-        cam.transform.localPosition = new Vector3(cam.transform.localPosition.x + camPosRecoil.x, cam.transform.localPosition.y + camPosRecoil.y, cam.transform.localPosition.z + camPosRecoil.z);
-        cam.transform.localRotation = Quaternion.Euler(cam.transform.localRotation.eulerAngles.x + _camRotRecoil.x, cam.transform.localRotation.eulerAngles.y + _camRotRecoil.y, cam.transform.localRotation.eulerAngles.z + _camRotRecoil.z);
-        
+        //cam.transform.localPosition = new Vector3(cam.transform.localPosition.x + camPosRecoil.x, cam.transform.localPosition.y + camPosRecoil.y, cam.transform.localPosition.z + camPosRecoil.z);
+        //cam.transform.localRotation = Quaternion.Euler(cam.transform.localRotation.eulerAngles.x + _camRotRecoil.x, cam.transform.localRotation.eulerAngles.y + _camRotRecoil.y, cam.transform.localRotation.eulerAngles.z + _camRotRecoil.z);
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x + _posRecoil.x, transform.localPosition.y + posRecoil.y, transform.localPosition.z + posRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localRotation.eulerAngles.x + _rotRecoil.x, transform.localRotation.eulerAngles.y + _rotRecoil.y, transform.localRotation.eulerAngles.z + _rotRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+        if(gunSO.cameraReturn)
+        {
+            cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, new Vector3(cam.transform.localPosition.x + camPosRecoil.x, cam.transform.localPosition.y + camPosRecoil.y, cam.transform.localPosition.z + camPosRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+            cam.transform.localRotation = Quaternion.Lerp(cam.transform.localRotation, Quaternion.Euler(cam.transform.localRotation.eulerAngles.x + _camRotRecoil.x, cam.transform.localRotation.eulerAngles.y + _camRotRecoil.y, cam.transform.localRotation.eulerAngles.z + _camRotRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+        }
+        else
+        {
+            pTController._xRot += _camRotRecoil.x;
+            pTController._yRot += _camRotRecoil.y;
+            cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, new Vector3(cam.transform.localPosition.x + camPosRecoil.x, cam.transform.localPosition.y + camPosRecoil.y, cam.transform.localPosition.z + camPosRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+            cam.transform.localRotation = Quaternion.Lerp(cam.transform.localRotation, Quaternion.Euler(cam.transform.localRotation.eulerAngles.x , cam.transform.localRotation.eulerAngles.y , cam.transform.localRotation.eulerAngles.z + _camRotRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+        }
+
         //return null;
         Debug.Log("Recoiled");
-
-        timeToRecoilCompensate = Time.time + gunSO.recoilTime;
-        timeToCamRecoilCompensate = Time.time + gunSO.cameraRecoilTime;
     }
 }

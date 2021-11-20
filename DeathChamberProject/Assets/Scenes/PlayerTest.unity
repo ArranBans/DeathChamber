@@ -184,6 +184,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e8df509534764164eb9d3f31644440c3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 88f33dcad63f1e84ebb1f95f33751d56, type: 2}
     - target: {fileID: 919132149155446097, guid: e8df509534764164eb9d3f31644440c3, type: 3}
       propertyPath: m_Name
       value: Rocket Launcher Draft
@@ -241,6 +245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2e8bfa08b1b621c44b26593f8fbee90b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 88f33dcad63f1e84ebb1f95f33751d56, type: 2}
     - target: {fileID: 919132149155446097, guid: 2e8bfa08b1b621c44b26593f8fbee90b, type: 3}
       propertyPath: m_Name
       value: Akm Draft
@@ -547,9 +555,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313507222}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.173, z: 0.76}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.35, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 1293492739}
   m_Father: {fileID: 1441343315}
@@ -1029,6 +1037,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 49ed670543d127a4a90aa9263cae7d0f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 88f33dcad63f1e84ebb1f95f33751d56, type: 2}
     - target: {fileID: 919132149155446097, guid: 49ed670543d127a4a90aa9263cae7d0f, type: 3}
       propertyPath: m_Name
       value: Pistol Draft
@@ -1086,6 +1098,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b775d80e05e0fec45955102080f5f1d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 88f33dcad63f1e84ebb1f95f33751d56, type: 2}
     - target: {fileID: 919132149155446097, guid: b775d80e05e0fec45955102080f5f1d2, type: 3}
       propertyPath: m_Name
       value: Vector Draft
@@ -1212,7 +1228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3609055531517994880, guid: 7a60e0e70f66cd04190ae193c3c6f059, type: 3}
       propertyPath: turnSpeed
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3609055531517994880, guid: 7a60e0e70f66cd04190ae193c3c6f059, type: 3}
       propertyPath: inventorySize

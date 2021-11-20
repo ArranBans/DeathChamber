@@ -17,7 +17,7 @@ MonoBehaviour:
   ViewModel: {fileID: 0}
   itemType: 2
   xPosRecoil: 0
-  yPosRecoil: 0
+  yPosRecoil: -0.012
   zPosRecoil: -0.08
   xRotRecoil: 0
   yRotRecoil: 0.5
@@ -28,13 +28,14 @@ MonoBehaviour:
   camZPosRecoil: 0
   camXRotRecoil: 0.66
   camYRotRecoil: 0.6
-  camZRotRecoil: 0
-  camXRotOffset: -2.64
+  camZRotRecoil: 1
+  camXRotOffset: -2
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 12
-  recoilSnappiness: 0
-  recoilTime: 0.02
-  cameraRecoilTime: 0.005
+  recoilSnappiness: 1000
+  recoilTime: 0.005
+  cameraRecoilTime: 0.05
+  cameraReturn: 0
   semiAuto: 0
   fullAuto: 1
   boltAction: 0
@@ -48,10 +49,10 @@ MonoBehaviour:
   bulletMass: 0
   bulletSpawnPoint: {fileID: 0}
   bulletObject: {fileID: 0}
-  tiltSway: 0
-  hMoveSway: 0
-  vMoveSway: 0
-  aimSwayModifier: 0
+  tiltSway: -0.55
+  hMoveSway: -0.0075
+  vMoveSway: -0.008
+  aimSwayModifier: 0.3
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 0
