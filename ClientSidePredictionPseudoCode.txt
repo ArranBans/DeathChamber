@@ -1,0 +1,30 @@
+Function Update(pos, deltaTime, input)
+	newState = PredictMovement (predictedState, deltaTime, input);
+	SnapShot snapShot = new SnapShot (deltaTime, input);
+	snapShot.DeltaPosition = newState.Position - predictedState.Position;
+	StateHistory.Add (snapShot);
+	HistoryDuration += TimeSinceLastUpdate;
+
+	clientPosition = newState
+	predictedState = newState
+
+
+Function OnRecieveFromServer (serverFrame)
+	dt = Max (0, HistoryDuration - latency);
+	historyDuration -= dt;
+	while (StateHistory.Count > 0 && dt > 0)
+		if (dt >= StateHistory[0].DeltaTime)
+			dt -= StateHistory[0].DeltaTime;
+			StateHistory.RemoveAt (0);
+		else
+			t = 1 - dt / StateHistory[0].DeltaTime;
+			StateHistory[0].DeltaTime -= dt;
+			StateHistory[0].DeltaPosition *= t;
+			break;
+	
+	serverState = serverFrame
+	
+	foreach (frame in StateHistory)
+		newState = PredictMovement (predictedState, frame.DeltaTime, input)
+		frame.DeltaPosition = newState.Position - predictedState.Position
+		predictedState = newState;

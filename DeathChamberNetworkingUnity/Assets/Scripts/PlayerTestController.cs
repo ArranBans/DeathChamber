@@ -54,7 +54,7 @@ public class PlayerTestController : MonoBehaviour
         }
         #endregion
 
-        Vector3 moveVector = transform.TransformDirection(new Vector3(_xMovement, 0, _zMovement)) * moveSpeed;
+        Vector3 moveVector = transform.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
         rb.MovePosition(new Vector3(rb.position.x + moveVector.x, rb.position.y, rb.position.z + moveVector.z));
     }
        

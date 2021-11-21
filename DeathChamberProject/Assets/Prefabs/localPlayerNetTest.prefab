@@ -254,8 +254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 5
-  moveSpeed: 13.32
+  moveSpeed: 0.2
   sprintSpeed: 2.5
+  interpolationSpeed: 0.3
 --- !u!54 &763496376351210315
 Rigidbody:
   m_ObjectHideFlags: 0

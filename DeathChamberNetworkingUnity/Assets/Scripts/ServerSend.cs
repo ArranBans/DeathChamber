@@ -98,6 +98,7 @@ public class ServerSend : MonoBehaviour
         {
             _packet.Write(_player.id);
             _packet.Write(_player.transform.position);
+            _packet.Write(_player.transform.rotation);
             _packet.Write(_tick);
 
             SendUDPDataToAll(_packet);

@@ -12,23 +12,27 @@ public class testPlayerController : MonoBehaviour
     public float sprintSpeed;
     private Rigidbody rb;
     public PositionState ServerPositionState;
+    public PositionState predictedState;
+    public PositionState extrapolatedPos;
     public List<PositionState> ClientPositionStates = new List<PositionState>();
-    private int tick = 0;
+    private int tick = 1;
+    public float interpolationSpeed;
 
     private void Start()
     {
         cam = GetComponentInChildren<Camera>();
         rb = GetComponent<Rigidbody>();
+        predictedState = new PositionState(transform.position, transform.rotation, tick);
     }
 
     private void FixedUpdate()
     {
         SendInputToServer();
         //rb.position = 
-        ApplyServerMovement();//.position;
         //transform.position = ServerPositionStates[ServerPositionStates.Count-1].position;
-        Debug.Log($"server tick: {ServerPositionState.tick}");
+        //Debug.Log($"server tick: {ServerPositionState.tick}");
         Debug.Log($"local tick: {tick}");
+        
         tick += 1;
     }
     private void Update()
@@ -40,6 +44,9 @@ public class testPlayerController : MonoBehaviour
         //Debug.Log($"{_xRot}");
         cam.transform.localRotation = Quaternion.Euler(_xRot, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
+
+        transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed);
+        
     }
 
     private void SendInputToServer()
@@ -56,11 +63,12 @@ public class testPlayerController : MonoBehaviour
 
         //Debug.Log($"Sent Server ({_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]})");
         ClientSend.PlayerMovement(_inputs, tick);
-        ClientPositionStates.Add(PredictMovement(_inputs, tick));
-        //foreach(PositionState x in ClientPositionStates)
-        //{
-            //Debug.Log($"{x.position}, {x.tick},  {x.inputs}");
-        //}
+        predictedState.rotation = transform.rotation;
+        PositionState _newState = PredictMovement(_inputs, predictedState, tick);
+        ClientPositionStates.Add(new PositionState(_newState.position, _newState.rotation, _newState.tick, _inputs));
+        //Debug.Log($"{_preState.position}, {_preState.tick},  {_preState.inputs[0]}, {_preState.inputs[1]}, {_preState.inputs[2]}, {_preState.inputs[3]}");
+        predictedState = _newState;
+        //transform.position = predictedState.position;
     }
     private PositionState PredictMovement(bool[] _pInputs, int _tick)
     {
@@ -90,11 +98,11 @@ public class testPlayerController : MonoBehaviour
         }
         #endregion
 
-        Vector3 moveVector = transform.TransformDirection(new Vector3(_xMovement, 0, _zMovement)) * moveSpeed;
+        Vector3 moveVector = transform.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
         rb.MovePosition(new Vector3(rb.position.x + moveVector.x, rb.position.y, rb.position.z + moveVector.z));
-        return new PositionState(rb.position, _tick, _pInputs);
+        return new PositionState(rb.position, rb.rotation, _tick, _pInputs);
     }
-    private Vector3 PredictMovement(bool[] _pInputs, Vector3 _position)
+    private Vector3 PredictMovement(bool[] _pInputs, PositionState _pState)
     {
         float _xMovement = 0;
         float _zMovement = 0;
@@ -122,45 +130,85 @@ public class testPlayerController : MonoBehaviour
         }
         #endregion
 
-        Vector3 moveVector = transform.TransformDirection(new Vector3(_xMovement, 0, _zMovement)) * moveSpeed;
-        rb.MovePosition(new Vector3(_position.x + moveVector.x, rb.position.y, _position.z + moveVector.z));
-        return rb.position;
+        Vector3 moveVector = _pState.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
+        Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z);
+        return newPos;
     }
 
-    public PositionState ApplyServerMovement() //BROOOOOOOOOKKKKKKEEEEEEEEEENNNNNNNNN
+    private PositionState PredictMovement(bool[] _pInputs, PositionState _pState, int _tick)
     {
-        Vector3 _predictedState = ServerPositionState.position;
-        //Debug.Log($"{_predictedState}");
-        for (int x = ServerPositionState.tick; x < ClientPositionStates.Count; x++)
+        float _xMovement = 0;
+        float _zMovement = 0;
+
+        #region InputHandling
+        if (_pInputs[0])
         {
-            //Debug.Log($"{ClientPositionStates[x].position}, {ClientPositionStates[x].tick},  {ClientPositionStates[x].inputs}");
-            _predictedState = PredictMovement(ClientPositionStates[x].inputs, _predictedState);//this line broken <------
+            _zMovement += 1;
         }
-        for (int x = 0; x < ClientPositionStates.Count; x++)
+        if (_pInputs[1])
         {
-            if (ClientPositionStates[x].tick == tick)
+            _xMovement -= 1;
+        }
+        if (_pInputs[2])
+        {
+            _zMovement -= 1;
+        }
+        if (_pInputs[3])
+        {
+            _xMovement += 1;
+        }
+        if (_pInputs[5])
+        {
+            _zMovement *= sprintSpeed;
+        }
+        #endregion
+
+        Vector3 moveVector = _pState.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
+        Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z);
+        //rb.MovePosition(new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z));
+        return new PositionState(newPos, _pState.rotation, _tick, _pInputs);
+        //return new PositionState(rb.position, rb.rotation, _tick, _pInputs);
+
+    }
+
+    public void OnServerState(PositionState _ServerState)
+    {
+        predictedState = _ServerState;
+        //Debug.Log($"{_ServerState.rotation.eulerAngles.x}, {_ServerState.rotation.eulerAngles.y}, {_ServerState.rotation.eulerAngles.z}");
+        for (int x = _ServerState.tick-1; x < ClientPositionStates.Count; x++)
+        {
+            PositionState newState = new PositionState(new Vector3(0,0,0), new Quaternion(), tick);
+            newState.position = PredictMovement(ClientPositionStates[x].inputs, predictedState);
+            predictedState.position = newState.position;
+            //Debug.Log($"{predictedState.rotation.eulerAngles.x}, {predictedState.rotation.eulerAngles.y}, {predictedState.rotation.eulerAngles.z}");
+        }
+        for (int x = 0; x < _ServerState.tick; x++)
+        {
+            if(ClientPositionStates[x].tick <= _ServerState.tick)
             {
-                ClientPositionStates.Remove(ClientPositionStates[x]);
+                //ClientPositionStates.Remove(ClientPositionStates[0]);
             }
         }
-        ClientPositionStates.Add(new PositionState(_predictedState, tick));
-        return new PositionState(_predictedState, tick);
     }
 }
 
 public class PositionState
 {
-    public Vector3 position;
     public int tick;
     public bool[] inputs;
-    public PositionState(Vector3 _position, int _tick)
+    public Vector3 position;
+    public Quaternion rotation;
+
+    public PositionState(Vector3 _position, Quaternion _rotation, int _tick)
     {
         position = _position;
+        rotation = _rotation;
         tick = _tick;
     }
-    public PositionState(Vector3 _position, int _tick, bool[] _inputs)
+    public PositionState(Vector3 _position, Quaternion _rotation, int _tick, bool[] _inputs)
     {
         position = _position;
+        rotation = _rotation;
         tick = _tick;
         inputs = _inputs;
     }

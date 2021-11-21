@@ -35,9 +35,20 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
+        Quaternion _rotation = _packet.ReadQuaternion();
         int _tick = _packet.ReadInt();
 
-        testGameManager.players[_id].GetComponent<testPlayerController>().ServerPositionState = new PositionState(_position, _tick);
+        if(testGameManager.players[_id].GetComponent<testPlayerController>() != null)
+        {
+            testGameManager.players[_id].GetComponent<testPlayerController>().OnServerState(new PositionState(_position, _rotation, _tick));
+        }
+        else
+        {
+            testGameManager.players[_id].transform.position = _position;
+            testGameManager.players[_id].transform.rotation = _rotation;
+        }
+        
+        
         //Debug.Log($"Packet ID: {_id} should hold position {_position}");
         //testGameManager.players[_id].transform.position = _position;
     }
