@@ -45,8 +45,7 @@ public class testPlayerController : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(_xRot, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
 
-        transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed);
-        
+        transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed * 15 * Time.deltaTime);
     }
 
     private void SendInputToServer()
@@ -70,7 +69,7 @@ public class testPlayerController : MonoBehaviour
         predictedState = _newState;
         //transform.position = predictedState.position;
     }
-    private PositionState PredictMovement(bool[] _pInputs, int _tick)
+    private PositionState PredictMovement(bool[] _pInputs, int _tick)//unused
     {
         float _xMovement = 0;
         float _zMovement = 0;
@@ -102,7 +101,8 @@ public class testPlayerController : MonoBehaviour
         rb.MovePosition(new Vector3(rb.position.x + moveVector.x, rb.position.y, rb.position.z + moveVector.z));
         return new PositionState(rb.position, rb.rotation, _tick, _pInputs);
     }
-    private Vector3 PredictMovement(bool[] _pInputs, PositionState _pState)
+
+    private Vector3 PredictMovement(bool[] _pInputs, PositionState _pState)//serverpos
     {
         float _xMovement = 0;
         float _zMovement = 0;
@@ -135,7 +135,7 @@ public class testPlayerController : MonoBehaviour
         return newPos;
     }
 
-    private PositionState PredictMovement(bool[] _pInputs, PositionState _pState, int _tick)
+    private PositionState PredictMovement(bool[] _pInputs, PositionState _pState, int _tick)//clientsideprediction
     {
         float _xMovement = 0;
         float _zMovement = 0;

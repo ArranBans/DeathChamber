@@ -44,8 +44,8 @@ public class ClientHandle : MonoBehaviour
         }
         else
         {
-            testGameManager.players[_id].transform.position = _position;
-            testGameManager.players[_id].transform.rotation = _rotation;
+            testGameManager.players[_id].GetComponent<NetPlayerController>().DesiredPos = _position;
+            testGameManager.players[_id].GetComponent<NetPlayerController>().DesiredRot = _rotation;
         }
         
         

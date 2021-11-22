@@ -106,6 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8497053108068278567}
   - component: {fileID: 9064957814945285858}
+  - component: {fileID: -1713559714903294476}
   m_Layer: 0
   m_Name: PlayerNetTest
   m_TagString: Untagged
@@ -142,3 +143,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
+--- !u!114 &-1713559714903294476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497053108068278566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4751a70553532dd4e8a0575916cd2bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DesiredPos: {x: 0, y: 0, z: 0}
+  DesiredRot: {x: 0, y: 0, z: 0, w: 0}
+  interpolationRate: 4.5

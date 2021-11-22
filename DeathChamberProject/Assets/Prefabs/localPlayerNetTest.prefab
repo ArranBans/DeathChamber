@@ -256,7 +256,7 @@ MonoBehaviour:
   turnSpeed: 5
   moveSpeed: 0.2
   sprintSpeed: 2.5
-  interpolationSpeed: 0.3
+  interpolationSpeed: 2.6
 --- !u!54 &763496376351210315
 Rigidbody:
   m_ObjectHideFlags: 0
