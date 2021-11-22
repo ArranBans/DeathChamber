@@ -292,4 +292,9 @@ public class Client : MonoBehaviour
             Debug.Log("Disconnected from server...");
         }
     }
+
+    public void ChangeIp()
+    {
+        instance.ip = NetworkUiManager.instance.IpField.text;
+    }
 }
