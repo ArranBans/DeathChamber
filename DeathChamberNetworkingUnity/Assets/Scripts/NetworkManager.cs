@@ -26,7 +26,7 @@ public class NetworkManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
         
-        Server.Start(50, 5225);
+        Server.Start(50, 16699);
     }
 
     private void OnApplicationQuit()
