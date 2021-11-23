@@ -124,5 +124,30 @@ public class ServerSend : MonoBehaviour
             SendTCPDataToAll(_packet);
         }
     }
+
+    public static void SpawnItem(int _id ,int _itemId, string _name, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnItems))
+        {
+            _packet.Write(_itemId);
+            _packet.Write(_name);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
+
+            SendTCPData(_id, _packet);
+        }
+    }
+
+    public static void ItemPosition(int _itemId, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.itemPosition))
+        {
+            _packet.Write(_itemId);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
     #endregion
 }

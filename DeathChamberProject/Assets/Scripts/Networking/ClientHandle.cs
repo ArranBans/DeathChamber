@@ -67,4 +67,34 @@ public class ClientHandle : MonoBehaviour
         Destroy(testGameManager.players[_id].gameObject);
         testGameManager.players.Remove(_id);
     }
+
+    public static void SpawnItems(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string _name = _packet.ReadString();
+        Vector3 _pos = _packet.ReadVector3();
+        Quaternion _rot = _packet.ReadQuaternion();
+
+        Debug.Log($"Spawning: {_name}");
+        GameObject _item = (GameObject)Instantiate(Resources.Load($"Item Pickups/{_name}"), _pos, _rot);
+        _item.GetComponent<ItemPickup>().id = _id;
+        testGameManager.itemPickups.Add(_item.GetComponent<ItemPickup>());
+        Debug.Log($"Spawned: {_name}");
+    }
+
+    public static void ItemPosition(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Vector3 _pos = _packet.ReadVector3();
+        Quaternion _rot = _packet.ReadQuaternion();
+
+        foreach(ItemPickup _item in testGameManager.itemPickups)
+        {
+            if(_item.id == _id)
+            {
+                _item.gameObject.transform.position = _pos;
+                _item.gameObject.transform.rotation = _rot;
+            }
+        }
+    }
 }

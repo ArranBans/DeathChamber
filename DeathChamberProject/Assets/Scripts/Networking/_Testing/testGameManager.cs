@@ -6,6 +6,7 @@ public class testGameManager : MonoBehaviour
 {
     public static testGameManager instance;
     public static Dictionary<int, testPlayerManager> players = new Dictionary<int, testPlayerManager>();
+    public static List<ItemPickup> itemPickups = new List<ItemPickup>();
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;

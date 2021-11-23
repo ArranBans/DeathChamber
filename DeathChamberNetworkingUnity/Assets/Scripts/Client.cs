@@ -217,6 +217,25 @@ public class Client
                 //Debug.Log($"Client {_client.id} has no player");
             }
         }
+
+        foreach (Client _client in Server.clients.Values)//spawn Items on new joined client
+        {
+            if (_client.player != null)
+            {
+                if(_client.id == id)
+                {
+                    foreach (ItemPickup _item in testGameManager.instance.items)
+                    {
+                        ServerSend.SpawnItem(id, _item.id, _item.prefabName, _item.transform.position, _item.transform.rotation);
+                    }
+                }
+                 
+            }
+            else
+            {
+                //Debug.Log($"Client {_client.id} has no player");
+            }
+        }
     }
 
     private void Disconnect()
