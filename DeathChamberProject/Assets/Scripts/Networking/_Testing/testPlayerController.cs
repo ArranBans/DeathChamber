@@ -17,6 +17,7 @@ public class testPlayerController : MonoBehaviour
     public List<PositionState> ClientPositionStates = new List<PositionState>();
     private int tick = 1;
     public float interpolationSpeed;
+    public Player player;
 
     private void Start()
     {
@@ -37,8 +38,37 @@ public class testPlayerController : MonoBehaviour
     }
     private void Update()
     {
-        _xRot -= Input.GetAxisRaw("Mouse Y") * turnSpeed;
-        _yRot += Input.GetAxisRaw("Mouse X") * turnSpeed;
+        if (player.paused)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                player.UnpauseGame();
+            }
+        }
+        else if(player.inventoryOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                player.CloseInventory();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                player.PauseGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                player.OpenInventory();
+            }
+
+            _xRot -= Input.GetAxisRaw("Mouse Y") * turnSpeed;
+            _yRot += Input.GetAxisRaw("Mouse X") * turnSpeed;
+        }
+
+        
 
         _xRot = Mathf.Clamp(_xRot, -70f, 70f);
         //Debug.Log($"{_xRot}");
@@ -50,6 +80,8 @@ public class testPlayerController : MonoBehaviour
 
     private void SendInputToServer()
     {
+        
+
         bool[] _inputs = new bool[]
         {
             Input.GetKey(KeyCode.W),
@@ -59,6 +91,11 @@ public class testPlayerController : MonoBehaviour
             Input.GetKey(KeyCode.Space),
             Input.GetKey(KeyCode.LeftShift)
         };
+
+        if (player.paused)
+        {
+            _inputs = new bool[6];
+        }
 
         //Debug.Log($"Sent Server ({_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]})");
         ClientSend.PlayerMovement(_inputs, tick);

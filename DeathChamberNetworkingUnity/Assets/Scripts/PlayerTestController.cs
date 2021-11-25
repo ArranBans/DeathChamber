@@ -9,7 +9,8 @@ public class PlayerTestController : MonoBehaviour
     //public List<Item> inventory = new List<Item>();
     [HideInInspector]public float moveSpeed;
     [HideInInspector]public float jumpForce;
-    [HideInInspector] public float sprintSpeed;
+    [HideInInspector]public float sprintSpeed;
+    public float collideHeight;
     private int tick = 0;
 
     private Rigidbody rb;
@@ -55,7 +56,21 @@ public class PlayerTestController : MonoBehaviour
         #endregion
 
         Vector3 moveVector = transform.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
-        rb.MovePosition(new Vector3(rb.position.x + moveVector.x, rb.position.y, rb.position.z + moveVector.z));
+        //Vector3 directionVector = transform.rotation * new Vector3(_xMovement, 0, _zMovement);
+
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + collideHeight, transform.position.z), moveVector);
+        RaycastHit hitInfo;
+
+        if(!Physics.Raycast(ray, out hitInfo, moveVector.magnitude))
+        {
+            rb.MovePosition(new Vector3(rb.position.x + moveVector.x, rb.position.y, rb.position.z + moveVector.z));
+        }
+        else
+        {
+            rb.MovePosition(new Vector3(hitInfo.point.x, rb.position.y, hitInfo.point.z));
+        }
+
+        
     }
        
     public void GetInputs(bool[] _inputs, float _moveSpeed, float _jumpForce, float _sprintSpeed, int _tick)

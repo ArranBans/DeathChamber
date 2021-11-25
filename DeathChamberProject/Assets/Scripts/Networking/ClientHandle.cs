@@ -97,4 +97,14 @@ public class ClientHandle : MonoBehaviour
             }
         }
     }
+
+    public static void AddItemToInventory(Packet _packet)
+    {
+       //player.AddItemToInventory
+    }
+
+    public static void RemoveItemFromInventory(Packet _packet)
+    {
+        //player.RemoveItemFromInventory
+    }
 }

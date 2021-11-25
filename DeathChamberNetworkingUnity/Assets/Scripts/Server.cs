@@ -125,7 +125,9 @@ public class Server
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.playeMovement, ServerHandle.PlayerMovement },
-                { (int)ClientPackets.UDPTest, ServerHandle.UDPTest }
+                { (int)ClientPackets.UDPTest, ServerHandle.UDPTest },
+                { (int)ClientPackets.interact, ServerHandle.Interact },
+                { (int)ClientPackets.dropItem, ServerHandle.DropItem },
             };
         Debug.Log("Initialised Packets...");
     }

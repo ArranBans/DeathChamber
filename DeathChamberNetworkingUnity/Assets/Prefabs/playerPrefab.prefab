@@ -52,6 +52,11 @@ MonoBehaviour:
   jumpspeed: 5
   sprintSpeed: 2.5
   ptController: {fileID: 2965046099710884454}
+  inventory: []
+  inventorySize: 5
+  hotbar: []
+  hotbarSize: 3
+  selectedItem: 0
 --- !u!54 &7203498573334304904
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,6 +89,7 @@ MonoBehaviour:
   moveSpeed: 0
   jumpForce: 0
   sprintSpeed: 0
+  collideHeight: 1.25
 --- !u!1 &6742040595745447518
 GameObject:
   m_ObjectHideFlags: 0

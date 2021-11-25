@@ -149,5 +149,21 @@ public class ServerSend : MonoBehaviour
             SendTCPDataToAll(_packet);
         }
     }
+
+    public static void AddItemToInventory(int _id, Item _item)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.addItemToInventory))
+        {
+
+        }
+    }
+
+    public static void RemoveItemFromInventory(int _id, int _index)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.removeItemFromInventory))
+        {
+
+        }
+    }
     #endregion
 }

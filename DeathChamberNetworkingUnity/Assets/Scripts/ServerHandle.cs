@@ -36,4 +36,22 @@ public class ServerHandle
 
         Debug.Log($"Client {_fromClient} says: {_msg}!!!");
     }
+
+    public static void Interact(int _fromClient, Packet _packet)
+    {
+        Item _item;
+        if(Server.clients[_fromClient].player.InteractRaycast(out _item))
+        {
+            Server.clients[_fromClient].player.AddItemToInventory(_item);
+            ServerSend.AddItemToInventory(_fromClient, _item);
+        }
+    }
+
+    public static void DropItem(int _fromClient, Packet _packet)
+    {
+        int _index = _packet.ReadInt();
+
+        Server.clients[_fromClient].player.RemoveItemFromInventory(_index);
+        ServerSend.RemoveItemFromInventory(_fromClient, _index);
+    }
 }

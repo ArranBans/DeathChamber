@@ -13,7 +13,9 @@ public enum ServerPackets
     playerRotation,
     playerDisconnected,
     spawnItems,
-    itemPosition
+    itemPosition,
+    addItemToInventory,
+    removeItemFromInventory,
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -21,7 +23,9 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playeMovement,
-    UDPTest
+    UDPTest,
+    interact,
+    dropItem
 }
 
 public class Packet : IDisposable
