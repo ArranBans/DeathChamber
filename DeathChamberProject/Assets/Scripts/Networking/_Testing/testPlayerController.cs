@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class testPlayerController : MonoBehaviour
 {
-    private Camera cam;
+    public Camera cam;
     float _xRot;
     float _yRot;
     public float turnSpeed;
@@ -18,6 +18,7 @@ public class testPlayerController : MonoBehaviour
     private int tick = 1;
     public float interpolationSpeed;
     public Player player;
+    public float interactDistance;
 
     private void Start()
     {
@@ -29,10 +30,25 @@ public class testPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         SendInputToServer();
+
+        if(InteractRaycast())
+        {
+            Debug.Log("item can be picked");
+            player.InteractCanvas.gameObject.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                Interact();
+            }
+        }
+        else
+        {
+            player.InteractCanvas.gameObject.SetActive(false);
+        }
+
         //rb.position = 
         //transform.position = ServerPositionStates[ServerPositionStates.Count-1].position;
         //Debug.Log($"server tick: {ServerPositionState.tick}");
-        Debug.Log($"local tick: {tick}");
+        // Debug.Log($"local tick: {tick}");
         
         tick += 1;
     }
@@ -227,7 +243,43 @@ public class testPlayerController : MonoBehaviour
             }
         }
     }
+
+    private bool InteractRaycast()
+    {
+        Vector3 rayVector = cam.transform.rotation * Vector3.forward * interactDistance;
+        Ray ray = new Ray(cam.transform.position, rayVector);
+        RaycastHit hit;
+
+        Debug.DrawRay(cam.transform.position, rayVector);
+
+        if (Physics.Raycast(ray, out hit, rayVector.magnitude))//PHYsics.raycast business
+        {
+            //Debug.DrawLine(cam.transform.position, hit.point, Color.red);
+
+            if (hit.collider.gameObject.GetComponent<ItemPickup>() || hit.collider.gameObject.GetComponentInParent<ItemPickup>())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void Interact()
+    {
+        ClientSend.Interact();
+    }
 }
+
+
+
 
 public class PositionState
 {

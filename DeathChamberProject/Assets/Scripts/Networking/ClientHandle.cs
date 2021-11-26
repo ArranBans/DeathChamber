@@ -100,7 +100,8 @@ public class ClientHandle : MonoBehaviour
 
     public static void AddItemToInventory(Packet _packet)
     {
-       //player.AddItemToInventory
+        //player.AddItemToInventory
+        Debug.Log("Adding item to inventory");
     }
 
     public static void RemoveItemFromInventory(Packet _packet)

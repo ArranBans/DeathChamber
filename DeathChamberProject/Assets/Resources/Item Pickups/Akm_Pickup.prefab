@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3472443671025053805}
   - component: {fileID: 3472443671025053802}
+  - component: {fileID: -651368413896180910}
   m_Layer: 0
   m_Name: Akm_Pickup
   m_TagString: Untagged
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gSO: {fileID: 11400000, guid: 3b6a7c9a989de204096d8db16ec63eef, type: 2}
+  id: 0
+--- !u!65 &-651368413896180910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472443671025053803}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.33, y: 1.71, z: 7.19}
+  m_Center: {x: 0, y: 0, z: 1.31}
 --- !u!1001 &3472443670218652377
 PrefabInstance:
   m_ObjectHideFlags: 0

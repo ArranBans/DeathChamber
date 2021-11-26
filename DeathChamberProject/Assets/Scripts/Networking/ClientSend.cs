@@ -39,10 +39,19 @@ public class ClientSend : MonoBehaviour
             }
 
             _packet.Write(testGameManager.players[Client.instance.myId].transform.rotation);
+            _packet.Write(testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform.rotation);
 
             _packet.Write(_tick);
 
             SendUDPData(_packet);
+        }
+    }
+
+    public static void Interact()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.interact))
+        {
+            SendTCPData(_packet);
         }
     }
 

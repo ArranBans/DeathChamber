@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public Canvas PauseCanvas;
     public Canvas HudCanvas;
     public Canvas InventoryCanvas;
+    public Canvas InteractCanvas;
     public bool paused = false;
     public bool inventoryOpen = false;
 

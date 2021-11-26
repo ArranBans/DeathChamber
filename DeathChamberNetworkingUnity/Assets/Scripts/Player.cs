@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public float sprintSpeed = 1.5f;
     private bool[] inputs;
     public PlayerTestController ptController;
+    public Transform camTransform;
     private int tick = 0;
     [Header("Inventory")]
     public List<Item> inventory = new List<Item>();
@@ -42,10 +43,11 @@ public class Player : MonoBehaviour
         ServerSend.PlayerRotation(this);
     }
 
-    public void SetInput(bool[] _inputs, Quaternion _rotation, int _tick)
+    public void SetInput(bool[] _inputs, Quaternion _rotation, Quaternion _camRotation, int _tick)
     {
         inputs = _inputs;
         transform.rotation = _rotation;
+        camTransform.rotation = _camRotation;
         tick = _tick;
     }
 
