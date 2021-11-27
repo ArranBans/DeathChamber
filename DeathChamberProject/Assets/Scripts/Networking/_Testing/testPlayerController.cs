@@ -5,8 +5,9 @@ using UnityEngine;
 public class testPlayerController : MonoBehaviour
 {
     public Camera cam;
-    float _xRot;
-    float _yRot;
+    public Transform camObj;
+    public float _xRot;
+    public float _yRot;
     public float turnSpeed;
     public float moveSpeed;
     public float sprintSpeed;
@@ -33,11 +34,11 @@ public class testPlayerController : MonoBehaviour
 
         if(InteractRaycast())
         {
-            Debug.Log("item can be picked");
             player.InteractCanvas.gameObject.SetActive(true);
             if(Input.GetKeyDown(KeyCode.F))
             {
                 Interact();
+                Debug.Log("item interacted with");
             }
         }
         else
@@ -88,7 +89,7 @@ public class testPlayerController : MonoBehaviour
 
         _xRot = Mathf.Clamp(_xRot, -70f, 70f);
         //Debug.Log($"{_xRot}");
-        cam.transform.localRotation = Quaternion.Euler(_xRot, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
+        camObj.localRotation = Quaternion.Euler(_xRot, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
 
         transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed * 15 * Time.deltaTime);

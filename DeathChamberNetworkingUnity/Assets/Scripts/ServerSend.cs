@@ -138,6 +138,29 @@ public class ServerSend : MonoBehaviour
         }
     }
 
+    public static void SpawnItem(int _itemId, string _name, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnItems))
+        {
+            _packet.Write(_itemId);
+            _packet.Write(_name);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void RemoveItem(int _itemId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.removeItemPickup))
+        {
+            _packet.Write(_itemId);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     public static void ItemPosition(int _itemId, Vector3 _pos, Quaternion _rot)
     {
         using (Packet _packet = new Packet((int)ServerPackets.itemPosition))
@@ -150,11 +173,14 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void AddItemToInventory(int _id, Item _item)
+    public static void AddItemToInventory(int _id, string _item, int _itemId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.addItemToInventory))
         {
+            _packet.Write(_item);
+            _packet.Write(_itemId);
 
+            SendTCPData(_id, _packet);
         }
     }
 

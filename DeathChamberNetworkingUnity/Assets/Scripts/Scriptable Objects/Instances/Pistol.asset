@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  WorldModel: {fileID: 0}
-  ViewModel: {fileID: 0}
+  WorldModelName: Pistol_Pickup
+  ViewModelName: Pistol_Item
+  item: {fileID: 0}
   itemType: 0
   xPosRecoil: 0
   yPosRecoil: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5590905959793068073}
   - component: {fileID: 5590905959793068072}
   - component: {fileID: 8428422380396965701}
+  - component: {fileID: 1739001667}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -46,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gSO: {fileID: 11400000, guid: 327339aa8b923524baea76558569b7bc, type: 2}
+  prefabName: Pistol_Pickup
+  id: 0
 --- !u!54 &8428422380396965701
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -62,6 +65,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1739001667
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590905959793068075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.18, y: 1, z: 1.54}
+  m_Center: {x: 0, y: -0.06, z: 0.37}
 --- !u!1001 &5590905958854241077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,15 +91,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7bc1e958ce0adb4aafa8d1ff3e7dd18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7bc1e958ce0adb4aafa8d1ff3e7dd18, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.47
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7bc1e958ce0adb4aafa8d1ff3e7dd18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7bc1e958ce0adb4aafa8d1ff3e7dd18, type: 3}
       propertyPath: m_LocalRotation.w

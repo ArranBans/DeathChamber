@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public List<Item> hotbar = new List<Item>();
     public int hotbarSize = 3;
     public int selectedItem = 0;
+    public float interactDistance;
 
     public void Initialise(int _id, string _username, Vector3 _spawnPos)
     {
@@ -51,11 +52,15 @@ public class Player : MonoBehaviour
         tick = _tick;
     }
 
-    public bool AddItemToInventory(Item _item)
+    public bool AddItemToInventory(ItemSO _item)
     {
         if (inventory.Count < inventorySize)
         {
-            inventory.Add(_item);
+            
+            GameObject _invItemObj = Instantiate((GameObject)Resources.Load("Items/"+_item.ViewModelName), camTransform);
+            _invItemObj.transform.localPosition = Vector3.zero;
+            Item _invItem = _invItemObj.GetComponent<Item>();
+            inventory.Add(_invItem);
             return true;
         }
         else
@@ -69,17 +74,40 @@ public class Player : MonoBehaviour
             inventory.RemoveAt(_i);
     }
 
-    public bool InteractRaycast(out Item _item)
+    public bool InteractRaycast(out ItemPickup _item)
     {
-        if(true)//PHYsics.raycast business
+        Vector3 rayVector = camTransform.rotation * Vector3.forward * interactDistance;
+        Ray ray = new Ray(camTransform.position, rayVector);
+        RaycastHit hit;
+
+        Debug.DrawRay(camTransform.position, rayVector);
+
+        if (Physics.Raycast(ray, out hit, rayVector.magnitude))//PHYsics.raycast business
         {
-            _item = new Item(); // item = raycast collider.getcomponent item
-            return true;
+            //Debug.DrawLine(cam.transform.position, hit.point, Color.red);
+
+            if (hit.collider.gameObject.GetComponent<ItemPickup>() || hit.collider.gameObject.GetComponentInParent<ItemPickup>())
+            {
+                Debug.Log($"client {id} interacted with {hit.collider.name}");
+                _item = hit.collider.gameObject.GetComponent<ItemPickup>();
+                return true;   
+            }
+            else
+            {
+                Debug.Log($"client {id} interacted with non item: {hit.collider.name}");
+                _item = null;
+                return false;
+            }
+
         }
         else
         {
+            Debug.Log($"client {id} interacted with nothing");
+            _item = null;
             return false;
         }
+        
+            
         
     }
 }

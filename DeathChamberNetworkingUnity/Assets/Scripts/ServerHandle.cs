@@ -40,11 +40,15 @@ public class ServerHandle
 
     public static void Interact(int _fromClient, Packet _packet)
     {
-        Item _item;
+        ItemPickup _item;
         if(Server.clients[_fromClient].player.InteractRaycast(out _item))
         {
-            Server.clients[_fromClient].player.AddItemToInventory(_item);
-            ServerSend.AddItemToInventory(_fromClient, _item);
+            Debug.Log($"client {_fromClient} interacted with {_item}");
+            Server.clients[_fromClient].player.AddItemToInventory(_item.gSO);
+            ServerSend.AddItemToInventory(_fromClient, _item.gSO.ViewModelName, _item.id);
+            ServerSend.RemoveItem(_item.id);
+            testGameManager.instance.items.Remove(_item);
+            UnityEngine.Object.Destroy(_item.gameObject);
         }
     }
 

@@ -280,7 +280,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.spawnItems, ClientHandle.SpawnItems },
             { (int)ServerPackets.itemPosition, ClientHandle.ItemPosition },
             { (int)ServerPackets.addItemToInventory, ClientHandle.AddItemToInventory },
-            { (int)ServerPackets.removeItemFromInventory, ClientHandle.RemoveItemFromInventory }
+            { (int)ServerPackets.removeItemFromInventory, ClientHandle.RemoveItemFromInventory },
+            { (int)ServerPackets.removeItemPickup, ClientHandle.RemoveItemPickup }
         };
         Debug.Log("Initialised Packets...");
     }

@@ -100,8 +100,32 @@ public class ClientHandle : MonoBehaviour
 
     public static void AddItemToInventory(Packet _packet)
     {
-        //player.AddItemToInventory
+        string _ItemName = _packet.ReadString();
+        int _PickupId = _packet.ReadInt();
+
+        GameObject itemGO = (GameObject)Instantiate(Resources.Load($"Item Viewmodels/{_ItemName}"), testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform);
+        itemGO.SetActive(true);
+        Item _item = itemGO.GetComponent<Item>();
+
+        testGameManager.players[Client.instance.myId].GetComponent<Player>().AddItemToInventory(_item);
+
+        
+        
         Debug.Log("Adding item to inventory");
+    }
+
+    public static void RemoveItemPickup(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        foreach (ItemPickup _iPickup in testGameManager.itemPickups)
+        {
+            if (_iPickup.id == _id)
+            {
+                Destroy(_iPickup.gameObject);
+                testGameManager.itemPickups.Remove(_iPickup);
+            }
+        }
     }
 
     public static void RemoveItemFromInventory(Packet _packet)

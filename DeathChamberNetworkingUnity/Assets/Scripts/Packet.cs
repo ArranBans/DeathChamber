@@ -16,6 +16,7 @@ public enum ServerPackets
     itemPosition,
     addItemToInventory,
     removeItemFromInventory,
+    removeItemPickup
 }
 
 /// <summary>Sent from client to server.</summary>

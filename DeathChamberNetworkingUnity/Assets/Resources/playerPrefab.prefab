@@ -59,6 +59,7 @@ MonoBehaviour:
   hotbar: []
   hotbarSize: 3
   selectedItem: 0
+  interactDistance: 3.5
 --- !u!54 &7203498573334304904
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -103,7 +104,6 @@ GameObject:
   - component: {fileID: 909001787875697314}
   - component: {fileID: 7260581712356004272}
   - component: {fileID: 339378140604892952}
-  - component: {fileID: 1827741148613214894}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -174,19 +174,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1827741148613214894
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532763175372906960}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3065368671149910675
 GameObject:
   m_ObjectHideFlags: 0

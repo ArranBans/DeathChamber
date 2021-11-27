@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    [SerializeField]ItemSO gSO;
+    public ItemSO gSO;
     public string prefabName;
     public int id;
 
