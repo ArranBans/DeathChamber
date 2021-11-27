@@ -224,9 +224,14 @@ public class Client
             {
                 if(_client.id == id)
                 {
+                    
                     foreach (ItemPickup _item in testGameManager.instance.items)
                     {
-                        ServerSend.SpawnItem(id, _item.id, _item.prefabName, _item.transform.position, _item.transform.rotation);
+                        if(_item != null)
+                        {
+                            ServerSend.SpawnItem(id, _item.id, _item.prefabName, _item.transform.position, _item.transform.rotation);
+                        }
+                        
                     }
                 }
                  
@@ -244,6 +249,10 @@ public class Client
 
         ThreadManager.ExecuteOnMainThread(() =>
         {
+            foreach(Item _i in player.inventory)
+            {
+                testGameManager.instance.SpawnItem(_i.itemSO.WorldModelName, player.dropTransform.position, player.dropTransform.rotation);
+            }
             UnityEngine.Object.Destroy(player.gameObject);
             player = null;
         });  

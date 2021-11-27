@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private bool[] inputs;
     public PlayerTestController ptController;
     public Transform camTransform;
+    public Transform dropTransform;
     private int tick = 0;
     [Header("Inventory")]
     public List<Item> inventory = new List<Item>();
@@ -69,9 +70,31 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ChangeSelectedItem(int _index)
+    {
+        selectedItem = _index;
+
+        foreach (Item i in inventory)
+        {
+            if (inventory.IndexOf(i) == selectedItem)
+            {
+                i.gameObject.SetActive(true);
+            }
+            else
+            {
+                i.gameObject.SetActive(false);
+            }
+        }
+
+    }
+
     public void RemoveItemFromInventory(int _i)
     {
-            inventory.RemoveAt(_i);
+        Debug.Log($"Item: {_i} removed from inventory of {id}");
+        Item _item = inventory[_i];
+        Destroy(inventory[_i].gameObject);
+        Destroy(inventory[_i]);
+        inventory.RemoveAt(_i);
     }
 
     public bool InteractRaycast(out ItemPickup _item)

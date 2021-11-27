@@ -128,6 +128,7 @@ public class Server
                 { (int)ClientPackets.UDPTest, ServerHandle.UDPTest },
                 { (int)ClientPackets.interact, ServerHandle.Interact },
                 { (int)ClientPackets.dropItem, ServerHandle.DropItem },
+                { (int)ClientPackets.changeSelectedItem, ServerHandle.ChangeSelectedItem },
             };
         Debug.Log("Initialised Packets...");
     }

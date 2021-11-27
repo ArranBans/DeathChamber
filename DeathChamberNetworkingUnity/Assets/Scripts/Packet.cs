@@ -26,7 +26,8 @@ public enum ClientPackets
     playeMovement,
     UDPTest,
     interact,
-    dropItem
+    dropItem,
+    changeSelectedItem
 }
 
 public class Packet : IDisposable

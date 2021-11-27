@@ -43,20 +43,34 @@ public class ServerHandle
         ItemPickup _item;
         if(Server.clients[_fromClient].player.InteractRaycast(out _item))
         {
+
             Debug.Log($"client {_fromClient} interacted with {_item}");
-            Server.clients[_fromClient].player.AddItemToInventory(_item.gSO);
-            ServerSend.AddItemToInventory(_fromClient, _item.gSO.ViewModelName, _item.id);
-            ServerSend.RemoveItem(_item.id);
-            testGameManager.instance.items.Remove(_item);
-            UnityEngine.Object.Destroy(_item.gameObject);
+            if(Server.clients[_fromClient].player.AddItemToInventory(_item.gSO))
+            {
+                ServerSend.AddItemToInventory(_fromClient, _item.gSO.ViewModelName, _item.id);
+                ServerSend.RemoveItem(_item.id);
+                testGameManager.instance.items[testGameManager.instance.items.IndexOf(_item)] = null;
+                UnityEngine.Object.Destroy(_item.gameObject);
+            }
+            
         }
     }
 
     public static void DropItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
+        string _name = Server.clients[_fromClient].player.inventory[_index].itemSO.WorldModelName;
+
 
         Server.clients[_fromClient].player.RemoveItemFromInventory(_index);
         ServerSend.RemoveItemFromInventory(_fromClient, _index);
+        testGameManager.instance.SpawnItem(_name, Server.clients[_fromClient].player.dropTransform.position, Server.clients[_fromClient].player.transform.rotation);
+    }
+
+    public static void ChangeSelectedItem(int _fromClient, Packet _packet)
+    {
+        int _index = _packet.ReadInt();
+
+        Server.clients[_fromClient].player.ChangeSelectedItem(_index);
     }
 }

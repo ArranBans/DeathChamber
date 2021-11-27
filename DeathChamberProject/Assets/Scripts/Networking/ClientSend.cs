@@ -55,6 +55,26 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void ChangeSelectedItem(int _index)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.changeSelectedItem))
+        {
+            _packet.Write(_index);
+
+            SendTCPData(_packet);
+        }
+    }
+
+    public static void DropItem(int _index)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.dropItem))
+        {
+            _packet.Write(_index);
+            Debug.Log($"Removing item: {_index}");
+            SendTCPData(_packet);
+        }
+    }
+
     public static void UDPTest(string _message)
     {
         using (Packet _packet = new Packet((int)ClientPackets.UDPTest))
@@ -65,5 +85,7 @@ public class ClientSend : MonoBehaviour
             Debug.Log("UDPTest Send");
         }
     }
+
+    
     #endregion
 }

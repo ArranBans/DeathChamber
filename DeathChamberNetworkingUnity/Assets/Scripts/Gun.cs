@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : Item
 {
     public GunSO gunSO;
     private float timeToNextFire;
@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-       
+        itemSO = gunSO;
         fireMode = gunSO.defaultFireMode;
         reserveAmmo = gunSO.maxAmmo;
         magAmmo = gunSO.magAmmo;

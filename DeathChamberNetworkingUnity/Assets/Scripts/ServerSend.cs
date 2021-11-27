@@ -188,7 +188,9 @@ public class ServerSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ServerPackets.removeItemFromInventory))
         {
+            _packet.Write(_index);
 
+            SendTCPData(_id, _packet);
         }
     }
     #endregion

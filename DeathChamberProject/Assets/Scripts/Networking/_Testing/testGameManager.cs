@@ -25,6 +25,11 @@ public class testGameManager : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        //Debug.Log($"{itemPickups.Count}");
+    }
+
     public void SpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
     {
         GameObject _player;

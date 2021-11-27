@@ -90,11 +90,15 @@ public class ClientHandle : MonoBehaviour
 
         foreach(ItemPickup _item in testGameManager.itemPickups)
         {
-            if(_item.id == _id)
+            if(_item != null)
             {
-                _item.gameObject.transform.position = _pos;
-                _item.gameObject.transform.rotation = _rot;
+                if (_item.id == _id)
+                {
+                    _item.gameObject.transform.position = _pos;
+                    _item.gameObject.transform.rotation = _rot;
+                }
             }
+            
         }
     }
 
@@ -104,13 +108,11 @@ public class ClientHandle : MonoBehaviour
         int _PickupId = _packet.ReadInt();
 
         GameObject itemGO = (GameObject)Instantiate(Resources.Load($"Item Viewmodels/{_ItemName}"), testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform);
-        itemGO.SetActive(true);
-        Item _item = itemGO.GetComponent<Item>();
 
-        testGameManager.players[Client.instance.myId].GetComponent<Player>().AddItemToInventory(_item);
+        testGameManager.players[Client.instance.myId].GetComponent<Player>().AddItemToInventory(itemGO.GetComponent<Item>());
+        testGameManager.players[Client.instance.myId].GetComponent<Player>().ChangeSelectedItem(testGameManager.players[Client.instance.myId].GetComponent<Player>().inventory.IndexOf(itemGO.GetComponent<Item>()));
 
-        
-        
+
         Debug.Log("Adding item to inventory");
     }
 
@@ -120,16 +122,21 @@ public class ClientHandle : MonoBehaviour
 
         foreach (ItemPickup _iPickup in testGameManager.itemPickups)
         {
-            if (_iPickup.id == _id)
+            if (_iPickup != null)
             {
-                Destroy(_iPickup.gameObject);
-                testGameManager.itemPickups.Remove(_iPickup);
+                if (_iPickup.id == _id)
+                {
+                    Destroy(_iPickup.gameObject);
+                    testGameManager.itemPickups[testGameManager.itemPickups.IndexOf(_iPickup)] = null;
+                }
+
             }
         }
     }
 
     public static void RemoveItemFromInventory(Packet _packet)
     {
-        //player.RemoveItemFromInventory
+        int _index = _packet.ReadInt();
+        testGameManager.players[Client.instance.myId].GetComponent<Player>().RemoveItemFromInventory(_index);
     }
 }

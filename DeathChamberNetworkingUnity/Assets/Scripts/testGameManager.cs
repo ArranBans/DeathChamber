@@ -25,7 +25,11 @@ public class testGameManager : MonoBehaviour
     {
         foreach(ItemPickup _item in items)
         {
-            _item.id = items.IndexOf(_item);
+            if(_item != null)
+            {
+                _item.id = items.IndexOf(_item);
+            }
+            
         }
     }
 
@@ -33,7 +37,11 @@ public class testGameManager : MonoBehaviour
     {
         foreach(ItemPickup _item in items)
         {
-            ServerSend.ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
+            if (_item != null)
+            {
+                ServerSend.ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
+            }
+            
         }
     }
 
@@ -48,6 +56,6 @@ public class testGameManager : MonoBehaviour
 
     public void SpawnItemTest()
     {
-        SpawnItem("Akm", new Vector3(0, 10, 0), Quaternion.identity);
+        SpawnItem("Akm_Pickup", new Vector3(0, 10, 0), Quaternion.identity);
     }
 }

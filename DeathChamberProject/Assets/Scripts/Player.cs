@@ -22,6 +22,44 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        foreach (Item i in inventory)
+        {
+            if (inventory.IndexOf(i) == selectedItem)
+            {
+                i.gameObject.SetActive(true);
+            }
+            else
+            {
+                i.gameObject.SetActive(false);
+            }
+        }
+    }
+
+
+
+    public void ChangeSelectedItem(int _index)
+    {
+        selectedItem = _index;
+
+        foreach (Item i in inventory)
+        {
+            if (inventory.IndexOf(i) == selectedItem)
+            {
+                i.gameObject.SetActive(true);
+            }
+            else
+            {
+                i.gameObject.SetActive(false);
+            }
+        }
+
+        ClientSend.ChangeSelectedItem(_index);
+    }
+
+    public void DropItem(int _index)
+    {
+        ClientSend.DropItem(_index);
     }
 
     public bool AddItemToInventory(Item _item)
@@ -35,6 +73,14 @@ public class Player : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void RemoveItemFromInventory(int _index)
+    {
+        Item _item = inventory[_index];
+        Destroy(inventory[_index].gameObject);
+        inventory.RemoveAt(_index);
+        ChangeSelectedItem(_index);
     }
 
     public void PauseGame()

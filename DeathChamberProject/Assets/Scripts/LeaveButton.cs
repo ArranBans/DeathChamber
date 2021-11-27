@@ -14,7 +14,11 @@ public class LeaveButton : MonoBehaviour
         testGameManager.players = new Dictionary<int, testPlayerManager>();
         foreach(ItemPickup i in testGameManager.itemPickups)
         {
-            Destroy(i.gameObject);
+            if(i != null)
+            {
+                Destroy(i.gameObject);
+            }
+            
         }
         testGameManager.itemPickups = new List<ItemPickup>();
         NetworkUiManager.instance.startMenu.SetActive(true);

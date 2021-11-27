@@ -20,6 +20,8 @@ public class testPlayerController : MonoBehaviour
     public float interpolationSpeed;
     public Player player;
     public float interactDistance;
+    private int selectedItem;
+    private bool dropItem;
 
     private void Start()
     {
@@ -31,6 +33,13 @@ public class testPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         SendInputToServer();
+
+        ChangeItem();
+
+        if(dropItem)
+        {
+            DropItem();
+        }
 
         if(InteractRaycast())
         {
@@ -53,8 +62,12 @@ public class testPlayerController : MonoBehaviour
         
         tick += 1;
     }
+
     private void Update()
     {
+        selectedItem = player.selectedItem;
+        dropItem = false;
+
         if (player.paused)
         {
             if(Input.GetKeyDown(KeyCode.Escape))
@@ -83,6 +96,32 @@ public class testPlayerController : MonoBehaviour
 
             _xRot -= Input.GetAxisRaw("Mouse Y") * turnSpeed;
             _yRot += Input.GetAxisRaw("Mouse X") * turnSpeed;
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                selectedItem = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                selectedItem = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                selectedItem = 2;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                selectedItem = 3;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                selectedItem = 4;
+            }
+
+            if(Input.GetKeyDown(KeyCode.G))
+            {
+                dropItem = true;
+            }
         }
 
         
@@ -93,6 +132,23 @@ public class testPlayerController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
 
         transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed * 15 * Time.deltaTime);
+
+        
+    }
+
+    private void ChangeItem()
+    {
+        if (player.paused)
+        {
+            return;
+        }
+
+        player.ChangeSelectedItem(selectedItem);
+    }
+
+    private void DropItem()
+    {
+        player.DropItem(player.selectedItem);
     }
 
     private void SendInputToServer()
