@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
         username = _username;
 
         inputs = new bool[6];
-
     }
 
     public void FixedUpdate()
@@ -99,6 +98,18 @@ public class Player : MonoBehaviour
         Destroy(inventory[_i].gameObject);
         Destroy(inventory[_i]);
         inventory.RemoveAt(_i);
+    }
+    public void SetHealth(float _value)
+    {
+        health = _value;
+        ServerSend.ChangeHealth(id, _value);
+
+        if(health <= 0)
+        {
+            //Destroy(Server.clients[id].player.gameObject);
+            ServerSend.Die(id);
+            //Server.clients[id].Respawn();
+        }
     }
 
     public bool InteractRaycast(out ItemPickup _item)

@@ -14,6 +14,7 @@ public class ServerHandle
         {
             Debug.Log($"Player \"{_username}\" (ID: {_fromclient}) has assumed the wrong client ID ({_clientIdCheck})!!!");
         }
+        Server.clients[_fromclient].pName = _username;
         Server.clients[_fromclient].SendIntoGame(_username);
     }
 
@@ -91,5 +92,11 @@ public class ServerHandle
         }
 
 
+    }
+
+    public static void FireWeapon(int _fromClient, Packet _packet)
+    {
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].player.camTransform.position, Server.clients[_fromClient].player.camTransform.rotation);
+        ServerSend.FireWeapon(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName);
     }
 }

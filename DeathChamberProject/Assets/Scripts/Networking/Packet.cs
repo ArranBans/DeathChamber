@@ -16,8 +16,12 @@ public enum ServerPackets
     addItemToInventory,
     removeItemFromInventory,
     removeItemPickup,
-    changeSelectedItem
+    changeSelectedItem,
+    fireWeapon,
+    changeHealth,
+    die
 }
+
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
@@ -27,7 +31,8 @@ public enum ClientPackets
     UDPTest,
     interact,
     dropItem,
-    changeSelectedItem
+    changeSelectedItem,
+    fireWeapon
 }
 
 public class Packet : IDisposable

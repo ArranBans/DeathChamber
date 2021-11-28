@@ -9,6 +9,7 @@ public class Client
 {
     public static int dataBufferSize = 4096;
     public int id;
+    public string pName;
     public Player player;
     public TCP tcp;
     public UDP udp;
@@ -241,6 +242,14 @@ public class Client
                 //Debug.Log($"Client {_client.id} has no player");
             }
         }
+
+        player.SetHealth(player.maxHealth);
+    }
+
+
+    public void Respawn()
+    {
+        //SendIntoGame(pName);
     }
 
     private void Disconnect()

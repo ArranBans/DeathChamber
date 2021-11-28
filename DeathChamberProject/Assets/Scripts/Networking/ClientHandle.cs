@@ -168,4 +168,30 @@ public class ClientHandle : MonoBehaviour
         
     }
 
+    public static void FireWeapon(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string _name = _packet.ReadString();
+
+        
+        Instantiate(Resources.Load($"Projectiles/{_name}_Projectile"), testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform.position, testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform.rotation);
+    }
+
+    public static void ChangeHealth(Packet _packet)
+    {
+        float _value = _packet.ReadFloat();
+
+
+        testGameManager.players[Client.instance.myId].GetComponent<Player>().health = _value;
+    }
+
+    public static void Die(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        Debug.Log($"Player {_id} has died");
+        //Destroy(testGameManager.players[_id].gameObject);
+        //testGameManager.players.Remove(_id);
+    }
+
 }

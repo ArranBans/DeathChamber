@@ -92,6 +92,8 @@ MonoBehaviour:
   hotbarSize: 3
   selectedItem: 0
   interactDistance: 3.5
+  maxHealth: 100
+  health: 0
 --- !u!54 &7203498573334304904
 Rigidbody:
   m_ObjectHideFlags: 0

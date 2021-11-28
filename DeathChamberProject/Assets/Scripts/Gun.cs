@@ -63,7 +63,7 @@ public class Gun : Item
     void Update()
     {
         #region Recoil Randomness
-        _posRecoil.x = Random.Range(+posRecoil.x, -posRecoil.x);
+            _posRecoil.x = Random.Range(+posRecoil.x, -posRecoil.x);
 
         _rotRecoil.x = Random.Range(+rotRecoil.x, -rotRecoil.x) + gunSO.xRotOffset;
         _camRotRecoil.x = Random.Range(+camRotRecoil.x, -camRotRecoil.x) + gunSO.camXRotOffset;
@@ -82,56 +82,65 @@ public class Gun : Item
             Input.GetAxisRaw("Mouse Y")
         };
 
-        if(player.paused)
+        if (player.paused)
         {
-            inputs = new float[] { 0, 0};
+            inputs = new float[] { 0, 0 };
         }
+        
+        
 
         inputs[0] = Mathf.Clamp(inputs[0], -0.6f, 0.6f);
         inputs[1] = Mathf.Clamp(inputs[1], -0.6f, 0.6f);
         #endregion
 
         #region Firemode Handling
-        switch (fireMode)
+        if (!player.paused)
         {
-            case GunSO.FireMode.boltAction:
-                {
-                    //boltfire
-                    break;
-                }
-
-            case GunSO.FireMode.semiAuto:
-                {
-                    if (Input.GetKeyDown(KeyCode.Mouse0)) { Fire(); }
-                    break;
-                }
-            case GunSO.FireMode.fullAuto:
-                {
-                    if (Input.GetKey(KeyCode.Mouse0)) 
-                    { 
-                        if(Time.time >= timeToNextFire)
-                        {
-                            Fire();
-                            timeToNextFire = Time.time + fireRate;
-                        }
-                        
+            switch (fireMode)
+            {
+                case GunSO.FireMode.boltAction:
+                    {
+                        //boltfire
+                        break;
                     }
-                    break;
-                }
+
+                case GunSO.FireMode.semiAuto:
+                    {
+                        if (Input.GetKeyDown(KeyCode.Mouse0)) { Fire(); }
+                        break;
+                    }
+                case GunSO.FireMode.fullAuto:
+                    {
+                        if (Input.GetKey(KeyCode.Mouse0))
+                        {
+                            if (Time.time >= timeToNextFire)
+                            {
+                                Fire();
+                                timeToNextFire = Time.time + fireRate;
+                            }
+                        }
+                        break;
+                    }
+            }
         }
+
         #endregion
 
         #region Aiming
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (!player.paused)
         {
-            desiredPos = gunSO.aimPos;
-            aiming = true;
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+                desiredPos = gunSO.aimPos;
+                aiming = true;
+            }
+            else
+            {
+                desiredPos = gunSO.hipPos;
+                aiming = false;
+            }
         }
-        else
-        {
-            desiredPos = gunSO.hipPos;
-            aiming = false;
-        }
+
         #endregion
 
         #region Recoil
@@ -184,11 +193,16 @@ public class Gun : Item
     void Fire()
     {
         Debug.Log("Firing");
-        //GameObject bullet = Instantiate(gunSO.bulletObject, gunSO.bulletSpawnPoint.position, gunSO.bulletSpawnPoint.rotation);
+
+        //SpawnBullet on client and server
+        GameObject bullet = (GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), cam.transform.position, cam.transform.rotation);
+        ClientSend.FireWeapon();
+
         recoiling = true;
         timeToRecoilCompensate = Time.time + gunSO.recoilTime;
         timeToCamRecoilCompensate = Time.time + gunSO.cameraRecoilTime;
     }
+
     void Recoil()
     {
         //transform.localPosition = new Vector3(transform.localPosition.x + _posRecoil.x, transform.localPosition.y + posRecoil.y, transform.localPosition.z + posRecoil.z);

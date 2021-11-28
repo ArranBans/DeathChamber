@@ -86,6 +86,13 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    
+    public static void FireWeapon()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.fireWeapon))
+        {
+            SendUDPData(_packet);
+        }
+    }
+
     #endregion
 }

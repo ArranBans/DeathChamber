@@ -15,6 +15,7 @@ MonoBehaviour:
   InventoryImage: {fileID: 0}
   WorldModel: {fileID: 0}
   ViewModel: {fileID: 0}
+  itemName: Lmg
   itemType: 2
   xPosRecoil: 0
   yPosRecoil: -0.0025

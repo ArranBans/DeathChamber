@@ -8,6 +8,7 @@ public class ItemSO : ScriptableObject
     public Sprite InventoryImage;
     public GameObject WorldModel;
     public GameObject ViewModel;
+    public string itemName;
     public enum ItemType
     {
         singleUse,

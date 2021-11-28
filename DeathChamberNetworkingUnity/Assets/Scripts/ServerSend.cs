@@ -205,5 +205,37 @@ public class ServerSend : MonoBehaviour
             SendTCPDataToAll(_id, _packet);
         }
     }
+
+    public static void FireWeapon(int _id, string _name)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.fireWeapon))
+        {
+            _packet.Write(_id);
+            _packet.Write(_name);
+
+            SendTCPDataToAll(_id, _packet);
+        }
+    }
+
+    public static void ChangeHealth(int _id, float _value)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.changeHealth))
+        {
+            _packet.Write(_value);
+
+            SendTCPData(_id, _packet);
+        }
+    }
+
+    public static void Die(int _id)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.die))
+        {
+            _packet.Write(_id);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     #endregion
 }
