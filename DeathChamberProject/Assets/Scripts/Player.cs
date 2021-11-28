@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     public Canvas InteractCanvas;
     public bool paused = false;
     public bool inventoryOpen = false;
+    [Header("Health")]
+    public float maxHealth;
+    public float health;
+    
 
     private void Awake()
     {

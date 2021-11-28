@@ -7,6 +7,8 @@ public class NetPlayerController : MonoBehaviour
     public Vector3 DesiredPos;
     public Quaternion DesiredRot;
     public float interpolationRate;
+    public Transform camTransform;
+    public GameObject selectedItem;
 
     void Update()
     {

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Vector
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  WorldModelName: Vector_Pickup
-  ViewModelName: Vector_Item
+  ItemName: Vector
   item: {fileID: 0}
   itemType: 0
   xPosRecoil: 0

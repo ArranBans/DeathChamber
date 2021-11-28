@@ -229,7 +229,7 @@ public class Client
                     {
                         if(_item != null)
                         {
-                            ServerSend.SpawnItem(id, _item.id, _item.prefabName, _item.transform.position, _item.transform.rotation);
+                            ServerSend.SpawnItem(id, _item.id, _item.gSO.ItemName, _item.transform.position, _item.transform.rotation);
                         }
                         
                     }
@@ -251,7 +251,7 @@ public class Client
         {
             foreach(Item _i in player.inventory)
             {
-                testGameManager.instance.SpawnItem(_i.itemSO.WorldModelName, player.dropTransform.position, player.dropTransform.rotation);
+                testGameManager.instance.SpawnItem(_i.itemSO.ItemName, player.dropTransform.position, player.dropTransform.rotation);
             }
             UnityEngine.Object.Destroy(player.gameObject);
             player = null;

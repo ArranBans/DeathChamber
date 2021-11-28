@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Lmg
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  WorldModelName: Lmg_Pickup
-  ViewModelName: Lmg_Item
+  ItemName: Lmg
   item: {fileID: 0}
   itemType: 0
   xPosRecoil: 0

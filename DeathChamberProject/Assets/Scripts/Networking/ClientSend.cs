@@ -70,7 +70,7 @@ public class ClientSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ClientPackets.dropItem))
         {
             _packet.Write(_index);
-            Debug.Log($"Removing item: {_index}");
+            //Debug.Log($"Removing item: {_index}");
             SendTCPData(_packet);
         }
     }

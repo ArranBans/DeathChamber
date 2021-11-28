@@ -110,6 +110,7 @@ public class ServerSend : MonoBehaviour
         {
             _packet.Write(_player.id);
             _packet.Write(_player.transform.rotation);
+            _packet.Write(_player.camTransform.rotation);
 
             SendUDPDataToAll(_player.id, _packet);
         }
@@ -191,6 +192,17 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_index);
 
             SendTCPData(_id, _packet);
+        }
+    }
+
+    public static void ChangeSelectedItem(int _id, string _name)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.changeSelectedItem))
+        {
+            _packet.Write(_id);
+            _packet.Write(_name);
+
+            SendTCPDataToAll(_id, _packet);
         }
     }
     #endregion

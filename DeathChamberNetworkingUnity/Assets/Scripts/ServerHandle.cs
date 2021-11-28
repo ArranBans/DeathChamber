@@ -44,10 +44,10 @@ public class ServerHandle
         if(Server.clients[_fromClient].player.InteractRaycast(out _item))
         {
 
-            Debug.Log($"client {_fromClient} interacted with {_item}");
+           //Debug.Log($"client {_fromClient} interacted with {_item}");
             if(Server.clients[_fromClient].player.AddItemToInventory(_item.gSO))
             {
-                ServerSend.AddItemToInventory(_fromClient, _item.gSO.ViewModelName, _item.id);
+                ServerSend.AddItemToInventory(_fromClient, _item.gSO.ItemName, _item.id);
                 ServerSend.RemoveItem(_item.id);
                 testGameManager.instance.items[testGameManager.instance.items.IndexOf(_item)] = null;
                 UnityEngine.Object.Destroy(_item.gameObject);
@@ -59,7 +59,7 @@ public class ServerHandle
     public static void DropItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
-        string _name = Server.clients[_fromClient].player.inventory[_index].itemSO.WorldModelName;
+        string _name = Server.clients[_fromClient].player.inventory[_index].itemSO.ItemName;
 
 
         Server.clients[_fromClient].player.RemoveItemFromInventory(_index);
@@ -70,7 +70,26 @@ public class ServerHandle
     public static void ChangeSelectedItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
-
+        Debug.Log(_index);
         Server.clients[_fromClient].player.ChangeSelectedItem(_index);
+
+        if (_index + 1 <= Server.clients[_fromClient].player.inventory.Count)
+        {
+            if (Server.clients[_fromClient].player.inventory[_index] != null)
+            {
+                //Debug.Log($"Error 872: {Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName}");
+                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName);
+            }
+            else
+            {
+                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName);
+            }
+        } 
+        else
+        {
+            ServerSend.ChangeSelectedItem(_fromClient, "");
+        }
+
+
     }
 }

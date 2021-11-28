@@ -39,7 +39,7 @@ public class testGameManager : MonoBehaviour
         }
         else
         {
-            _player = Instantiate(playerPrefab, _position, _rotation);
+            _player = Instantiate(playerPrefab, _position, _rotation);     
         }
 
         _player.GetComponent<testPlayerManager>().id = _id;

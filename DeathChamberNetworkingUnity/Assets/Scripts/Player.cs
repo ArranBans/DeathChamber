@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public int hotbarSize = 3;
     public int selectedItem = 0;
     public float interactDistance;
+    [Header("Health")]
+    public float maxHealth;
+    public float health;
 
     public void Initialise(int _id, string _username, Vector3 _spawnPos)
     {
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
         username = _username;
 
         inputs = new bool[6];
+
     }
 
     public void FixedUpdate()
@@ -58,7 +62,7 @@ public class Player : MonoBehaviour
         if (inventory.Count < inventorySize)
         {
             
-            GameObject _invItemObj = Instantiate((GameObject)Resources.Load("Items/"+_item.ViewModelName), camTransform);
+            GameObject _invItemObj = Instantiate((GameObject)Resources.Load("Items/"+_item.ItemName+"_Item"), camTransform);
             _invItemObj.transform.localPosition = Vector3.zero;
             Item _invItem = _invItemObj.GetComponent<Item>();
             inventory.Add(_invItem);

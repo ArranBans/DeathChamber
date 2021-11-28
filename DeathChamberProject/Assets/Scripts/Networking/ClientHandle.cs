@@ -28,6 +28,12 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
 
         testGameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+
+        if (_id != Client.instance.myId)
+        {
+            //ClientSend.ChangeSelectedItem(testGameManager.players[Client.instance.myId].GetComponent<Player>().selectedItem);
+        }
+
         Debug.Log($"Spawning Player {_id}, {_username}");
     }
 
@@ -56,8 +62,10 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
+        Quaternion _camRotation = _packet.ReadQuaternion();
 
         testGameManager.players[_id].transform.rotation = _rotation;
+        testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform.rotation = _camRotation;
     }
 
     public static void PlayerDisconnected(Packet _packet)
@@ -76,7 +84,7 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rot = _packet.ReadQuaternion();
 
         Debug.Log($"Spawning: {_name}");
-        GameObject _item = (GameObject)Instantiate(Resources.Load($"Item Pickups/{_name}"), _pos, _rot);
+        GameObject _item = (GameObject)Instantiate(Resources.Load($"Item Pickups/{_name}_Pickup"), _pos, _rot);
         _item.GetComponent<ItemPickup>().id = _id;
         testGameManager.itemPickups.Add(_item.GetComponent<ItemPickup>());
         Debug.Log($"Spawned: {_name}");
@@ -107,13 +115,13 @@ public class ClientHandle : MonoBehaviour
         string _ItemName = _packet.ReadString();
         int _PickupId = _packet.ReadInt();
 
-        GameObject itemGO = (GameObject)Instantiate(Resources.Load($"Item Viewmodels/{_ItemName}"), testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform);
+        GameObject itemGO = (GameObject)Instantiate(Resources.Load($"Item Viewmodels/{_ItemName}_Item"), testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform);
 
         testGameManager.players[Client.instance.myId].GetComponent<Player>().AddItemToInventory(itemGO.GetComponent<Item>());
         testGameManager.players[Client.instance.myId].GetComponent<Player>().ChangeSelectedItem(testGameManager.players[Client.instance.myId].GetComponent<Player>().inventory.IndexOf(itemGO.GetComponent<Item>()));
 
 
-        Debug.Log("Adding item to inventory");
+        //Debug.Log("Adding item to inventory");
     }
 
     public static void RemoveItemPickup(Packet _packet)
@@ -139,4 +147,25 @@ public class ClientHandle : MonoBehaviour
         int _index = _packet.ReadInt();
         testGameManager.players[Client.instance.myId].GetComponent<Player>().RemoveItemFromInventory(_index);
     }
+
+    public static void ChangeSelectedItem(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string _name = _packet.ReadString();
+
+        Debug.Log($"{_id} changing item to {_name}");
+
+        if(testGameManager.players[_id].GetComponent<NetPlayerController>().selectedItem != null)
+        {
+            Destroy(testGameManager.players[_id].GetComponent<NetPlayerController>().selectedItem);
+        }
+        
+        if(_name != null)
+        {
+            testGameManager.players[_id].GetComponent<NetPlayerController>().selectedItem = (GameObject)Instantiate(Resources.Load($"Item Charmodels/{_name}_Charmodel"), testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform);
+        }
+        
+        
+    }
+
 }

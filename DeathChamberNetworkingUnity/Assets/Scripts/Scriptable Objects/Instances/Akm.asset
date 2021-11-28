@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Akm
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  WorldModelName: Akm_Pickup
-  ViewModelName: Akm_Item
+  ItemName: Akm
   item: {fileID: 0}
   itemType: 0
   xPosRecoil: 0

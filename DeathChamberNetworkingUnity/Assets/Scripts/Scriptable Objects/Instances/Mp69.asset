@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Mp69
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  WorldModelName: Mp69_Pickup
-  ViewModelName: Mp69_Item
+  ItemName: Mp69
   item: {fileID: 0}
   itemType: 0
   xPosRecoil: 0

@@ -6,8 +6,7 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     public Sprite InventoryImage;
-    public string WorldModelName;
-    public string ViewModelName;
+    public string ItemName;
     public Item item;
     public enum ItemType
     {

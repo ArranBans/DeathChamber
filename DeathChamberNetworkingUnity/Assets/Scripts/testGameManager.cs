@@ -47,15 +47,15 @@ public class testGameManager : MonoBehaviour
 
     public void SpawnItem(string _name, Vector3 _location, Quaternion _rotation)
     {
-        GameObject ItemGo = Instantiate((GameObject)Resources.Load($"ItemPickups/{_name}"), _location, _rotation);
+        GameObject ItemGo = Instantiate((GameObject)Resources.Load($"ItemPickups/{_name}_Pickup"), _location, _rotation);
         ItemPickup iPickup = ItemGo.GetComponent<ItemPickup>();
         iPickup.id = items.Count;
         items.Add(iPickup);
-        ServerSend.SpawnItem(iPickup.id, iPickup.gSO.WorldModelName, _location, _rotation);
+        ServerSend.SpawnItem(iPickup.id, iPickup.gSO.ItemName, _location, _rotation);
     }
 
     public void SpawnItemTest()
     {
-        SpawnItem("Akm_Pickup", new Vector3(0, 10, 0), Quaternion.identity);
+        SpawnItem("Akm", new Vector3(0, 10, 0), Quaternion.identity);
     }
 }

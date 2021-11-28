@@ -20,8 +20,6 @@ public class testPlayerController : MonoBehaviour
     public float interpolationSpeed;
     public Player player;
     public float interactDistance;
-    private int selectedItem;
-    private bool dropItem;
 
     private void Start()
     {
@@ -32,28 +30,9 @@ public class testPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        SendInputToServer();
+        SendInputToServer(); 
 
-        ChangeItem();
-
-        if(dropItem)
-        {
-            DropItem();
-        }
-
-        if(InteractRaycast())
-        {
-            player.InteractCanvas.gameObject.SetActive(true);
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                Interact();
-                Debug.Log("item interacted with");
-            }
-        }
-        else
-        {
-            player.InteractCanvas.gameObject.SetActive(false);
-        }
+        
 
         //rb.position = 
         //transform.position = ServerPositionStates[ServerPositionStates.Count-1].position;
@@ -65,8 +44,8 @@ public class testPlayerController : MonoBehaviour
 
     private void Update()
     {
-        selectedItem = player.selectedItem;
-        dropItem = false;
+        
+        
 
         if (player.paused)
         {
@@ -99,28 +78,42 @@ public class testPlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                selectedItem = 0;
+                player.ChangeSelectedItem(0);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                selectedItem = 1;
+                player.ChangeSelectedItem(1);
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                selectedItem = 2;
+                player.ChangeSelectedItem(2);
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                selectedItem = 3;
+                player.ChangeSelectedItem(3);
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                selectedItem = 4;
+                player.ChangeSelectedItem(4);
             }
 
-            if(Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G))
             {
-                dropItem = true;
+                DropItem();
+            }
+
+            if (InteractRaycast())
+            {
+                player.InteractCanvas.gameObject.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    Interact();
+                    Debug.Log("item interacted with");
+                }
+            }
+            else
+            {
+                player.InteractCanvas.gameObject.SetActive(false);
             }
         }
 
@@ -136,15 +129,7 @@ public class testPlayerController : MonoBehaviour
         
     }
 
-    private void ChangeItem()
-    {
-        if (player.paused)
-        {
-            return;
-        }
-
-        player.ChangeSelectedItem(selectedItem);
-    }
+    
 
     private void DropItem()
     {
