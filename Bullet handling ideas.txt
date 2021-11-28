@@ -1,0 +1,8 @@
+Random ramblings on bullet handling.
+
+FireSend
+	send aiming bool
+	server ScriptableObjects contain locations for where the bullet should spawn if client is aiming or not and should spawn projectiles accordingly. perhaps script needed on the 3rd person models which lets the client know what gun they have so bullets can spawn correctly. alternatively it is not important where other player's bullets spawn on the clients because any resultant effects are computed on the server. client's aiming script toggles a bool for if they are aiming and pass that to FireWeapon ServerSend in order to communicate to the server. any kind of bullet hits or health effects should take place on server in order for irreversable changes to not be calculated incorrectly eg, if the other client uses a med kit before you fire your final shot on the server and now you've killed them on your client but theyre not really dead. 
+
+
+For killing clients, player shouldn't be removed from game but for now just an indicator that theyre dead like a colour change which can eventually be an animation or even spawn in a ragdoll when they die and temporarily disable their mesh renderer as they wait to respawn or not. if one player dies though in the context of the game they shouldn't be able to respawn until perhaps the other player completes a challenge or exits the level so some sort of spectator mode will be necessary. perhaps this just sets the player's existing camera position to the other player/players. or maybe theyre teleported to a room with a screen as to not require any additional camera transform nonsense. 
