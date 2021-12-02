@@ -106,7 +106,14 @@ public class Gun : Item
 
                 case GunSO.FireMode.semiAuto:
                     {
-                        if (Input.GetKeyDown(KeyCode.Mouse0)) { Fire(); }
+                        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+                        {
+                            if (Time.time >= timeToNextFire)
+                            {
+                                Fire();
+                                timeToNextFire = Time.time + fireRate;
+                            }
+                        }
                         break;
                     }
                 case GunSO.FireMode.fullAuto:
