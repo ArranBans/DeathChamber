@@ -7,6 +7,8 @@ public class testGameManager : MonoBehaviour
     public static testGameManager instance;
     public Vector3 spawnPoint;
     public List<ItemPickup> items = new List<ItemPickup>();
+    float timeToNextSpawn = 0;
+    public float itemSpawnInterval;
     
 
     public void Awake()
@@ -43,6 +45,19 @@ public class testGameManager : MonoBehaviour
                 ServerSend.ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
             }
             
+        }
+
+        if(Time.time >= timeToNextSpawn)
+        {
+            //Debug.Log($"spawning random I");
+            int r = Mathf.FloorToInt(Random.Range(0, items.Count - 1));
+            while(items[r] == null)
+            {
+                r = Mathf.FloorToInt(Random.Range(0, items.Count - 1));
+            }
+            //Debug.Log($"spawning: {items[r].gSO.ItemName}");
+            SpawnItem(items[r].gSO.ItemName, new Vector3(0, 10, 0), Quaternion.identity);
+            timeToNextSpawn = Time.time + itemSpawnInterval;
         }
     }
 
