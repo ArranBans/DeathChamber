@@ -9,10 +9,67 @@ public class NetPlayerController : MonoBehaviour
     public float interpolationRate;
     public Transform camTransform;
     public GameObject selectedItem;
+    public Animator anim;
+    public float speedChange;
+    int Direction = 0;
+    bool sprinting = false;
 
     void Update()
     {
         transform.position = Vector3.Lerp(transform.position, DesiredPos, interpolationRate * 15 * Time.deltaTime);
         transform.rotation = DesiredRot;
+
+        if (Direction == 1)
+        {
+            if (sprinting)
+            {
+                anim.SetFloat("MoveSpeed", Mathf.Lerp(anim.GetFloat("MoveSpeed"), 1f, speedChange * Time.deltaTime));
+            }
+            else
+            {
+                anim.SetFloat("MoveSpeed", Mathf.Lerp(anim.GetFloat("MoveSpeed"), 0.5f, speedChange * Time.deltaTime));
+            }
+        }
+        else if(Direction == 0)
+        {
+            anim.SetFloat("MoveSpeed", Mathf.Lerp(anim.GetFloat("MoveSpeed"), 0f, speedChange * Time.deltaTime));
+        }
+    }
+
+    public void PlayerMoved(bool[] inputs)
+    {
+        sprinting = false;
+        Direction = 0;
+        anim.SetBool("Moving", false);
+
+        if (inputs[0])
+        {
+            Direction = 1;
+            anim.SetBool("Moving", true);
+        }
+        else if (inputs[1])
+        {
+            Direction = 2;
+            anim.SetBool("Moving", true);
+        }
+        else if (inputs[2])
+        {
+            Direction = 3;
+            anim.SetBool("Moving", true);
+        }
+        else if (inputs[3])
+        {
+            Direction = 4;
+            anim.SetBool("Moving", true);
+        }
+
+        if (inputs[4])
+        {
+            
+        }
+        if (inputs[5])
+        {
+            sprinting = true;
+        }
     }
 }

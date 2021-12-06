@@ -20,6 +20,8 @@ public class testPlayerController : MonoBehaviour
     public float interpolationSpeed;
     public Player player;
     public float interactDistance;
+    public float collideHeight;
+    public float colliderWidth;
 
     private void Start()
     {
@@ -125,11 +127,11 @@ public class testPlayerController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
 
         transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed * 15 * Time.deltaTime);
-
         
+
     }
 
-    
+
 
     private void DropItem()
     {
@@ -226,7 +228,7 @@ public class testPlayerController : MonoBehaviour
         #endregion
 
         Vector3 moveVector = _pState.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
-        Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z);
+        Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, _pState.position.y, _pState.position.z + moveVector.z);
         return newPos;
     }
 
@@ -258,8 +260,9 @@ public class testPlayerController : MonoBehaviour
         }
         #endregion
 
-        Vector3 moveVector = _pState.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
-        Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z);
+
+          Vector3 moveVector = _pState.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
+          Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z);
         //rb.MovePosition(new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z));
         return new PositionState(newPos, _pState.rotation, _tick, _pInputs);
         //return new PositionState(rb.position, rb.rotation, _tick, _pInputs);
@@ -270,7 +273,8 @@ public class testPlayerController : MonoBehaviour
     {
         predictedState = _ServerState;
         //Debug.Log($"{_ServerState.rotation.eulerAngles.x}, {_ServerState.rotation.eulerAngles.y}, {_ServerState.rotation.eulerAngles.z}");
-        for (int x = _ServerState.tick-1; x < ClientPositionStates.Count; x++)
+        /*
+        for (int x = _ServerState.tick-1; x < ClientPositionStates[ClientPositionStates.Count-1].tick; x++)
         {
             PositionState newState = new PositionState(new Vector3(0,0,0), new Quaternion(), tick);
             newState.position = PredictMovement(ClientPositionStates[x].inputs, predictedState);
@@ -282,6 +286,28 @@ public class testPlayerController : MonoBehaviour
             if(ClientPositionStates[x].tick <= _ServerState.tick)
             {
                 //ClientPositionStates.Remove(ClientPositionStates[0]);
+            }
+        }*/
+
+        foreach (PositionState posState in ClientPositionStates)
+        {
+            if(posState.tick >= _ServerState.tick)//<<<<-_---
+            {
+                PositionState newState = new PositionState(new Vector3(0, 0, 0), new Quaternion(), tick); // <<
+                newState.position = PredictMovement(posState.inputs, predictedState); // <<
+                predictedState.position = newState.position; // <<
+            }
+            
+            //Debug.Log($"{predictedState.rotation.eulerAngles.x}, {predictedState.rotation.eulerAngles.y}, {predictedState.rotation.eulerAngles.z}");
+        }
+
+        var removeCount = ClientPositionStates.Count;
+        for(int x = 0; x < removeCount; x++)
+        {
+            if (ClientPositionStates[x].tick <= _ServerState.tick)
+            {
+                ClientPositionStates.RemoveAt(0);
+                break;
             }
         }
     }

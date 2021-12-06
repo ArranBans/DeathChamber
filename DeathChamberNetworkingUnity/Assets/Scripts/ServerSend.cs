@@ -92,7 +92,7 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void PlayerPosition(Player _player, int _tick)
+    public static void PlayerPosition(Player _player, int _tick, bool[] _inputs)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
@@ -100,6 +100,13 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_player.transform.position);
             _packet.Write(_player.transform.rotation);
             _packet.Write(_tick);
+
+            _packet.Write(_inputs.Length);
+            foreach (bool _input in _inputs)
+            {
+                _packet.Write(_input);
+            }
+
 
             SendUDPDataToAll(_packet);
         }
@@ -230,6 +237,16 @@ public class ServerSend : MonoBehaviour
     public static void Die(int _id)
     {
         using (Packet _packet = new Packet((int)ServerPackets.die))
+        {
+            _packet.Write(_id);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void Respawn(int _id)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.respawn))
         {
             _packet.Write(_id);
 

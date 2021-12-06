@@ -44,14 +44,22 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
         int _tick = _packet.ReadInt();
 
-        if(testGameManager.players[_id].GetComponent<testPlayerController>() != null)
+        bool[] _inputs = new bool[_packet.ReadInt()];
+        for (int i = 0; i < _inputs.Length; i++)
         {
-            testGameManager.players[_id].GetComponent<testPlayerController>().OnServerState(new PositionState(_position, _rotation, _tick));
+            _inputs[i] = _packet.ReadBool();
+        }
+
+        if (testGameManager.players[_id].playerObj.GetComponent<testPlayerController>() != null)
+        {
+            testGameManager.players[_id].playerObj.GetComponent<testPlayerController>().OnServerState(new PositionState(_position, _rotation, _tick));
         }
         else
         {
-            testGameManager.players[_id].GetComponent<NetPlayerController>().DesiredPos = _position;
-            testGameManager.players[_id].GetComponent<NetPlayerController>().DesiredRot = _rotation;
+            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().DesiredPos = _position;
+            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().DesiredRot = _rotation;
+            //Debug.Log($"{_id}, Input: {_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]}");
+            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().PlayerMoved(_inputs);
         }
         
         
@@ -64,8 +72,8 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
         Quaternion _camRotation = _packet.ReadQuaternion();
 
-        testGameManager.players[_id].transform.rotation = _rotation;
-        testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform.rotation = _camRotation;
+        testGameManager.players[_id].playerObj.transform.rotation = _rotation;
+        testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation = _camRotation;
     }
 
     public static void PlayerDisconnected(Packet _packet)
@@ -115,10 +123,10 @@ public class ClientHandle : MonoBehaviour
         string _ItemName = _packet.ReadString();
         int _PickupId = _packet.ReadInt();
 
-        GameObject itemGO = (GameObject)Instantiate(Resources.Load($"Item Viewmodels/{_ItemName}_Item"), testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform);
+        GameObject itemGO = (GameObject)Instantiate(Resources.Load($"Item Viewmodels/{_ItemName}_Item"), testGameManager.players[Client.instance.myId].playerObj.GetComponent<testPlayerController>().cam.transform);
 
-        testGameManager.players[Client.instance.myId].GetComponent<Player>().AddItemToInventory(itemGO.GetComponent<Item>());
-        testGameManager.players[Client.instance.myId].GetComponent<Player>().ChangeSelectedItem(testGameManager.players[Client.instance.myId].GetComponent<Player>().inventory.IndexOf(itemGO.GetComponent<Item>()));
+        testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().AddItemToInventory(itemGO.GetComponent<Item>());
+        testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().ChangeSelectedItem(testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().inventory.IndexOf(itemGO.GetComponent<Item>()));
 
 
         //Debug.Log("Adding item to inventory");
@@ -145,7 +153,7 @@ public class ClientHandle : MonoBehaviour
     public static void RemoveItemFromInventory(Packet _packet)
     {
         int _index = _packet.ReadInt();
-        testGameManager.players[Client.instance.myId].GetComponent<Player>().RemoveItemFromInventory(_index);
+        testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().RemoveItemFromInventory(_index);
     }
 
     public static void ChangeSelectedItem(Packet _packet)
@@ -155,14 +163,14 @@ public class ClientHandle : MonoBehaviour
 
         Debug.Log($"{_id} changing item to {_name}");
 
-        if(testGameManager.players[_id].GetComponent<NetPlayerController>().selectedItem != null)
+        if(testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem != null)
         {
-            Destroy(testGameManager.players[_id].GetComponent<NetPlayerController>().selectedItem);
+            Destroy(testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem);
         }
         
         if(_name != null)
         {
-            testGameManager.players[_id].GetComponent<NetPlayerController>().selectedItem = (GameObject)Instantiate(Resources.Load($"Item Charmodels/{_name}_Charmodel"), testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform);
+            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem = (GameObject)Instantiate(Resources.Load($"Item Charmodels/{_name}_Charmodel"), testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform);
         }
         
         
@@ -174,7 +182,7 @@ public class ClientHandle : MonoBehaviour
         string _name = _packet.ReadString();
 
         
-        Instantiate(Resources.Load($"Projectiles/{_name}_Projectile"), testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform.position, testGameManager.players[_id].GetComponent<NetPlayerController>().camTransform.rotation);
+        Instantiate(Resources.Load($"Projectiles/{_name}_Projectile"), testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.position, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation);
     }
 
     public static void ChangeHealth(Packet _packet)
@@ -182,7 +190,7 @@ public class ClientHandle : MonoBehaviour
         float _value = _packet.ReadFloat();
 
 
-        testGameManager.players[Client.instance.myId].GetComponent<Player>().health = _value;
+        testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().health = _value;
     }
 
     public static void Die(Packet _packet)
@@ -190,7 +198,22 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
 
         Debug.Log($"Player {_id} has died");
-        //Destroy(testGameManager.players[_id].gameObject);
+        testGameManager.players[_id].playerObj.SetActive(false);
+        Player p;
+        if (_id == Client.instance.myId)
+        {
+            p = testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>();
+            p.health = p.maxHealth;
+        }
+        //testGameManager.players.Remove(_id);
+    }
+
+    public static void Respawn(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        Debug.Log($"Player {_id} has respawned");
+        testGameManager.players[_id].playerObj.SetActive(true);
         //testGameManager.players.Remove(_id);
     }
 

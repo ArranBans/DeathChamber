@@ -38,8 +38,8 @@ public class ClientSend : MonoBehaviour
                 _packet.Write(_input);
             }
 
-            _packet.Write(testGameManager.players[Client.instance.myId].transform.rotation);
-            _packet.Write(testGameManager.players[Client.instance.myId].GetComponent<testPlayerController>().cam.transform.rotation);
+            _packet.Write(testGameManager.players[Client.instance.myId].playerObj.transform.rotation);
+            _packet.Write(testGameManager.players[Client.instance.myId].playerObj.GetComponent<testPlayerController>().cam.transform.rotation);
 
             _packet.Write(_tick);
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class testGameManager : MonoBehaviour
 {
     public static testGameManager instance;
+    public Vector3 spawnPoint;
     public List<ItemPickup> items = new List<ItemPickup>();
     
 
@@ -57,5 +58,15 @@ public class testGameManager : MonoBehaviour
     public void SpawnItemTest()
     {
         SpawnItem("Akm", new Vector3(0, 10, 0), Quaternion.identity);
+    }
+
+    public IEnumerator Respawn(int id)
+    {
+        yield return new WaitForSeconds(2.5f);
+        Server.clients[id].player.capsule.gameObject.SetActive(true);
+        Server.clients[id].player.transform.position = spawnPoint;
+        Server.clients[id].player.health = Server.clients[id].player.maxHealth;
+        ServerSend.Respawn(id);
+        Debug.Log($"player {id} has respawned");
     }
 }

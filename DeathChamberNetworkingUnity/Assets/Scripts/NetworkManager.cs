@@ -36,6 +36,6 @@ public class NetworkManager : MonoBehaviour
 
     public Player InstantiatePlayer()
     {
-        return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<Player>();
+        return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponentInChildren<Player>();
     }
 }

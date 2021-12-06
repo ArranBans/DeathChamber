@@ -285,7 +285,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.changeSelectedItem, ClientHandle.ChangeSelectedItem },
             { (int)ServerPackets.fireWeapon, ClientHandle.FireWeapon },
             { (int)ServerPackets.changeHealth, ClientHandle.ChangeHealth },
-            { (int)ServerPackets.die, ClientHandle.Die }
+            { (int)ServerPackets.die, ClientHandle.Die },
+            { (int)ServerPackets.respawn, ClientHandle.Respawn }
         };
         Debug.Log("Initialised Packets...");
     }

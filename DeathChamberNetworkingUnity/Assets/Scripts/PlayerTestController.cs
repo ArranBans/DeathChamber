@@ -11,6 +11,7 @@ public class PlayerTestController : MonoBehaviour
     [HideInInspector]public float jumpForce;
     [HideInInspector]public float sprintSpeed;
     public float collideHeight;
+    public float colliderWidth;
     private int tick = 0;
 
     private Rigidbody rb;

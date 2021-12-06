@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpspeed = 5;
     public float sprintSpeed = 1.5f;
-    private bool[] inputs;
+    public bool[] inputs;
     public PlayerTestController ptController;
     public Transform camTransform;
     public Transform dropTransform;
@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [Header("Health")]
     public float maxHealth;
     public float health;
+    public GameObject capsule;
 
     public void Initialise(int _id, string _username, Vector3 _spawnPos)
     {
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void MovePlayer()
     {
-        ServerSend.PlayerPosition(this, tick);
+        ServerSend.PlayerPosition(this, tick, inputs);
         ServerSend.PlayerRotation(this);
     }
 
@@ -108,7 +109,18 @@ public class Player : MonoBehaviour
         {
             //Destroy(Server.clients[id].player.gameObject);
             ServerSend.Die(id);
-            //Server.clients[id].Respawn();
+
+            foreach (Item i in inventory)
+            {
+                testGameManager.instance.SpawnItem(i.itemSO.ItemName, dropTransform.position, transform.rotation);
+                RemoveItemFromInventory(0);
+                ServerSend.RemoveItemFromInventory(id, 0);       
+            }
+
+            Debug.Log($"player {id} has died");
+            
+            StartCoroutine(testGameManager.instance.Respawn(id));
+            capsule.SetActive(false);
         }
     }
 

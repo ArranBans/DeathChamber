@@ -20,7 +20,8 @@ public enum ServerPackets
     changeSelectedItem,
     fireWeapon,
     changeHealth,
-    die
+    die,
+    respawn
 }
 
 /// <summary>Sent from client to server.</summary>

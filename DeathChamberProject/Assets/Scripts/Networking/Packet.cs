@@ -19,7 +19,8 @@ public enum ServerPackets
     changeSelectedItem,
     fireWeapon,
     changeHealth,
-    die
+    die,
+    respawn
 }
 
 
