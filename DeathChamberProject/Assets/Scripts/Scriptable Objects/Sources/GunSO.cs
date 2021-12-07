@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunSO : ItemSO
 {
     [Header("Positional Recoil")]
+    [Header("Gun Scriptable Object")]
     public float xPosRecoil;
     public float yPosRecoil;
     public float zPosRecoil;

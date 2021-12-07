@@ -133,12 +133,12 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void SpawnItem(int _id ,int _itemId, string _name, Vector3 _pos, Quaternion _rot)
+    public static void SpawnItem(int _id ,int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnItems))
         {
             _packet.Write(_itemId);
-            _packet.Write(_name);
+            _packet.Write(_databaseId);
             _packet.Write(_pos);
             _packet.Write(_rot);
 
@@ -146,12 +146,12 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void SpawnItem(int _itemId, string _name, Vector3 _pos, Quaternion _rot)
+    public static void SpawnItem(int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnItems))
         {
             _packet.Write(_itemId);
-            _packet.Write(_name);
+            _packet.Write(_databaseId);
             _packet.Write(_pos);
             _packet.Write(_rot);
 
@@ -181,11 +181,10 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void AddItemToInventory(int _id, string _item, int _itemId)
+    public static void AddItemToInventory(int _id, int _itemId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.addItemToInventory))
         {
-            _packet.Write(_item);
             _packet.Write(_itemId);
 
             SendTCPData(_id, _packet);
@@ -202,12 +201,12 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void ChangeSelectedItem(int _id, string _name)
+    public static void ChangeSelectedItem(int _id, int _itemId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.changeSelectedItem))
         {
             _packet.Write(_id);
-            _packet.Write(_name);
+            _packet.Write(_itemId);
 
             SendTCPDataToAll(_id, _packet);
         }

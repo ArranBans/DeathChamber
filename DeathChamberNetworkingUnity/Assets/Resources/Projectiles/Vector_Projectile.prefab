@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 225
-  hitforce: 0.5
+  hitforce: 1
   damage: 10
   rb: {fileID: 0}
   SmokeEffect: {fileID: 0}

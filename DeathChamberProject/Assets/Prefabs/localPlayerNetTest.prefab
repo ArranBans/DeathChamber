@@ -2572,7 +2572,7 @@ MonoBehaviour:
   camObj: {fileID: 8730972207550102906}
   _xRot: 0
   _yRot: 0
-  turnSpeed: 5
+  turnSpeed: 25
   moveSpeed: 0.1
   sprintSpeed: 2
   interpolationSpeed: 2.6

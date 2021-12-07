@@ -49,30 +49,28 @@ public class testGameManager : MonoBehaviour
 
         if(Time.time >= timeToNextSpawn)
         {
-            //Debug.Log($"spawning random I");
-            int r = Mathf.FloorToInt(Random.Range(0, items.Count - 1));
-            while(items[r] == null)
-            {
-                r = Mathf.FloorToInt(Random.Range(0, items.Count - 1));
-            }
-            //Debug.Log($"spawning: {items[r].gSO.ItemName}");
-            SpawnItem(items[r].gSO.ItemName, new Vector3(0, 10, 0), Quaternion.identity);
+            
+            int r = Mathf.FloorToInt(Random.Range(1, Database.instance.itemDatabase.database.Count));
+
+            SpawnItem(Database.instance.GetItem(r).id, new Vector3(0, 10, 0), Quaternion.identity);
+            Debug.Log($"Spawning {r}");
             timeToNextSpawn = Time.time + itemSpawnInterval;
         }
     }
 
-    public void SpawnItem(string _name, Vector3 _location, Quaternion _rotation)
+    public void SpawnItem(int id, Vector3 _location, Quaternion _rotation)
     {
-        GameObject ItemGo = Instantiate((GameObject)Resources.Load($"ItemPickups/{_name}_Pickup"), _location, _rotation);
+        GameObject ItemGo = Instantiate(Database.instance.GetItem(id).empty, _location, _rotation);
+        ItemGo.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup);
         ItemPickup iPickup = ItemGo.GetComponent<ItemPickup>();
         iPickup.id = items.Count;
         items.Add(iPickup);
-        ServerSend.SpawnItem(iPickup.id, iPickup.gSO.ItemName, _location, _rotation);
+        ServerSend.SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation);
     }
 
     public void SpawnItemTest()
     {
-        SpawnItem("Akm", new Vector3(0, 10, 0), Quaternion.identity);
+        SpawnItem(1, new Vector3(0, 10, 0), Quaternion.identity);
     }
 
     public IEnumerator Respawn(int id)

@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Gun", menuName = "ScriptableObjects/Gun")]
 public class GunSO : ItemSO
 {
+    
     [Header("Positional Recoil")]
+    [Header("Gun Scriptable Object")]
     public float xPosRecoil;
     public float yPosRecoil;
     public float zPosRecoil;
@@ -43,8 +45,8 @@ public class GunSO : ItemSO
     }
     public FireMode defaultFireMode;
     [Header("Ammo Variables")]
-    public float maxAmmo;
-    public float magAmmo;
+    public int maxAmmo;
+    public int magAmmo;
     public enum AmmoType
     {
         rifleAmmo,

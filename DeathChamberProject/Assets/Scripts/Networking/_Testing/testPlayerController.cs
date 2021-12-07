@@ -28,6 +28,12 @@ public class testPlayerController : MonoBehaviour
         cam = GetComponentInChildren<Camera>();
         rb = GetComponent<Rigidbody>();
         predictedState = new PositionState(transform.position, transform.rotation, tick);
+
+        if(FindObjectOfType<MenuOptions>().sens != 0)
+        {
+            turnSpeed = FindObjectOfType<MenuOptions>().sens;
+        }
+        
     }
 
     private void FixedUpdate()
@@ -75,8 +81,8 @@ public class testPlayerController : MonoBehaviour
                 player.OpenInventory();
             }
 
-            _xRot -= Input.GetAxisRaw("Mouse Y") * turnSpeed;
-            _yRot += Input.GetAxisRaw("Mouse X") * turnSpeed;
+            _xRot -= Input.GetAxisRaw("Mouse Y") * (turnSpeed/10);
+            _yRot += Input.GetAxisRaw("Mouse X") * (turnSpeed/10);
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

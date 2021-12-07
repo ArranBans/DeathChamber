@@ -7,12 +7,13 @@ public class Gun : Item
     public GunSO gunSO;
     private float timeToNextFire;
     private float fireRate;
-    private float magAmmo;
-    private float reserveAmmo;
+    private int magAmmo;
+    private int reserveAmmo;
     public GunSO.FireMode fireMode;
 
     void Start()
     {
+        gunSO = (GunSO)itemInfo.iSO;
         itemSO = gunSO;
         fireMode = gunSO.defaultFireMode;
         reserveAmmo = gunSO.maxAmmo;

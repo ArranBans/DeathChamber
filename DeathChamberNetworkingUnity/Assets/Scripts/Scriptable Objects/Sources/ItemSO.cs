@@ -5,9 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Item")]
 public class ItemSO : ScriptableObject
 {
-    public Sprite InventoryImage;
+    [Header("Item Scriptable Object")]
     public string ItemName;
     public Item item;
+    public int id;
+    public GameObject empty;
+    public float mass;
+    public Vector3 colliderCentre;
+    public Vector3 colliderSize;
     public enum ItemType
     {
         singleUse,

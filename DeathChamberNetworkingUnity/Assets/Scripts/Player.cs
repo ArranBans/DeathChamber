@@ -62,7 +62,8 @@ public class Player : MonoBehaviour
         if (inventory.Count < inventorySize)
         {
             
-            GameObject _invItemObj = Instantiate((GameObject)Resources.Load("Items/"+_item.ItemName+"_Item"), camTransform);
+            GameObject _invItemObj = Instantiate(_item.empty, camTransform);
+            _invItemObj.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item);
             _invItemObj.transform.localPosition = Vector3.zero;
             Item _invItem = _invItemObj.GetComponent<Item>();
             inventory.Add(_invItem);
@@ -112,7 +113,7 @@ public class Player : MonoBehaviour
 
             foreach (Item i in inventory)
             {
-                testGameManager.instance.SpawnItem(i.itemSO.ItemName, dropTransform.position, transform.rotation);
+                testGameManager.instance.SpawnItem(i.itemSO.id, dropTransform.position, transform.rotation);
                 RemoveItemFromInventory(0);
                 ServerSend.RemoveItemFromInventory(id, 0);       
             }

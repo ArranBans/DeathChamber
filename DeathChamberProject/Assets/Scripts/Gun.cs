@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gun : Item
 {
-    public GunSO gunSO;
+    GunSO gunSO;
     private float timeToNextFire;
     private float timeToRecoilCompensate;
     private float timeToCamRecoilCompensate;
@@ -25,7 +25,6 @@ public class Gun : Item
     public testPlayerController pTController;
     public Player player;
 
-
     private Vector3 _posRecoil;
     private Vector3 _rotRecoil;
     private Vector3 _camPosRecoil;
@@ -35,7 +34,7 @@ public class Gun : Item
 
     void Start()
     {
-       
+        gunSO = (GunSO)itemInfo.iSO;
         if (GetComponentInParent<testPlayerController>())
         {
             pTController = GetComponentInParent<testPlayerController>();

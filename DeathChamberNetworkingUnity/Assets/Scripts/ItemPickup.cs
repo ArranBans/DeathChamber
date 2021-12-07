@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public ItemSO gSO;
-    public string prefabName;
+    public ItemSO iSO;
     public int id;
 
     public ItemSO Pickup()
     {
-        return gSO;
+        return iSO;
     }
 }

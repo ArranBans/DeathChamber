@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
+  m_Name: Lmg
+  m_EditorClassIdentifier: 
+  InventoryImage: {fileID: 0}
+  empty: {fileID: 5485761723321711066, guid: 2f589f4a6e2a71a45875e2068ec873f4, type: 3}
+  itemName: Lmg
+  itemId: 2
+  mass: 1.3
+  colliderCentre: {x: 0, y: 0.18004958, z: 2.4459274}
+  colliderSize: {x: 0.32999998, y: 1.4915477, z: 8.681855}
+  itemType: 2
+  xPosRecoil: 0
+  yPosRecoil: -0.0025
+  zPosRecoil: -0.02
+  xRotRecoil: 0.5
+  yRotRecoil: 0.3
+  zRotRecoil: 0.2
+  xRotOffset: -0.1
+  camXPosRecoil: 0
+  camYPosRecoil: 0
+  camZPosRecoil: 0
+  camXRotRecoil: 0.4
+  camYRotRecoil: 0.3
+  camZRotRecoil: 0.34
+  camXRotOffset: -4
+  recoilLocation: {fileID: 0}
+  recoilReturnSpeed: 5
+  recoilSnappiness: 800
+  recoilTime: 0.007
+  cameraRecoilTime: 0.04
+  cameraReturn: 1
+  semiAuto: 0
+  fullAuto: 1
+  boltAction: 0
+  fireRate: 12
+  defaultFireMode: 1
+  maxAmmo: 350
+  magAmmo: 80
+  ammoType: 0
+  baseDamage: 0
+  bulletSpeed: 0
+  bulletMass: 0
+  bulletSpawnPoint: {fileID: 0}
+  bulletObject: {fileID: 0}
+  tiltSway: -0.5
+  hMoveSway: -0.0075
+  vMoveSway: -0.0045
+  aimSwayModifier: 0.15
+  muzzleFlash: {fileID: 0}
+  gunAudio: {fileID: 0}
+  aimSpeed: 0
+  aimPos: {x: 0, y: -0.2385, z: 0.586}
+  hipPos: {x: 0.137, y: -0.417, z: 0.577}
+  aimFov: 0

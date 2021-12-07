@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    [SerializeField]ItemSO gSO;
+    public ItemSO iSO;
     public float id;
 
     public ItemSO Pickup()
     {
-        return gSO;
+        return iSO;
     }
 }
