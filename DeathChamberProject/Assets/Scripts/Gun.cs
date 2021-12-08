@@ -56,7 +56,6 @@ public class Gun : Item
 
         camPosRecoil = new Vector3(gunSO.camXPosRecoil, gunSO.camYPosRecoil, gunSO.camZPosRecoil);
         camRotRecoil = new Vector3(gunSO.camXRotRecoil, gunSO.camYRotRecoil, gunSO.camZRotRecoil);
-
     }
 
     void Update()
@@ -139,11 +138,13 @@ public class Gun : Item
             {
                 desiredPos = gunSO.aimPos;
                 aiming = true;
+                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camFov * gunSO.aimFov, gunSO.aimSpeed * Time.deltaTime);
             }
             else
             {
                 desiredPos = gunSO.hipPos;
                 aiming = false;
+                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camFov, gunSO.aimSpeed * Time.deltaTime);
             }
         }
 

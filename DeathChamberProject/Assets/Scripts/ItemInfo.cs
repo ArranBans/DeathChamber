@@ -6,6 +6,7 @@ public class ItemInfo : MonoBehaviour
 {
     [Header("Static Info")]
     public ItemSO iSO;
+    public List<GameObject> ViewmodelOnly = new List<GameObject>();
     public enum ItemState
     {
         item,
@@ -41,10 +42,18 @@ public class ItemInfo : MonoBehaviour
                 b.center = iSO.colliderCentre;
                 b.size = iSO.colliderSize;
                 iState = ItemState.pickup;
+                foreach(GameObject gameO in ViewmodelOnly)
+                {
+                    gameO.SetActive(false);
+                }
                 break;
             case ItemState.charModel:
                 GunSO g = (GunSO)iSO;
                 transform.localPosition = g.hipPos;
+                foreach (GameObject gameO in ViewmodelOnly)
+                {
+                    gameO.SetActive(false);
+                }
                 break;
         }
     }

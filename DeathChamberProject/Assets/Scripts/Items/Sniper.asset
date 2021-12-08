@@ -22,7 +22,7 @@ MonoBehaviour:
   itemType: 2
   xPosRecoil: 0
   yPosRecoil: -0.01
-  zPosRecoil: -0.015
+  zPosRecoil: -0.012
   xRotRecoil: 0
   yRotRecoil: 3
   zRotRecoil: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   camXRotRecoil: 0
   camYRotRecoil: 1
   camZRotRecoil: 2
-  camXRotOffset: -2.6
+  camXRotOffset: -2.4
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 6
   recoilSnappiness: 1000
@@ -59,7 +59,7 @@ MonoBehaviour:
   aimSwayModifier: 0.15
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
-  aimSpeed: 0
+  aimSpeed: 5
   aimPos: {x: 0, y: -0.27, z: 0.054}
   hipPos: {x: 0.184, y: -0.414, z: 0.242}
-  aimFov: 0
+  aimFov: 0.5

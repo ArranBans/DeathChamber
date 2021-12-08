@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4485738764054445882}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: UnpauseGame
         m_Mode: 1
