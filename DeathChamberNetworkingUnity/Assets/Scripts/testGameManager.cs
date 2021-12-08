@@ -8,8 +8,14 @@ public class testGameManager : MonoBehaviour
     public Vector3 spawnPoint;
     public List<ItemPickup> items = new List<ItemPickup>();
     float timeToNextSpawn = 0;
+    public int maxItems;
     public float itemSpawnInterval;
+    float timeToNextUpdate;
+    public float updateFrequency = 15;
+    float updateTime;
     
+
+
 
     public void Awake()
     {
@@ -34,20 +40,15 @@ public class testGameManager : MonoBehaviour
             }
             
         }
+
+        updateTime = 1 / updateFrequency;
     }
 
     private void FixedUpdate()
     {
-        foreach(ItemPickup _item in items)
-        {
-            if (_item != null)
-            {
-                ServerSend.ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
-            }
-            
-        }
+        
 
-        if(Time.time >= timeToNextSpawn)
+        if(Time.time >= timeToNextSpawn && items.Count <= maxItems)
         {
             
             int r = Mathf.FloorToInt(Random.Range(1, Database.instance.itemDatabase.database.Count));
@@ -55,6 +56,19 @@ public class testGameManager : MonoBehaviour
             SpawnItem(Database.instance.GetItem(r).id, new Vector3(0, 10, 0), Quaternion.identity);
             Debug.Log($"Spawning {r}");
             timeToNextSpawn = Time.time + itemSpawnInterval;
+        }
+
+        if (Time.time >= timeToNextUpdate)
+        {
+            foreach (ItemPickup _item in items)
+            {
+                if (_item != null)
+                {
+                    ServerSend.ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
+                }
+
+            }
+            timeToNextUpdate = Time.time + updateTime;
         }
     }
 
@@ -73,6 +87,12 @@ public class testGameManager : MonoBehaviour
         SpawnItem(1, new Vector3(0, 10, 0), Quaternion.identity);
     }
 
+    public void Respawner(int _id)
+    {
+        StartCoroutine(Respawn(_id));
+    }
+    
+
     public IEnumerator Respawn(int id)
     {
         yield return new WaitForSeconds(2.5f);
@@ -80,6 +100,7 @@ public class testGameManager : MonoBehaviour
         Server.clients[id].player.transform.position = spawnPoint;
         Server.clients[id].player.health = Server.clients[id].player.maxHealth;
         ServerSend.Respawn(id);
+        ServerSend.ChangeHealth(id, Server.clients[id].player.maxHealth);
         Debug.Log($"player {id} has respawned");
     }
 }

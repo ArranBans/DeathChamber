@@ -5,7 +5,9 @@ using UnityEngine;
 public class testPlayerController : MonoBehaviour
 {
     public Camera cam;
+    public float camFov;
     public Transform camObj;
+    public Transform bulletTransform;
     public float _xRot;
     public float _yRot;
     public float turnSpeed;
@@ -25,13 +27,15 @@ public class testPlayerController : MonoBehaviour
 
     private void Start()
     {
+        camFov = MenuOptions.instance.fov;
         cam = GetComponentInChildren<Camera>();
+        cam.fieldOfView = camFov;
         rb = GetComponent<Rigidbody>();
         predictedState = new PositionState(transform.position, transform.rotation, tick);
 
-        if(FindObjectOfType<MenuOptions>().sens != 0)
+        if(MenuOptions.instance.sens != 0)
         {
-            turnSpeed = FindObjectOfType<MenuOptions>().sens;
+            turnSpeed = MenuOptions.instance.sens;
         }
         
     }

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public bool[] inputs;
     public PlayerTestController ptController;
     public Transform camTransform;
+    public Transform bulletTransform;
     public Transform dropTransform;
     private int tick = 0;
     [Header("Inventory")]
@@ -119,8 +120,8 @@ public class Player : MonoBehaviour
             }
 
             Debug.Log($"player {id} has died");
-            
-            StartCoroutine(testGameManager.instance.Respawn(id));
+
+            testGameManager.instance.Respawner(id);
             capsule.SetActive(false);
         }
     }

@@ -96,7 +96,7 @@ public class ServerHandle
 
     public static void FireWeapon(int _fromClient, Packet _packet)
     {
-        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].player.camTransform.position, Server.clients[_fromClient].player.camTransform.rotation);
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].player.bulletTransform.position, Server.clients[_fromClient].player.bulletTransform.rotation);
         ServerSend.FireWeapon(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName);
     }
 }

@@ -177,7 +177,7 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_pos);
             _packet.Write(_rot);
 
-            SendTCPDataToAll(_packet);
+            SendUDPDataToAll(_packet);
         }
     }
 
@@ -219,7 +219,7 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_id);
             _packet.Write(_name);
 
-            SendTCPDataToAll(_id, _packet);
+            SendUDPDataToAll(_id, _packet);
         }
     }
 

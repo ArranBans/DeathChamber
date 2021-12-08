@@ -189,8 +189,10 @@ public class ClientHandle : MonoBehaviour
     {
         float _value = _packet.ReadFloat();
 
+        Player p = testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>();
+        p.health = _value;
+        p.healthSlider.value = _value;
 
-        testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().health = _value;
     }
 
     public static void Die(Packet _packet)

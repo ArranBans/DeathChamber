@@ -43,7 +43,7 @@ public class Gun : Item
         desiredPos = gunSO.hipPos;
         cam = GetComponentInParent<Camera>();
         player = GetComponentInParent<Player>();
-        camFov = cam.fieldOfView;
+        camFov = pTController.camFov;
         camDPos = cam.transform.localPosition;
         camDRot = new Vector3(cam.transform.localRotation.eulerAngles.x, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
         fireMode = gunSO.defaultFireMode;
@@ -202,7 +202,7 @@ public class Gun : Item
         Debug.Log("Firing");
 
         //SpawnBullet on client and server
-        GameObject bullet = (GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), cam.transform.position, cam.transform.rotation);
+        GameObject bullet = (GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), pTController.bulletTransform.transform.position, pTController.bulletTransform.transform.rotation);
         ClientSend.FireWeapon();
 
         recoiling = true;
