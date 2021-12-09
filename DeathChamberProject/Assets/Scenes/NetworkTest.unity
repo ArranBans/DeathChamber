@@ -972,6 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localPlayerPrefab: {fileID: 8497053108068278566, guid: eb8ba9565c44fa94ba68e64c9b24edf8, type: 3}
   playerPrefab: {fileID: 8497053108068278566, guid: fe2d05c69376b204f8344319cc179f18, type: 3}
+  StateInterp: 40
 --- !u!4 &520634961
 Transform:
   m_ObjectHideFlags: 0

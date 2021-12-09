@@ -338,6 +338,10 @@ public class testPlayerController : MonoBehaviour
             {
                 return true;
             }
+            else if (hit.collider.gameObject.GetComponent<Interactable>() || hit.collider.gameObject.GetComponentInParent<Interactable>())
+            {
+                return true;
+            }
             else
             {
                 return false;

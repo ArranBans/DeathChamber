@@ -111,8 +111,7 @@ public class ClientHandle : MonoBehaviour
             {
                 if (_item.id == _id)
                 {
-                    _item.gameObject.transform.position = _pos;
-                    _item.gameObject.transform.rotation = _rot;
+                    _item.UpdateItemState(_pos, _rot);
                 }
             }
             
