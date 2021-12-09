@@ -152,6 +152,17 @@ public class ClientHandle : MonoBehaviour
     public static void RemoveItemFromInventory(Packet _packet)
     {
         int _index = _packet.ReadInt();
+        bool _clear = _packet.ReadBool();
+        if(_clear)
+        {
+            foreach(Item i in testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().inventory)
+            {
+                Destroy(i);
+            }
+
+            testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().inventory = new List<Item>();
+            return;
+        }
         testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().RemoveItemFromInventory(_index);
     }
 

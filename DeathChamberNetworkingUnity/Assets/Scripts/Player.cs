@@ -94,13 +94,24 @@ public class Player : MonoBehaviour
 
     }
 
-    public void RemoveItemFromInventory(int _i)
+    public void RemoveItemFromInventory(int _i, bool _clear)
     {
+        if(_clear)
+        {
+            foreach(Item i in inventory)
+            {
+                Destroy(i);
+            }
+            inventory = new List<Item>();
+            return;
+        }
+
         Debug.Log($"Item: {_i} removed from inventory of {id}");
         Item _item = inventory[_i];
         Destroy(inventory[_i].gameObject);
-        Destroy(inventory[_i]);
+        //Destroy(inventory[_i]);
         inventory.RemoveAt(_i);
+        ServerSend.RemoveItemFromInventory(id, _i, _clear);
     }
     public void SetHealth(float _value)
     {
@@ -110,19 +121,22 @@ public class Player : MonoBehaviour
         if(health <= 0)
         {
             //Destroy(Server.clients[id].player.gameObject);
-            ServerSend.Die(id);
-
+            
             foreach (Item i in inventory)
             {
-                testGameManager.instance.SpawnItem(i.itemSO.id, dropTransform.position, transform.rotation);
-                RemoveItemFromInventory(0);
-                ServerSend.RemoveItemFromInventory(id, 0);       
+                if(i != null)
+                {
+                    testGameManager.instance.SpawnItem(i.itemSO.id, dropTransform.position, transform.rotation);
+                    RemoveItemFromInventory(inventory.IndexOf(i), false);
+                    
+                }
+                     
             }
-
+            ServerSend.Die(id);
             Debug.Log($"player {id} has died");
-
-            testGameManager.instance.Respawner(id);
             capsule.SetActive(false);
+            testGameManager.instance.Respawner(id);
+            
         }
     }
 

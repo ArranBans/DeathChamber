@@ -63,8 +63,7 @@ public class ServerHandle
         int _id = Server.clients[_fromClient].player.inventory[_index].itemSO.id;
 
 
-        Server.clients[_fromClient].player.RemoveItemFromInventory(_index);
-        ServerSend.RemoveItemFromInventory(_fromClient, _index);
+        Server.clients[_fromClient].player.RemoveItemFromInventory(_index, false);
         testGameManager.instance.SpawnItem(_id, Server.clients[_fromClient].player.dropTransform.position, Server.clients[_fromClient].player.transform.rotation);
     }
 

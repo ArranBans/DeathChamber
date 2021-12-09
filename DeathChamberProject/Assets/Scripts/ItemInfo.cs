@@ -44,6 +44,10 @@ public class ItemInfo : MonoBehaviour
                 iState = ItemState.pickup;
                 foreach(GameObject gameO in ViewmodelOnly)
                 {
+                    if(gameO.GetComponentInChildren<Camera>())
+                    {
+                        Destroy(gameO.GetComponentInChildren<Camera>().gameObject);
+                    }
                     gameO.SetActive(false);
                 }
                 break;
@@ -52,6 +56,10 @@ public class ItemInfo : MonoBehaviour
                 transform.localPosition = g.hipPos;
                 foreach (GameObject gameO in ViewmodelOnly)
                 {
+                    if (gameO.GetComponentInChildren<Camera>())
+                    {
+                        Destroy(gameO.GetComponentInChildren<Camera>().gameObject);
+                    }
                     gameO.SetActive(false);
                 }
                 break;

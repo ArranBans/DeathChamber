@@ -2481,8 +2481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {x: 0, y: 0, z: 0}
   items: []
-  maxItems: 200
-  itemSpawnInterval: 1
+  maxItems: 50
+  itemSpawnInterval: 0.05
   updateFrequency: 20
 --- !u!4 &1368945263
 Transform:

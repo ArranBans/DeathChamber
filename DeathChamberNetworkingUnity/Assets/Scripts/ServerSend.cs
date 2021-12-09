@@ -191,11 +191,12 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void RemoveItemFromInventory(int _id, int _index)
+    public static void RemoveItemFromInventory(int _id, int _index, bool _clear)
     {
         using (Packet _packet = new Packet((int)ServerPackets.removeItemFromInventory))
         {
             _packet.Write(_index);
+            _packet.Write(_clear);
 
             SendTCPData(_id, _packet);
         }
