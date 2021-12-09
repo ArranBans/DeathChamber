@@ -247,9 +247,15 @@ public class Client
     }
 
 
-    public void Respawn()
+    public IEnumerator Respawn(int id)
     {
-        //SendIntoGame(pName);
+        yield return new WaitForSeconds(2.5f);
+        Server.clients[id].player.capsule.gameObject.SetActive(true);
+        Server.clients[id].player.transform.position = testGameManager.instance.spawnPoint;
+        Server.clients[id].player.health = Server.clients[id].player.maxHealth;
+        ServerSend.Respawn(id);
+        ServerSend.ChangeHealth(id, Server.clients[id].player.maxHealth);
+        Debug.Log($"player {id} has respawned");
     }
 
     private void Disconnect()

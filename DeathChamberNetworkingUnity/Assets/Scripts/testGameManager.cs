@@ -89,18 +89,9 @@ public class testGameManager : MonoBehaviour
 
     public void Respawner(int _id)
     {
-        StartCoroutine(Respawn(_id));
+        StartCoroutine(Server.clients[_id].Respawn(_id));
     }
     
 
-    public IEnumerator Respawn(int id)
-    {
-        yield return new WaitForSeconds(2.5f);
-        Server.clients[id].player.capsule.gameObject.SetActive(true);
-        Server.clients[id].player.transform.position = spawnPoint;
-        Server.clients[id].player.health = Server.clients[id].player.maxHealth;
-        ServerSend.Respawn(id);
-        ServerSend.ChangeHealth(id, Server.clients[id].player.maxHealth);
-        Debug.Log($"player {id} has respawned");
-    }
+    
 }
