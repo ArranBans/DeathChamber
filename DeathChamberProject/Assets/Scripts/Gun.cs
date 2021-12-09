@@ -80,7 +80,7 @@ public class Gun : Item
             Input.GetAxisRaw("Mouse Y")
         };
 
-        if (player.paused)
+        if (player.pManager.paused)
         {
             inputs = new float[] { 0, 0 };
         }
@@ -92,7 +92,7 @@ public class Gun : Item
         #endregion
 
         #region Firemode Handling
-        if (!player.paused)
+        if (!player.pManager.paused)
         {
             switch (fireMode)
             {
@@ -132,7 +132,7 @@ public class Gun : Item
         #endregion
 
         #region Aiming
-        if (!player.paused)
+        if (!player.pManager.paused)
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {

@@ -91,7 +91,18 @@ public class testGameManager : MonoBehaviour
     {
         StartCoroutine(Server.clients[_id].Respawn(_id));
     }
-    
 
-    
+    public void Respawn(int _id)
+    {
+        Player p = NetworkManager.instance.InstantiatePlayer();
+        p.Initialise(_id, Server.clients[_id].pName, spawnPoint);
+        p.SetHealth(p.maxHealth);
+        Server.clients[_id].player = p;
+        ServerSend.Respawn(_id);
+        p.ChangeSelectedItem(0);
+        ServerSend.ChangeSelectedItem(_id, 0);
+    }
+
+
+
 }

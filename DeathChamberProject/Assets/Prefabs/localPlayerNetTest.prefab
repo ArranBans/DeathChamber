@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4485738764054445882}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: UnpauseGame
+      - m_Target: {fileID: 5673960103840328987}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: PauseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2704,11 +2704,11 @@ MonoBehaviour:
   inventorySize: 5
   hotbar: []
   selectedItem: 0
+  pManager: {fileID: 5673960103840328987}
   PauseCanvas: {fileID: 672431946906845310}
   HudCanvas: {fileID: 4677611110744171957}
   InventoryCanvas: {fileID: 4306154714776306003}
   InteractCanvas: {fileID: 8740927475447801365}
-  paused: 0
   inventoryOpen: 0
   maxHealth: 0
   health: 0
@@ -6487,6 +6487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8497053108068278567}
   - component: {fileID: 9064957814945285858}
+  - component: {fileID: 5673960103840328987}
   m_Layer: 0
   m_Name: localPlayerNetTest
   m_TagString: Untagged
@@ -6526,6 +6527,20 @@ MonoBehaviour:
   username: 
   alive: 1
   playerObj: {fileID: 3153001284375105548}
+--- !u!114 &5673960103840328987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497053108068278566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421158dbbd608c840a44f9fdaf9cb772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4485738764054445882}
+  paused: 0
 --- !u!1 &8842968424222064343
 GameObject:
   m_ObjectHideFlags: 0

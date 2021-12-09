@@ -210,14 +210,15 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
 
         Debug.Log($"Player {_id} has died");
-        testGameManager.players[_id].playerObj.SetActive(false);
-        Player p;
-        if (_id == Client.instance.myId)
+        
+        if(_id == Client.instance.myId)
         {
-            p = testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>();
-            p.health = p.maxHealth;
+            testGameManager.players[_id].playerObj.GetComponent<Player>().Die();
         }
-        //testGameManager.players.Remove(_id);
+        else
+        {
+            testGameManager.players[_id].playerObj.SetActive(false);
+        }
     }
 
     public static void Respawn(Packet _packet)
@@ -225,8 +226,15 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
 
         Debug.Log($"Player {_id} has respawned");
-        testGameManager.players[_id].playerObj.SetActive(true);
-        //testGameManager.players.Remove(_id);
+
+        if (_id == Client.instance.myId)
+        {
+            testGameManager.players[_id].playerObj.GetComponent<Player>().Respawn();
+        }
+        else
+        {
+            testGameManager.players[_id].playerObj.SetActive(true);
+        }
     }
 
 }

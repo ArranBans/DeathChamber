@@ -59,12 +59,9 @@ public class testPlayerController : MonoBehaviour
         
         
 
-        if (player.paused)
+        if (player.pManager.paused)
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                player.UnpauseGame();
-            }
+            
         }
         else if(player.inventoryOpen)
         {
@@ -75,11 +72,6 @@ public class testPlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                player.PauseGame();
-            }
-
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 player.OpenInventory();
@@ -162,7 +154,7 @@ public class testPlayerController : MonoBehaviour
             Input.GetKey(KeyCode.LeftShift)
         };
 
-        if (player.paused)
+        if (player.pManager.paused)
         {
             _inputs = new bool[6];
         }

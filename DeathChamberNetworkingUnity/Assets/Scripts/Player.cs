@@ -127,16 +127,13 @@ public class Player : MonoBehaviour
                 if(i != null)
                 {
                     testGameManager.instance.SpawnItem(i.itemSO.id, dropTransform.position, transform.rotation);
-                    RemoveItemFromInventory(inventory.IndexOf(i), false);
-                    
-                }
-                     
+                }       
             }
+
             ServerSend.Die(id);
             Debug.Log($"player {id} has died");
-            capsule.SetActive(false);
             testGameManager.instance.Respawner(id);
-            
+            Destroy(gameObject);
         }
     }
 
