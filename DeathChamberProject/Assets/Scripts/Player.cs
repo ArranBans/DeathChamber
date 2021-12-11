@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     public int selectedItem = 0;
     [Header("UI")]
     public PauseManager pManager;
-    public Canvas PauseCanvas;
     public Canvas HudCanvas;
     public Canvas InventoryCanvas;
     public Canvas InteractCanvas;
@@ -41,8 +40,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-
 
     public void ChangeSelectedItem(int _index)
     {
@@ -89,27 +86,6 @@ public class Player : MonoBehaviour
         ChangeSelectedItem(_index);
     }
 
-    public void PauseGame()
-    {
-        if(pManager.paused)
-        {
-            inventoryOpen = false;
-            PauseCanvas.gameObject.SetActive(true);
-            HudCanvas.gameObject.SetActive(false);
-            InventoryCanvas.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            PauseCanvas.gameObject.SetActive(false);
-            HudCanvas.gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-        
-    }
-
     public void OpenInventory()
     {
         inventoryOpen = true;
@@ -128,14 +104,10 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        foreach(Item i in inventory)
-        {
-            Destroy(i.gameObject);
-            inventory.Remove(i);
-        }
-
-        selectedItem = 0;
-        gameObject.SetActive(false);
+        pManager.GetComponent<DeployScreen>().deployScreen.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Destroy(gameObject);
     }
 
     public void Respawn()

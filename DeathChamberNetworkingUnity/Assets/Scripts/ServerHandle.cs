@@ -14,7 +14,6 @@ public class ServerHandle
         {
             Debug.Log($"Player \"{_username}\" (ID: {_fromclient}) has assumed the wrong client ID ({_clientIdCheck})!!!");
         }
-        Server.clients[_fromclient].pName = _username;
         Server.clients[_fromclient].SendIntoGame(_username);
     }
 
@@ -29,7 +28,7 @@ public class ServerHandle
         Quaternion _camRotation = _packet.ReadQuaternion();
         int _tick = _packet.ReadInt();
 
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation, _camRotation, _tick);
+        Server.clients[_fromClient].playerManager.player.SetInput(_inputs, _rotation, _camRotation, _tick);
     }
 
     public static void UDPTest(int _fromClient, Packet _packet)
@@ -42,17 +41,29 @@ public class ServerHandle
     public static void Interact(int _fromClient, Packet _packet)
     {
         ItemPickup _item;
-        if(Server.clients[_fromClient].player.InteractRaycast(out _item))
+        GameObject _object;
+        if(Server.clients[_fromClient].playerManager.player.InteractRaycast(out _object))
         {
 
            //Debug.Log($"client {_fromClient} interacted with {_item}");
-            if(Server.clients[_fromClient].player.AddItemToInventory(_item.iSO))
+            if(_object.GetComponent(typeof(IInteractable)))
             {
-                ServerSend.AddItemToInventory(_fromClient, _item.iSO.id);
-                ServerSend.RemoveItem(_item.id);
-                testGameManager.instance.items[testGameManager.instance.items.IndexOf(_item)] = null;
-                UnityEngine.Object.Destroy(_item.gameObject);
+                IInteractable i = (IInteractable)_object.GetComponent(typeof(IInteractable));
+                i.Interacted();
             }
+            else if(_object.GetComponent<ItemPickup>())
+            {
+
+                _item = _object.GetComponent<ItemPickup>();
+                if (Server.clients[_fromClient].playerManager.player.AddItemToInventory(_item.iSO))
+                {
+                    ServerSend.AddItemToInventory(_fromClient, _item.iSO.id);
+                    ServerSend.RemoveItem(_item.id);
+                    testGameManager.instance.items[testGameManager.instance.items.IndexOf(_item)] = null;
+                    UnityEngine.Object.Destroy(_item.gameObject);
+                }
+            }
+            
             
         }
     }
@@ -60,29 +71,29 @@ public class ServerHandle
     public static void DropItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
-        int _id = Server.clients[_fromClient].player.inventory[_index].itemSO.id;
+        int _id = Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id;
 
 
-        Server.clients[_fromClient].player.RemoveItemFromInventory(_index, false);
-        testGameManager.instance.SpawnItem(_id, Server.clients[_fromClient].player.dropTransform.position, Server.clients[_fromClient].player.transform.rotation);
+        Server.clients[_fromClient].playerManager.player.RemoveItemFromInventory(_index, false);
+        testGameManager.instance.SpawnItem(_id, Server.clients[_fromClient].playerManager.player.dropTransform.position, Server.clients[_fromClient].playerManager.player.transform.rotation);
     }
 
     public static void ChangeSelectedItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
         Debug.Log(_index);
-        Server.clients[_fromClient].player.ChangeSelectedItem(_index);
+        Server.clients[_fromClient].playerManager.player.ChangeSelectedItem(_index);
 
-        if (_index + 1 <= Server.clients[_fromClient].player.inventory.Count)
+        if (_index + 1 <= Server.clients[_fromClient].playerManager.player.inventory.Count)
         {
-            if (Server.clients[_fromClient].player.inventory[_index] != null)
+            if (Server.clients[_fromClient].playerManager.player.inventory[_index] != null)
             {
                 Debug.Log($"Player {_fromClient} changed item to {_index}");
-                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.id);
+                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
             }
             else
             {
-                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.id);
+                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
             }
         } 
         else
@@ -95,7 +106,15 @@ public class ServerHandle
 
     public static void FireWeapon(int _fromClient, Packet _packet)
     {
-        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].player.bulletTransform.position, Server.clients[_fromClient].player.bulletTransform.rotation);
-        ServerSend.FireWeapon(_fromClient, Server.clients[_fromClient].player.inventory[Server.clients[_fromClient].player.selectedItem].itemSO.ItemName);
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].playerManager.player.bulletTransform.position, Server.clients[_fromClient].playerManager.player.bulletTransform.rotation);
+        ServerSend.FireWeapon(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName);
+    }
+
+    public static void Deploy(int _fromClient, Packet _packet)
+    {
+        if(!Server.clients[_fromClient].playerManager.player)
+        {
+            testGameManager.instance.Deploy(_fromClient);
+        }
     }
 }

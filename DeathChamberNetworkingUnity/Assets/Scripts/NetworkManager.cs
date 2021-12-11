@@ -5,7 +5,8 @@ using UnityEngine;
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager instance;
-    public GameObject playerPrefab;
+    public GameObject playerManagerPrefab;
+    public GameObject playerObject;
 
     public void Awake()
     {
@@ -34,8 +35,13 @@ public class NetworkManager : MonoBehaviour
         Server.Stop();
     }
 
-    public Player InstantiatePlayer()
+    public PlayerManager InstantiatePlayerManager()
     {
-        return Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).GetComponentInChildren<Player>();
+        return Instantiate(playerManagerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerManager>();
+    }
+
+    public Player InstantiatePlayer(PlayerManager playerManager)
+    {
+        return Instantiate(playerObject, testGameManager.instance.spawnPoint, Quaternion.identity, playerManager.transform).GetComponent<Player>();
     }
 }

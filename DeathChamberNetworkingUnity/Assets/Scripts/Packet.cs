@@ -21,7 +21,8 @@ public enum ServerPackets
     fireWeapon,
     changeHealth,
     die,
-    respawn
+    respawn,
+    serverDeploy
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -33,7 +34,8 @@ public enum ClientPackets
     interact,
     dropItem,
     changeSelectedItem,
-    fireWeapon
+    fireWeapon,
+    deploy
 }
 
 public class Packet : IDisposable

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpawnItem : ButtonActivated
+public class SpawnItem : MonoBehaviour, IButtonActivated
 {
     public int ItemToSpawn;
     public Vector3 spawnPos;
-    public Quaternion spawnRot;
+    public Vector3 spawnRot;
 
-    public override void Activated()
+    public void Activated()
     {
-        testGameManager.instance.SpawnItem(ItemToSpawn, spawnPos, spawnRot);
+        testGameManager.instance.SpawnItem(ItemToSpawn, spawnPos, Quaternion.Euler(spawnRot));
     }
 }

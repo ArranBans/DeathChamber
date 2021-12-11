@@ -94,5 +94,13 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void Deploy()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.deploy))
+        {
+            SendTCPData(_packet);
+        }
+    }
+
     #endregion
 }

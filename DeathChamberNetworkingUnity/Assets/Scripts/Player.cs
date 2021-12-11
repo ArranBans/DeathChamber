@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int id;
-    public string username;
+    public PlayerManager pManager;
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpspeed = 5;
@@ -28,12 +27,10 @@ public class Player : MonoBehaviour
     public float health;
     public GameObject capsule;
 
-    public void Initialise(int _id, string _username, Vector3 _spawnPos)
+    public void Initialise()
     {
-        id = _id;
-        username = _username;
-
         inputs = new bool[6];
+        health = maxHealth;
     }
 
     public void FixedUpdate()
@@ -48,6 +45,7 @@ public class Player : MonoBehaviour
     {
         ServerSend.PlayerPosition(this, tick, inputs);
         ServerSend.PlayerRotation(this);
+        //Debug.Log($"{pManager.id} moved and rotated");
     }
 
     public void SetInput(bool[] _inputs, Quaternion _rotation, Quaternion _camRotation, int _tick)
@@ -106,17 +104,17 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Item: {_i} removed from inventory of {id}");
+        Debug.Log($"Item: {_i} removed from inventory of {pManager.id}");
         Item _item = inventory[_i];
         Destroy(inventory[_i].gameObject);
         //Destroy(inventory[_i]);
         inventory.RemoveAt(_i);
-        ServerSend.RemoveItemFromInventory(id, _i, _clear);
+        ServerSend.RemoveItemFromInventory(pManager.id, _i, _clear);
     }
     public void SetHealth(float _value)
     {
         health = _value;
-        ServerSend.ChangeHealth(id, _value);
+        ServerSend.ChangeHealth(pManager.id, _value);
 
         if(health <= 0)
         {
@@ -130,14 +128,14 @@ public class Player : MonoBehaviour
                 }       
             }
 
-            ServerSend.Die(id);
-            Debug.Log($"player {id} has died");
-            testGameManager.instance.Respawner(id);
+            ServerSend.Die(pManager.id);
+            Debug.Log($"player {pManager.id} has died");
+            //testGameManager.instance.Respawner(pManager.id);
             Destroy(gameObject);
         }
     }
 
-    public bool InteractRaycast(out ItemPickup _item)
+    public bool InteractRaycast(out GameObject _object)
     {
         Vector3 rayVector = camTransform.rotation * Vector3.forward * interactDistance;
         Ray ray = new Ray(camTransform.position, rayVector);
@@ -151,22 +149,34 @@ public class Player : MonoBehaviour
 
             if (hit.collider.gameObject.GetComponent<ItemPickup>() || hit.collider.gameObject.GetComponentInParent<ItemPickup>())
             {
-                Debug.Log($"client {id} interacted with {hit.collider.name}");
-                _item = hit.collider.gameObject.GetComponent<ItemPickup>();
+                Debug.Log($"client {pManager.id} interacted with pickup {hit.collider.name}");
+                _object = hit.collider.gameObject;
                 return true;   
+            }
+            else if(hit.collider.gameObject.GetComponent(typeof(IInteractable)))
+            {
+                Debug.Log($"client {pManager.id} interacted with interactable {hit.collider.name}");
+                _object = hit.collider.gameObject;
+                return true;
+            }
+            else if(hit.collider.gameObject.GetComponentInParent(typeof(IInteractable)))
+            {
+                Debug.Log($"client {pManager.id} interacted with interactable {hit.collider.name}");
+                _object = hit.collider.gameObject;
+                return true;
             }
             else
             {
-                Debug.Log($"client {id} interacted with non item: {hit.collider.name}");
-                _item = null;
+                Debug.Log($"client {pManager.id} interacted with non item: {hit.collider.name}");
+                _object = null;
                 return false;
             }
 
         }
         else
         {
-            Debug.Log($"client {id} interacted with nothing");
-            _item = null;
+            Debug.Log($"client {pManager.id} interacted with nothing");
+            _object = null;
             return false;
         }
         

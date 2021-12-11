@@ -24,7 +24,7 @@ public class Gun : Item
 
     public void Fire()
     {
-        Debug.Log("Firing");
+        //Debug.Log("Firing");
         //GameObject bullet = Instantiate(gunSO.bulletObject, gunSO.bulletSpawnPoint.position, gunSO.bulletSpawnPoint.rotation); <-------------- SPAWN BULLET TO KILL THINGS
     }
 }

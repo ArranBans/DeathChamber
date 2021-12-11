@@ -24,10 +24,8 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"SpawnPlayerReceived");
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
-        Vector3 _position = _packet.ReadVector3();
-        Quaternion _rotation = _packet.ReadQuaternion();
 
-        testGameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        testGameManager.instance.SpawnPlayerManager(_id, _username);
 
         if (_id != Client.instance.myId)
         {
@@ -48,6 +46,11 @@ public class ClientHandle : MonoBehaviour
         for (int i = 0; i < _inputs.Length; i++)
         {
             _inputs[i] = _packet.ReadBool();
+        }
+
+        if(!testGameManager.players[_id].playerObj)
+        {
+            return;
         }
 
         if (testGameManager.players[_id].playerObj.GetComponent<testPlayerController>() != null)
@@ -217,7 +220,7 @@ public class ClientHandle : MonoBehaviour
         }
         else
         {
-            testGameManager.players[_id].playerObj.SetActive(false);
+            Destroy(testGameManager.players[_id].playerObj);
         }
     }
 
@@ -237,4 +240,23 @@ public class ClientHandle : MonoBehaviour
         }
     }
 
+    public static void Deploy(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Vector3 _pos = _packet.ReadVector3();
+        Quaternion _rot = _packet.ReadQuaternion();
+
+        Debug.Log($"Player {_id} has Deployed!!!");
+
+        if(!testGameManager.players[_id].playerObj)
+        {
+            testGameManager.instance.SpawnPlayer(_id, _pos, _rot);
+        }
+        else
+        {
+            Debug.Log($"Player {_id} is already deployed!!!");
+        }
+        
+
+    }
 }

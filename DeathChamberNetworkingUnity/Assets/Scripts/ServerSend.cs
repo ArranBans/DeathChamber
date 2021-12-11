@@ -78,17 +78,15 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void SpawnPlayer(int _toClient, Player _player)
+    public static void SpawnPlayer(int _toClient, PlayerManager _playerManager)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
         {
-            _packet.Write(_player.id);
-            _packet.Write(_player.username);
-            _packet.Write(_player.transform.position);
-            _packet.Write(_player.transform.rotation);
+            _packet.Write(_playerManager.id);
+            _packet.Write(_playerManager.username);
 
             SendTCPData(_toClient, _packet);
-            Debug.Log($"Told player {_toClient}, {_player.username} to spawn in player {_player.id}");
+            Debug.Log($"Told player {_toClient}, {_playerManager.username} to spawn in player {_playerManager.id}");
         }
     }
 
@@ -96,7 +94,7 @@ public class ServerSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerPosition))
         {
-            _packet.Write(_player.id);
+            _packet.Write(_player.pManager.id);
             _packet.Write(_player.transform.position);
             _packet.Write(_player.transform.rotation);
             _packet.Write(_tick);
@@ -115,11 +113,11 @@ public class ServerSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
         {
-            _packet.Write(_player.id);
+            _packet.Write(_player.pManager.id);
             _packet.Write(_player.transform.rotation);
             _packet.Write(_player.camTransform.rotation);
 
-            SendUDPDataToAll(_player.id, _packet);
+            SendUDPDataToAll(_player.pManager.id, _packet);
         }
     }
 
@@ -249,6 +247,18 @@ public class ServerSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ServerPackets.respawn))
         {
             _packet.Write(_id);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void Deploy(int _id, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.serverDeploy))
+        {
+            _packet.Write(_id);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
 
             SendTCPDataToAll(_packet);
         }

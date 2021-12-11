@@ -9,8 +9,7 @@ public class Client
 {
     public static int dataBufferSize = 4096;
     public int id;
-    public string pName;
-    public Player player;
+    public PlayerManager playerManager;
     public TCP tcp;
     public UDP udp;
 
@@ -189,40 +188,40 @@ public class Client
 
     public void SendIntoGame(string _playername)
     {
-        player = NetworkManager.instance.InstantiatePlayer();
-        player.Initialise(id, _playername, testGameManager.instance.spawnPoint);
-        pName = _playername;
+        playerManager = NetworkManager.instance.InstantiatePlayerManager();
+        playerManager.username = _playername;
+        playerManager.id = id;
 
-        foreach (Client _client in Server.clients.Values)
+        foreach (Client _client in Server.clients.Values) // Spawn them on me
         {
-            if (_client.player != null)
+            if (_client.playerManager != null)
             {
                 if (_client.id != id)
                 {
-                    ServerSend.SpawnPlayer(id, _client.player);
+                    ServerSend.SpawnPlayer(id, _client.playerManager);
+
+                    if (Server.clients[_client.id].playerManager.player)
+                    {
+                        ServerSend.Deploy(_client.id, Server.clients[_client.id].playerManager.player.transform.position, Server.clients[_client.id].playerManager.player.transform.rotation);
+                    }
                 }
+                
             }
-            else
-            {
-                //Debug.Log($"Client {_client.id} has no player");
-            }
+
         }
 
-        foreach (Client _client in Server.clients.Values)
+        foreach (Client _client in Server.clients.Values) // Spawn me on everyone
         {
-            if (_client.player != null)
+            if (_client.playerManager != null)
             {
-                ServerSend.SpawnPlayer(_client.id, player);
+                ServerSend.SpawnPlayer(_client.id, playerManager);
             }
-            else
-            {
-                //Debug.Log($"Client {_client.id} has no player");
-            }
+
         }
 
         foreach (Client _client in Server.clients.Values)//spawn Items on new joined client
         {
-            if (_client.player != null)
+            if (_client.playerManager != null)
             {
                 if(_client.id == id)
                 {
@@ -243,8 +242,6 @@ public class Client
                 //Debug.Log($"Client {_client.id} has no player");
             }
         }
-
-        player.SetHealth(player.maxHealth);
     }
 
 
@@ -261,12 +258,16 @@ public class Client
 
         ThreadManager.ExecuteOnMainThread(() =>
         {
-            foreach(Item _i in player.inventory)
+            if(playerManager.player)
             {
-                testGameManager.instance.SpawnItem(_i.itemSO.id, player.dropTransform.position, player.dropTransform.rotation);
+                foreach (Item _i in playerManager.player.inventory)
+                {
+                    testGameManager.instance.SpawnItem(_i.itemSO.id, playerManager.player.dropTransform.position, playerManager.player.dropTransform.rotation);
+                }
             }
-            UnityEngine.Object.Destroy(player.gameObject);
-            player = null;
+            
+            UnityEngine.Object.Destroy(playerManager.gameObject);
+            playerManager = null;
         });  
 
         tcp.Disconnect();

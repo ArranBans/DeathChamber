@@ -8,6 +8,8 @@ public class testGameManager : MonoBehaviour
     public static Dictionary<int, testPlayerManager> players = new Dictionary<int, testPlayerManager>();
     [SerializeField]public static List<ItemPickup> itemPickups = new List<ItemPickup>();
 
+    public GameObject localPlayerManagerPrefab;
+    public GameObject playerManagerPrefab;
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
 
@@ -31,20 +33,39 @@ public class testGameManager : MonoBehaviour
         //Debug.Log($"{itemPickups.Count}");
     }
 
-    public void SpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
+    public void SpawnPlayerManager(int _id, string _username)
     {
         GameObject _player;
         if (_id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            _player = Instantiate(localPlayerManagerPrefab, Vector3.zero, Quaternion.identity);
         }
         else
         {
-            _player = Instantiate(playerPrefab, _position, _rotation);
+            _player = Instantiate(playerManagerPrefab, Vector3.zero, Quaternion.identity);
         }
 
         _player.GetComponent<testPlayerManager>().id = _id;
         _player.GetComponent<testPlayerManager>().username = _username;
         players.Add(_id, _player.GetComponent<testPlayerManager>());
+    }
+
+    public void SpawnPlayer(int _id, Vector3 _pos, Quaternion _rot)
+    {
+        GameObject _player;
+        if (_id == Client.instance.myId)
+        {
+            _player = Instantiate(localPlayerPrefab, _pos, _rot, players[_id].transform);
+            players[_id].playerObj = _player;
+            players[_id].playerObj.GetComponent<Player>().pManager = players[_id].GetComponent<PauseManager>();
+            players[_id].GetComponent<PauseManager>().player = players[_id].playerObj.GetComponent<Player>();
+            players[_id].GetComponent<DeployScreen>().deployScreen.SetActive(false);
+        }
+        else
+        {
+            _player = Instantiate(playerPrefab, _pos, _rot, players[_id].transform);
+        }
+
+        players[_id].playerObj = _player;
     }
 }

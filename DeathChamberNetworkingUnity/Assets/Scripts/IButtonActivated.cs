@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ButtonActivated : MonoBehaviour
+public interface IButtonActivated
 {
     public abstract void Activated();
 }

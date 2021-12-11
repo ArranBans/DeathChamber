@@ -199,7 +199,7 @@ public class Gun : Item
 
     void Fire()
     {
-        Debug.Log("Firing");
+        //Debug.Log("Firing");
 
         //SpawnBullet on client and server
         GameObject bullet = (GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), pTController.bulletTransform.transform.position, pTController.bulletTransform.transform.rotation);
@@ -235,6 +235,6 @@ public class Gun : Item
         }
 
         //return null;
-        Debug.Log("Recoiled");
+       // Debug.Log("Recoiled");
     }
 }

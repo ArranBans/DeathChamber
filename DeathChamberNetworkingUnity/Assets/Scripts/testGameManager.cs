@@ -94,15 +94,20 @@ public class testGameManager : MonoBehaviour
 
     public void Respawn(int _id)
     {
-        Player p = NetworkManager.instance.InstantiatePlayer();
-        p.Initialise(_id, Server.clients[_id].pName, spawnPoint);
-        p.SetHealth(p.maxHealth);
-        Server.clients[_id].player = p;
+        //Player p = NetworkManager.instance.InstantiatePlayerManager();
+        //p.SetHealth(p.maxHealth);
+        //Server.clients[_id].player = p;
         ServerSend.Respawn(_id);
-        p.ChangeSelectedItem(0);
+        //p.ChangeSelectedItem(0);
         ServerSend.ChangeSelectedItem(_id, 0);
     }
 
-
+    public void Deploy(int _id)
+    {
+        Server.clients[_id].playerManager.player = NetworkManager.instance.InstantiatePlayer(Server.clients[_id].playerManager);
+        Server.clients[_id].playerManager.player.Initialise();
+        Server.clients[_id].playerManager.player.pManager = Server.clients[_id].playerManager;
+        ServerSend.Deploy(_id, Server.clients[_id].playerManager.player.transform.position, Server.clients[_id].playerManager.player.transform.rotation);
+    }
 
 }

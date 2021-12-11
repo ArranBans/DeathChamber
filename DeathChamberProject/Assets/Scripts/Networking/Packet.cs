@@ -20,7 +20,8 @@ public enum ServerPackets
     fireWeapon,
     changeHealth,
     die,
-    respawn
+    respawn,
+    serverDeploy
 }
 
 
@@ -33,7 +34,8 @@ public enum ClientPackets
     interact,
     dropItem,
     changeSelectedItem,
-    fireWeapon
+    fireWeapon,
+    deploy
 }
 
 public class Packet : IDisposable
