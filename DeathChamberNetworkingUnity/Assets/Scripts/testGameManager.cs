@@ -5,6 +5,7 @@ using UnityEngine;
 public class testGameManager : MonoBehaviour
 {
     public static testGameManager instance;
+    public List<Transform> spawnPoints = new List<Transform>();
     public Vector3 spawnPoint;
     public List<ItemPickup> items = new List<ItemPickup>();
     float timeToNextSpawn = 0;
@@ -104,7 +105,8 @@ public class testGameManager : MonoBehaviour
 
     public void Deploy(int _id)
     {
-        Server.clients[_id].playerManager.player = NetworkManager.instance.InstantiatePlayer(Server.clients[_id].playerManager);
+        int _spawnPI = Mathf.FloorToInt(Random.Range(0, spawnPoints.Count));
+        Server.clients[_id].playerManager.player = NetworkManager.instance.InstantiatePlayer(Server.clients[_id].playerManager, spawnPoints[_spawnPI].position);
         Server.clients[_id].playerManager.player.Initialise();
         Server.clients[_id].playerManager.player.pManager = Server.clients[_id].playerManager;
         ServerSend.Deploy(_id, Server.clients[_id].playerManager.player.transform.position, Server.clients[_id].playerManager.player.transform.rotation);

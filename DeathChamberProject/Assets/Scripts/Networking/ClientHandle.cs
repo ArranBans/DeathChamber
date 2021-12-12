@@ -184,6 +184,7 @@ public class ClientHandle : MonoBehaviour
         if(_itemId != 0)
         {
             testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem = (GameObject)Instantiate(Database.instance.GetItem(_itemId).empty, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform);
+            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.charModel);
         }
         
         

@@ -60,6 +60,7 @@ public class testGameManager : MonoBehaviour
             players[_id].playerObj.GetComponent<Player>().pManager = players[_id].GetComponent<PauseManager>();
             players[_id].GetComponent<PauseManager>().player = players[_id].playerObj.GetComponent<Player>();
             players[_id].GetComponent<DeployScreen>().deployScreen.SetActive(false);
+            players[_id].playerObj.GetComponent<Player>().HudCanvas.gameObject.SetActive(true);
         }
         else
         {

@@ -48,6 +48,7 @@ MonoBehaviour:
   iSO: {fileID: 11400000, guid: 55ec2165a725aac4880a59868e103c7e, type: 2}
   ViewmodelOnly:
   - {fileID: 4739668492284789657}
+  - {fileID: 4024607753575523626}
   iState: 0
   magAmmo: 0
   fireMode: 0
