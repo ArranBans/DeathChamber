@@ -130,7 +130,9 @@ public class Server
                 { (int)ClientPackets.dropItem, ServerHandle.DropItem },
                 { (int)ClientPackets.changeSelectedItem, ServerHandle.ChangeSelectedItem },
                 { (int)ClientPackets.fireWeapon, ServerHandle.FireWeapon },
-                { (int)ClientPackets.deploy, ServerHandle.Deploy }
+                { (int)ClientPackets.deploy, ServerHandle.Deploy },
+                { (int)ClientPackets.consumable, ServerHandle.ConsumableUse }
+
             };
         Debug.Log("Initialised Packets...");
     }

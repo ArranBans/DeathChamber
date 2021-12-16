@@ -26,9 +26,9 @@ public class ItemInfo : MonoBehaviour
                     Gun gun = gameObject.AddComponent<Gun>();
                     gun.itemInfo = this;
                 }
-                if (iSO.itemType == ItemSO.ItemType.singleUse)
+                if (iSO.itemType == ItemSO.ItemType.consumable)
                 {
-                    Item item = gameObject.AddComponent<Item>();
+                    Consumable item = gameObject.AddComponent<Consumable>();
                     item.itemInfo = this;
                 }
                 iState = ItemState.item;
@@ -52,8 +52,19 @@ public class ItemInfo : MonoBehaviour
                 }
                 break;
             case ItemState.charModel:
-                GunSO g = (GunSO)iSO;
-                transform.localPosition = g.hipPos;
+
+                if (iSO.itemType == ItemSO.ItemType.gun)
+                {
+                    GunSO g = (GunSO)iSO;
+                    transform.localPosition = g.hipPos;
+                }
+                else if (iSO.itemType == ItemSO.ItemType.consumable)
+                {
+                    ConsumableSO g = (ConsumableSO)iSO;
+                    transform.localPosition = g.idlePos;
+                }
+
+
                 foreach (GameObject gameO in ViewmodelOnly)
                 {
                     if (gameO.GetComponentInChildren<Camera>())

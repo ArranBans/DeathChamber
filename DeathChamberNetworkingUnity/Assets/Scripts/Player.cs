@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
     }
     public void SetHealth(float _value)
     {
-        health = _value;
+        health = Mathf.Clamp(_value, -1, maxHealth);
         ServerSend.ChangeHealth(pManager.id, _value);
 
         if(health <= 0)

@@ -102,5 +102,13 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void Consumable()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.consumable))
+        {
+            SendTCPData(_packet);
+        }
+    }
+
     #endregion
 }

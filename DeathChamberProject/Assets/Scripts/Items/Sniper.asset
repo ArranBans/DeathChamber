@@ -43,7 +43,7 @@ MonoBehaviour:
   semiAuto: 1
   fullAuto: 0
   boltAction: 0
-  fireRate: 0.5
+  fireRate: 0.75
   defaultFireMode: 0
   maxAmmo: 0
   magAmmo: 0

@@ -24,9 +24,9 @@ public class ItemInfo : MonoBehaviour
                     Gun gun = gameObject.AddComponent<Gun>();
                     gun.itemInfo = this;
                 }
-                if (iSO.itemType == ItemSO.ItemType.singleUse)
+                if (iSO.itemType == ItemSO.ItemType.consumable)
                 {
-                    Item item = gameObject.AddComponent<Item>();
+                    Consumable item = gameObject.AddComponent<Consumable>();
                     item.itemInfo = this;
                 }
                 iState = ItemState.item;

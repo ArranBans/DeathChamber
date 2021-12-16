@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77bbc6a6b52a114f8475304948c5193, type: 3}
+  m_Name: SmallHealth
+  m_EditorClassIdentifier: 
+  ItemName: Small Health
+  item: {fileID: 0}
+  id: 7
+  empty: {fileID: 8067814051126088379, guid: d18b66e8a27b61a42af99ae41cf26065, type: 3}
+  mass: 1
+  colliderCentre: {x: 0, y: 0, z: 0}
+  colliderSize: {x: 1, y: 1, z: 1}
+  itemType: 0
+  value: 25
+  useTime: 2
+  beginUseTime: 1
+  idlePos: {x: 0, y: 0, z: 0}
+  usePos: {x: 0, y: 0, z: 0}
+  idleRot: {x: 0, y: 0, z: 0}
+  useRot: {x: 0, y: 0, z: 0}

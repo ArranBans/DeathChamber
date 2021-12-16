@@ -15,7 +15,7 @@ public class ItemSO : ScriptableObject
     public Vector3 colliderSize;
     public enum ItemType
     {
-        singleUse,
+        consumable,
         meleeWeapon,
         gun
     }

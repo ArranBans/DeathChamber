@@ -117,4 +117,12 @@ public class ServerHandle
             testGameManager.instance.Deploy(_fromClient);
         }
     }
+
+    public static void ConsumableUse(int _fromClient, Packet _packet)
+    {
+        Consumable con = (Consumable)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem];
+        Server.clients[_fromClient].playerManager.player.SetHealth(Server.clients[_fromClient].playerManager.player.health + con.conSO.value);
+        Server.clients[_fromClient].playerManager.player.RemoveItemFromInventory(Server.clients[_fromClient].playerManager.player.selectedItem, false);
+        ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
+    }
 }
