@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3831899741543000332}
   - component: {fileID: 3831899741543000335}
   m_Layer: 0
-  m_Name: Sniper_Projectile
+  m_Name: Svd_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,12 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3831899741543000322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c43da68fdf5c814d8913784860b2e9e, type: 3}
+  m_Script: {fileID: 11500000, guid: b97bf2541a218e640854e650c6f81f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 370
-  hitforce: 1
-  damage: 100
+  force: 320
+  hitforce: 100
   rb: {fileID: 0}
   SmokeEffect: {fileID: 0}
   rayLocation: {fileID: 0}

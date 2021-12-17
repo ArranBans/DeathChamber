@@ -36,7 +36,8 @@ public enum ClientPackets
     changeSelectedItem,
     fireWeapon,
     deploy,
-    consumable
+    consumable,
+    command
 }
 
 public class Packet : IDisposable

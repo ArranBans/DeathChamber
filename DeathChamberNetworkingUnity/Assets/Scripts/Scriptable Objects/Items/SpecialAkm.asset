@@ -9,42 +9,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
-  m_Name: Akm
+  m_Script: {fileID: 11500000, guid: adea6884c8963e2448ca4125a902f23a, type: 3}
+  m_Name: SpecialAkm
   m_EditorClassIdentifier: 
-  InventoryImage: {fileID: 0}
-  empty: {fileID: 5072081310407953447, guid: b8835cf9ebad6634c92c051d38315f03, type: 3}
-  itemName: Akm
-  itemId: 1
+  ItemName: SpecialAkm
+  item: {fileID: 0}
+  id: 10
+  empty: {fileID: 5293969204462179189, guid: 7207caee23617c44095de0ce3f0a7b70, type: 3}
   mass: 0.7
   colliderCentre: {x: 0, y: 0, z: 1.0357083}
   colliderSize: {x: 0.2, y: 1.5, z: 6.2085843}
   itemType: 2
   xPosRecoil: 0
-  yPosRecoil: -0.012
-  zPosRecoil: -0.08
+  yPosRecoil: 0
+  zPosRecoil: 0
   xRotRecoil: 0
-  yRotRecoil: 0.5
-  zRotRecoil: 0.5
-  xRotOffset: -1.8
+  yRotRecoil: 0
+  zRotRecoil: 0
+  xRotOffset: 0
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
-  camXRotRecoil: 0.4
-  camYRotRecoil: 0.6
-  camZRotRecoil: 0.7
-  camXRotOffset: -1.2
+  camXRotRecoil: 0
+  camYRotRecoil: 0
+  camZRotRecoil: 0
+  camXRotOffset: 0
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 12
-  recoilSnappiness: 1000
-  recoilTime: 0.005
-  cameraRecoilTime: 0.05
+  recoilReturnSpeed: 0
+  recoilSnappiness: 0
+  recoilTime: 0
+  cameraRecoilTime: 0
   cameraReturn: 0
-  semiAuto: 1
-  fullAuto: 1
+  semiAuto: 0
+  fullAuto: 0
   boltAction: 0
-  fireRate: 10
-  defaultFireMode: 1
+  fireRate: 0
+  defaultFireMode: 0
   maxAmmo: 0
   magAmmo: 0
   ammoType: 0
@@ -53,13 +53,13 @@ MonoBehaviour:
   bulletMass: 0
   bulletSpawnPoint: {fileID: 0}
   bulletObject: {fileID: 0}
-  tiltSway: -0.55
-  hMoveSway: -0.0075
-  vMoveSway: -0.008
-  aimSwayModifier: 0.3
+  tiltSway: 0
+  hMoveSway: 0
+  vMoveSway: 0
+  aimSwayModifier: 0
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
-  aimSpeed: 10
-  aimPos: {x: 0, y: -0.255, z: 0.25}
-  hipPos: {x: 0.132, y: -0.416, z: 0.263}
-  aimFov: 0.9
+  aimSpeed: 0
+  aimPos: {x: 0, y: 0, z: 0}
+  hipPos: {x: 0, y: 0, z: 0}
+  aimFov: 0

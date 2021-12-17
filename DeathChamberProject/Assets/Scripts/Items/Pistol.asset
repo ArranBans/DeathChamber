@@ -21,19 +21,19 @@ MonoBehaviour:
   colliderSize: {x: 0.18, y: 1, z: 1.54}
   itemType: 2
   xPosRecoil: 0
-  yPosRecoil: -0.01
-  zPosRecoil: -0.075
+  yPosRecoil: -0.003
+  zPosRecoil: -0.06
   xRotRecoil: 1
   yRotRecoil: 0.5
   zRotRecoil: 0
-  xRotOffset: -8
+  xRotOffset: -5.5
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: -0.03
-  camXRotRecoil: 1
-  camYRotRecoil: 1.25
-  camZRotRecoil: 0.6
-  camXRotOffset: -1
+  camXRotRecoil: 0.2
+  camYRotRecoil: 0.6
+  camZRotRecoil: 0.4
+  camXRotOffset: -1.2
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 18
   recoilSnappiness: 5
@@ -53,10 +53,10 @@ MonoBehaviour:
   bulletMass: 0
   bulletSpawnPoint: {fileID: 0}
   bulletObject: {fileID: 0}
-  tiltSway: -0.66
-  hMoveSway: -0.01
-  vMoveSway: -0.002
-  aimSwayModifier: 0.2
+  tiltSway: -0.74
+  hMoveSway: -0.013
+  vMoveSway: -0.003
+  aimSwayModifier: 0.25
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 20

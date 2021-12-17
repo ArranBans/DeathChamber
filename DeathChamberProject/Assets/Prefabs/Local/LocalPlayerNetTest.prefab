@@ -5081,7 +5081,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.06
+  near clip plane: 0.012
   far clip plane: 1000
   field of view: 85
   orthographic: 0

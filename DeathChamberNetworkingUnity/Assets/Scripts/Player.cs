@@ -56,12 +56,12 @@ public class Player : MonoBehaviour
         tick = _tick;
     }
 
-    public bool AddItemToInventory(ItemSO _item)
+    public bool AddItemToInventory(int _item)
     {
         if (inventory.Count < inventorySize)
         {
             
-            GameObject _invItemObj = Instantiate(_item.empty, camTransform);
+            GameObject _invItemObj = Instantiate(Database.instance.itemDatabase.database[_item].empty, camTransform);
             _invItemObj.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item);
             _invItemObj.transform.localPosition = Vector3.zero;
             Item _invItem = _invItemObj.GetComponent<Item>();

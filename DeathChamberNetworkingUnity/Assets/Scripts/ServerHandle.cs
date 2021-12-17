@@ -55,7 +55,7 @@ public class ServerHandle
             {
 
                 _item = _object.GetComponent<ItemPickup>();
-                if (Server.clients[_fromClient].playerManager.player.AddItemToInventory(_item.iSO))
+                if (Server.clients[_fromClient].playerManager.player.AddItemToInventory(_item.iSO.id))
                 {
                     ServerSend.AddItemToInventory(_fromClient, _item.iSO.id);
                     ServerSend.RemoveItem(_item.id);
@@ -124,5 +124,31 @@ public class ServerHandle
         Server.clients[_fromClient].playerManager.player.SetHealth(Server.clients[_fromClient].playerManager.player.health + con.conSO.value);
         Server.clients[_fromClient].playerManager.player.RemoveItemFromInventory(Server.clients[_fromClient].playerManager.player.selectedItem, false);
         ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
+    }
+
+    public static void Command(int _fromClient, Packet _packet)
+    {
+        int _commandType = _packet.ReadInt();
+        int _index = _packet.ReadInt();
+
+        if (_commandType == 0)
+        {
+            if(Server.clients[_fromClient].playerManager.player)
+            {
+                if(Server.clients[_fromClient].playerManager.player.AddItemToInventory(_index))
+                {
+                    ServerSend.AddItemToInventory(_fromClient, _index);
+                }
+                
+            }
+        }
+        if (_commandType == 1)
+        {
+            if (Server.clients[_fromClient].playerManager.player)
+            {
+                testGameManager.instance.SpawnItem(_index, Server.clients[_fromClient].playerManager.player.dropTransform.position, Server.clients[_fromClient].playerManager.player.transform.rotation);
+                
+            }
+        }
     }
 }

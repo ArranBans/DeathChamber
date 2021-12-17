@@ -110,5 +110,15 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void Command(int _commandType, int _index)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.command))
+        {
+            _packet.Write(_commandType);
+            _packet.Write(_index);
+            SendTCPData(_packet);
+        }
+    }
+
     #endregion
 }

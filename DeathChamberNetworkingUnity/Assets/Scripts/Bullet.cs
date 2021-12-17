@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         {
             if (colliderHit.collider)
             {
-                print(colliderHit.transform.name);
+                //print(colliderHit.transform.name);
                 Quaternion hitRot = Quaternion.Euler(-transform.rotation.eulerAngles.x, -transform.rotation.eulerAngles.y, -transform.rotation.eulerAngles.z);
                 //Instantiate(SmokeEffect, colliderHit.point, hitRot);
                 if (colliderHit.collider.GetComponent<Rigidbody>())

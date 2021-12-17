@@ -43,13 +43,6 @@ public class testPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         SendInputToServer(); 
-
-        
-
-        //rb.position = 
-        //transform.position = ServerPositionStates[ServerPositionStates.Count-1].position;
-        //Debug.Log($"server tick: {ServerPositionState.tick}");
-        // Debug.Log($"local tick: {tick}");
         
         tick += 1;
     }
@@ -69,6 +62,10 @@ public class testPlayerController : MonoBehaviour
             {
                 player.CloseInventory();
             }
+        }
+        else if(player.pManager.GetComponent<ChatWindow>().chatWindowOpen)
+        {
+
         }
         else
         {
@@ -155,6 +152,10 @@ public class testPlayerController : MonoBehaviour
         };
 
         if (player.pManager.paused)
+        {
+            _inputs = new bool[6];
+        }
+        else if (player.pManager.GetComponent<ChatWindow>().chatWindowOpen)
         {
             _inputs = new bool[6];
         }
@@ -274,22 +275,6 @@ public class testPlayerController : MonoBehaviour
     public void OnServerState(PositionState _ServerState)
     {
         predictedState = _ServerState;
-        //Debug.Log($"{_ServerState.rotation.eulerAngles.x}, {_ServerState.rotation.eulerAngles.y}, {_ServerState.rotation.eulerAngles.z}");
-        /*
-        for (int x = _ServerState.tick-1; x < ClientPositionStates[ClientPositionStates.Count-1].tick; x++)
-        {
-            PositionState newState = new PositionState(new Vector3(0,0,0), new Quaternion(), tick);
-            newState.position = PredictMovement(ClientPositionStates[x].inputs, predictedState);
-            predictedState.position = newState.position;
-            //Debug.Log($"{predictedState.rotation.eulerAngles.x}, {predictedState.rotation.eulerAngles.y}, {predictedState.rotation.eulerAngles.z}");
-        }
-        for (int x = 0; x < _ServerState.tick; x++)
-        {
-            if(ClientPositionStates[x].tick <= _ServerState.tick)
-            {
-                //ClientPositionStates.Remove(ClientPositionStates[0]);
-            }
-        }*/
 
         foreach (PositionState posState in ClientPositionStates)
         {

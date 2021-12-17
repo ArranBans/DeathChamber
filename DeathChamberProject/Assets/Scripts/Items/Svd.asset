@@ -10,41 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
-  m_Name: Akm
+  m_Name: Svd
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  empty: {fileID: 5072081310407953447, guid: b8835cf9ebad6634c92c051d38315f03, type: 3}
-  itemName: Akm
-  itemId: 1
-  mass: 0.7
-  colliderCentre: {x: 0, y: 0, z: 1.0357083}
-  colliderSize: {x: 0.2, y: 1.5, z: 6.2085843}
+  empty: {fileID: 4400310708802747665, guid: 8eda86a77520be644b7f5af765ed7f91, type: 3}
+  itemName: Svd
+  itemId: 9
+  mass: 1
+  colliderCentre: {x: 0, y: 0.3, z: 1.8999997}
+  colliderSize: {x: 0.23000002, y: 0.9, z: 6.4}
   itemType: 2
   xPosRecoil: 0
-  yPosRecoil: -0.012
-  zPosRecoil: -0.08
-  xRotRecoil: 0
-  yRotRecoil: 0.5
-  zRotRecoil: 0.5
-  xRotOffset: -1.8
+  yPosRecoil: -0.0038
+  zPosRecoil: -0.09
+  xRotRecoil: 0.05
+  yRotRecoil: 0.25
+  zRotRecoil: 0
+  xRotOffset: -0.7
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
-  camXRotRecoil: 0.4
+  camXRotRecoil: 0.1
   camYRotRecoil: 0.6
-  camZRotRecoil: 0.7
-  camXRotOffset: -1.2
+  camZRotRecoil: 0.2
+  camXRotOffset: -1.3
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 12
+  recoilReturnSpeed: 9
   recoilSnappiness: 1000
-  recoilTime: 0.005
+  recoilTime: 0.008
   cameraRecoilTime: 0.05
   cameraReturn: 0
   semiAuto: 1
-  fullAuto: 1
+  fullAuto: 0
   boltAction: 0
-  fireRate: 10
-  defaultFireMode: 1
+  fireRate: 8
+  defaultFireMode: 0
   maxAmmo: 0
   magAmmo: 0
   ammoType: 0
@@ -53,13 +53,13 @@ MonoBehaviour:
   bulletMass: 0
   bulletSpawnPoint: {fileID: 0}
   bulletObject: {fileID: 0}
-  tiltSway: -0.55
-  hMoveSway: -0.0075
-  vMoveSway: -0.008
-  aimSwayModifier: 0.3
+  tiltSway: -0.3
+  hMoveSway: -0.006
+  vMoveSway: -0.004
+  aimSwayModifier: 0.2
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 10
-  aimPos: {x: 0, y: -0.255, z: 0.25}
-  hipPos: {x: 0.132, y: -0.416, z: 0.263}
-  aimFov: 0.9
+  aimPos: {x: 0, y: -0.1995, z: 0}
+  hipPos: {x: 0.08, y: -0.28, z: 0.088}
+  aimFov: 0.8

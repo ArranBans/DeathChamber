@@ -10,56 +10,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
-  m_Name: Vector
+  m_Name: SpecialAkm
   m_EditorClassIdentifier: 
   InventoryImage: {fileID: 0}
-  empty: {fileID: 9192666785742479510, guid: 422c46316ea2296469203fa6ff62cf77, type: 3}
-  itemName: Vector
-  itemId: 6
-  mass: 0.6
-  colliderCentre: {x: 0, y: 0, z: 0.1738166}
-  colliderSize: {x: 0.2, y: 1, z: 3.1823664}
+  empty: {fileID: 5072081310407953447, guid: 6ad82e46737da2e4fa2c2a25e089ad06, type: 3}
+  itemName: SpecialAkm
+  itemId: 10
+  mass: 0.7
+  colliderCentre: {x: 0, y: 0, z: 1.0357083}
+  colliderSize: {x: 0.2, y: 1.5, z: 6.2085843}
   itemType: 2
   xPosRecoil: 0
-  yPosRecoil: 0.003
-  zPosRecoil: -0.043
+  yPosRecoil: -0.012
+  zPosRecoil: -0.06
   xRotRecoil: 0
-  yRotRecoil: 0.67
-  zRotRecoil: 0.2
-  xRotOffset: -0.8
+  yRotRecoil: 0.7
+  zRotRecoil: 1.2
+  xRotOffset: -1.2
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
-  camXRotRecoil: 0.3
-  camYRotRecoil: 0.5
-  camZRotRecoil: 0.04
-  camXRotOffset: -2.6
+  camXRotRecoil: 0.5
+  camYRotRecoil: 1
+  camZRotRecoil: 1.2
+  camXRotOffset: -23
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 13
+  recoilReturnSpeed: 6
   recoilSnappiness: 1000
   recoilTime: 0.005
-  cameraRecoilTime: 0.04
-  cameraReturn: 1
+  cameraRecoilTime: 0.05
+  cameraReturn: 0
   semiAuto: 1
   fullAuto: 1
   boltAction: 0
-  fireRate: 18
+  fireRate: 10
   defaultFireMode: 1
-  maxAmmo: 240
-  magAmmo: 33
-  ammoType: 1
+  maxAmmo: 0
+  magAmmo: 0
+  ammoType: 0
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
   bulletSpawnPoint: {fileID: 0}
   bulletObject: {fileID: 0}
-  tiltSway: -0.5
-  hMoveSway: -0.005
-  vMoveSway: -0.005
-  aimSwayModifier: 0.2
+  tiltSway: -0.7
+  hMoveSway: -0.012
+  vMoveSway: -0.006
+  aimSwayModifier: 0.6
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
-  aimSpeed: 15
-  aimPos: {x: 0, y: -0.228, z: 0.616}
-  hipPos: {x: 0.12, y: -0.3, z: 0.42}
+  aimSpeed: 10
+  aimPos: {x: 0, y: -0.255, z: 0.25}
+  hipPos: {x: 0.132, y: -0.416, z: 0.263}
   aimFov: 0.9
