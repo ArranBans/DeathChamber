@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MapDatabase
   m_EditorClassIdentifier: 
   database:
-  - 
+  - Menu
   - NetworkTest
   - 
