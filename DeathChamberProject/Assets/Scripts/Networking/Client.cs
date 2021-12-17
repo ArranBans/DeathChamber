@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class Client : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void OnApplicationQuit()
@@ -307,5 +310,25 @@ public class Client : MonoBehaviour
     public void ChangeIp()
     {
         instance.ip = NetworkUiManager.instance.IpField.text;
+    }
+
+    public void LoadMap(int _mapId)
+    {
+        StartCoroutine(LoadAsynchronously(_mapId));
+    }
+
+    IEnumerator LoadAsynchronously(int _mapId)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(Database.instance.GetMap(_mapId));
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            //Debug.Log($"Loading Map: {progress}");
+            MenuOptions.instance.LoadingBar.value = progress;
+            yield return null;
+        }
+
+        ClientSend.WelcomeReceived();
     }
 }

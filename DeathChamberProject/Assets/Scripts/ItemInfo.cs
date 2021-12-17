@@ -55,7 +55,9 @@ public class ItemInfo : MonoBehaviour
 
                 if (iSO.itemType == ItemSO.ItemType.gun)
                 {
+                    
                     GunSO g = (GunSO)iSO;
+                    ((GunInfo)this).fireAudio.clip = g.gunAudio;
                     transform.localPosition = g.hipPos;
                 }
                 else if (iSO.itemType == ItemSO.ItemType.consumable)

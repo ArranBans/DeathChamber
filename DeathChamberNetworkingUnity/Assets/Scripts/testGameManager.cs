@@ -14,6 +14,7 @@ public class testGameManager : MonoBehaviour
     float timeToNextUpdate;
     public float updateFrequency = 15;
     float updateTime;
+    public int mapId;
     
 
 

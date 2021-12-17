@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: SpecialAkm
   item: {fileID: 0}
   id: 10
-  empty: {fileID: 5293969204462179189, guid: 7207caee23617c44095de0ce3f0a7b70, type: 3}
+  empty: {fileID: 5293969204462179189, guid: 3db4a73ebb348d5438f3966bd27a3b72, type: 3}
   mass: 0.7
   colliderCentre: {x: 0, y: 0, z: 1.0357083}
   colliderSize: {x: 0.2, y: 1.5, z: 6.2085843}

@@ -2896,6 +2896,7 @@ MonoBehaviour:
   maxItems: -1
   itemSpawnInterval: 0
   updateFrequency: 15
+  mapId: 1
 --- !u!4 &1368945263
 Transform:
   m_ObjectHideFlags: 0

@@ -7,4 +7,5 @@ public class GunInfo : ItemInfo
     [Header("Gun Runtime Stats")]
     public int magAmmo;
     public GunSO.FireMode fireMode;
+    public AudioSource fireAudio;
 }

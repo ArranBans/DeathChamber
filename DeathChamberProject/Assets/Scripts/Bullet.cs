@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     public Transform rayLocation;
     public RaycastHit colliderHit;
     Vector3 oldRayPoint;
+    public AudioSource hitMarker;
+    public int myId;
 
     void Start()
     {
@@ -36,6 +38,15 @@ public class Bullet : MonoBehaviour
                 {
                     colliderHit.collider.GetComponent<Rigidbody>().AddForce(rb.velocity*hitforce);
                 }
+
+                if(myId == Client.instance.myId)
+                {
+                    if (colliderHit.collider.GetComponent<NetPlayerController>() || colliderHit.collider.GetComponentInParent<NetPlayerController>())
+                    {
+                        hitMarker.PlayOneShot(hitMarker.clip);
+                    }
+                }
+                
                 Destroy(gameObject);
             }
 

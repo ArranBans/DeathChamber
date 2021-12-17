@@ -47,7 +47,7 @@ public class Client
 
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-            ServerSend.Welcome(id, $"Welcome to server: {id}!");
+            ServerSend.Welcome(id, $"Welcome to server: {id}!", testGameManager.instance.mapId);
         }
 
         public void SendData(Packet _packet)

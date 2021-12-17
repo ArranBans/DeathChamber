@@ -24,6 +24,7 @@ public class Gun : Item
     private Vector3 desiredRot;
     public testPlayerController pTController;
     public Player player;
+    AudioSource fireSource;
 
     private Vector3 _posRecoil;
     private Vector3 _rotRecoil;
@@ -35,6 +36,9 @@ public class Gun : Item
     void Start()
     {
         gunSO = (GunSO)itemInfo.iSO;
+        fireSource = ((GunInfo)itemInfo).fireAudio;
+        fireSource.clip = gunSO.gunAudio;
+
         if (GetComponentInParent<testPlayerController>())
         {
             pTController = GetComponentInParent<testPlayerController>();
@@ -202,7 +206,10 @@ public class Gun : Item
         //Debug.Log("Firing");
 
         //SpawnBullet on client and server
-        GameObject bullet = (GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), pTController.bulletTransform.transform.position, pTController.bulletTransform.transform.rotation);
+        fireSource.PlayOneShot(fireSource.clip);
+        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), pTController.bulletTransform.transform.position, pTController.bulletTransform.transform.rotation)).GetComponent<Bullet>();
+        bullet.hitMarker = player.hitMarker;
+        bullet.myId = Client.instance.myId;
         ClientSend.FireWeapon();
 
         recoiling = true;

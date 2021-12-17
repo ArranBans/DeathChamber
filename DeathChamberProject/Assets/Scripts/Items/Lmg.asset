@@ -58,7 +58,7 @@ MonoBehaviour:
   vMoveSway: -0.0045
   aimSwayModifier: 0.15
   muzzleFlash: {fileID: 0}
-  gunAudio: {fileID: 0}
+  gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
   aimSpeed: 8
   aimPos: {x: 0, y: -0.2385, z: 0.586}
   hipPos: {x: 0.137, y: -0.417, z: 0.577}

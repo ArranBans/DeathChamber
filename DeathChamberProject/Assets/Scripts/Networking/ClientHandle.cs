@@ -9,13 +9,13 @@ public class ClientHandle : MonoBehaviour
     {
         string msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
+        int _mapId = _packet.ReadInt();
 
         Debug.Log($"Message from server: {msg}");
         Client.instance.myId = _myId;
-        ClientSend.WelcomeReceived();
+        Client.instance.LoadMap(_mapId);// Also Calls welcomeRecieved
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-
         ClientSend.UDPTest("Hello Server!");
     }
 
@@ -194,9 +194,10 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         string _name = _packet.ReadString();
-
+        int _weaponId = _packet.ReadInt();
         
         Instantiate(Resources.Load($"Projectiles/{_name}_Projectile"), testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.position, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation);
+        testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.PlayOneShot(testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.clip);
     }
 
     public static void ChangeHealth(Packet _packet)

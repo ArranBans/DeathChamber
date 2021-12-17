@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     public float maxHealth;
     public float health;
     public Slider healthSlider;
+    [Header("Audio")]
+    public AudioSource hitMarker;
 
 
     private void Awake()

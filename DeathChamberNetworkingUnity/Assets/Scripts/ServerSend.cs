@@ -68,12 +68,13 @@ public class ServerSend : MonoBehaviour
     }
 
     #region Packets
-    public static void Welcome(int _toClient, string _msg)
+    public static void Welcome(int _toClient, string _msg, int _mapId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.welcome))
         {
             _packet.Write(_msg);
             _packet.Write(_toClient);
+            _packet.Write(_mapId);
             SendTCPData(_toClient, _packet);
         }
     }
@@ -217,6 +218,7 @@ public class ServerSend : MonoBehaviour
         {
             _packet.Write(_id);
             _packet.Write(_name);
+            _packet.Write(Server.clients[_id].playerManager.player.inventory[Server.clients[_id].playerManager.player.selectedItem].itemSO.id);
 
             SendUDPDataToAll(_id, _packet);
         }

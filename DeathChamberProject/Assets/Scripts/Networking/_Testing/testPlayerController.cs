@@ -27,7 +27,7 @@ public class testPlayerController : MonoBehaviour
 
     private void Start()
     {
-        camFov = MenuOptions.instance.fov;
+        camFov = OptionsManager.instance.fov;
         cam = GetComponentInChildren<Camera>();
         cam.fieldOfView = camFov;
         rb = GetComponent<Rigidbody>();
@@ -35,7 +35,7 @@ public class testPlayerController : MonoBehaviour
 
         if(MenuOptions.instance.sens != 0)
         {
-            turnSpeed = MenuOptions.instance.sens;
+            turnSpeed = OptionsManager.instance.sens;
         }
         
     }

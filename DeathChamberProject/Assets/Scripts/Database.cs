@@ -6,6 +6,7 @@ public class Database : MonoBehaviour
 {
     public static Database instance;
     public ItemDatabase itemDatabase;
+    public MapDatabase mapDatabase;
 
     public void Awake()
     {
@@ -18,10 +19,17 @@ public class Database : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public ItemSO GetItem(int id)
     {
         return itemDatabase.database[id];
+    }
+
+    public string GetMap(int id)
+    {
+        return mapDatabase.database[id];
     }
 }

@@ -13,6 +13,7 @@ public class MenuOptions : MonoBehaviour
     public Slider fovSlider;
     public Text fovText;
     public int fov;
+    public Slider LoadingBar;
 
     public void Awake()
     {

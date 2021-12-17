@@ -10,6 +10,7 @@ public class NetworkUiManager : MonoBehaviour
     public GameObject startMenu;
     public InputField usernameField;
     public InputField IpField;
+    public OptionsManager options;
 
     public void Awake()
     {
@@ -26,9 +27,11 @@ public class NetworkUiManager : MonoBehaviour
 
     public void ConnectToServer()
     {
-        startMenu.SetActive(false);
+        //startMenu.SetActive(false);
         usernameField.interactable = false;
         IpField.interactable = false;
+        options.fov = GetComponent<MenuOptions>().fov;
+        options.sens = GetComponent<MenuOptions>().sens;
         Client.instance.ConnectToServer();
     }
 }
