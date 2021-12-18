@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Outdoor Map Test.unity
+    guid: d059ae375d0b26449a3b9dbb42a840c0
+  - enabled: 1
     path: Assets/Scenes/NetworkTest.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

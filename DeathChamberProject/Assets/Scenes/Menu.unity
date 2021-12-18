@@ -501,6 +501,34 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontStyle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1972012657}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeIp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Client, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558553242942735720, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4558553242942735722, guid: 3568ea8b395a3af46968a040c499b2ae, type: 3}
       propertyPath: m_Sprite
       value: 
