@@ -9,14 +9,21 @@ public class ClientHandle : MonoBehaviour
     {
         string msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
-        int _mapId = _packet.ReadInt();
 
         Debug.Log($"Message from server: {msg}");
         Client.instance.myId = _myId;
-        Client.instance.LoadMap(_mapId);// Also Calls welcomeRecieved
+
+        ClientSend.WelcomeReceived();// Also Calls welcomeRecieved
+        NetworkUiManager.instance.ConnectedToServer();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
         ClientSend.UDPTest("Hello Server!");
+    }
+
+    public static void SendMap(Packet _packet)
+    {
+        int _mapId = _packet.ReadInt();
+        Client.instance.LoadMap(_mapId);
     }
 
     public static void SpawnPlayer(Packet _packet)

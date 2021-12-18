@@ -28,6 +28,14 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void MapLoaded()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.mapLoaded))
+        { 
+            SendTCPData(_packet);
+        }
+    }
+
     public static void PlayerMovement(bool[] _inputs, int _tick)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playeMovement))

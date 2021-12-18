@@ -47,7 +47,7 @@ public class Client
 
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-            ServerSend.Welcome(id, $"Welcome to server: {id}!", testGameManager.instance.mapId);
+            ServerSend.Welcome(id, $"Welcome to server: {id}!");
         }
 
         public void SendData(Packet _packet)
@@ -186,11 +186,16 @@ public class Client
         }
     }
 
-    public void SendIntoGame(string _playername)
+    public void SetupPlayerManger(string _playername)
     {
         playerManager = NetworkManager.instance.InstantiatePlayerManager();
         playerManager.username = _playername;
         playerManager.id = id;
+    }
+
+    public void SendIntoGame()
+    {
+        
 
         foreach (Client _client in Server.clients.Values) // Spawn them on me
         {

@@ -132,7 +132,8 @@ public class Server
                 { (int)ClientPackets.fireWeapon, ServerHandle.FireWeapon },
                 { (int)ClientPackets.deploy, ServerHandle.Deploy },
                 { (int)ClientPackets.consumable, ServerHandle.ConsumableUse },
-                { (int)ClientPackets.command, ServerHandle.Command }
+                { (int)ClientPackets.command, ServerHandle.Command },
+                { (int)ClientPackets.mapLoaded, ServerHandle.MapLoaded }
 
             };
         Debug.Log("Initialised Packets...");

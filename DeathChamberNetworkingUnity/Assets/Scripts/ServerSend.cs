@@ -68,12 +68,20 @@ public class ServerSend : MonoBehaviour
     }
 
     #region Packets
-    public static void Welcome(int _toClient, string _msg, int _mapId)
+    public static void Welcome(int _toClient, string _msg)
     {
         using (Packet _packet = new Packet((int)ServerPackets.welcome))
         {
             _packet.Write(_msg);
             _packet.Write(_toClient);
+            SendTCPData(_toClient, _packet);
+        }
+    }
+
+    public static void SendMap(int _toClient, int _mapId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.sendMap))
+        {
             _packet.Write(_mapId);
             SendTCPData(_toClient, _packet);
         }

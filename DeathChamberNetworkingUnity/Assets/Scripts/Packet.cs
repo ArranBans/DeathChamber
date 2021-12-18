@@ -22,7 +22,8 @@ public enum ServerPackets
     changeHealth,
     die,
     respawn,
-    serverDeploy
+    serverDeploy,
+    sendMap
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -37,7 +38,8 @@ public enum ClientPackets
     fireWeapon,
     deploy,
     consumable,
-    command
+    command,
+    mapLoaded
 }
 
 public class Packet : IDisposable

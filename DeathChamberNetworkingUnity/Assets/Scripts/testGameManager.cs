@@ -8,6 +8,7 @@ public class testGameManager : MonoBehaviour
     public List<Transform> spawnPoints = new List<Transform>();
     public Vector3 spawnPoint;
     public List<ItemPickup> items = new List<ItemPickup>();
+    public List<ItemInfo> startingItems = new List<ItemInfo>();
     float timeToNextSpawn = 0;
     public int maxItems;
     public float itemSpawnInterval;
@@ -34,7 +35,19 @@ public class testGameManager : MonoBehaviour
 
     public void Start()
     {
-        foreach(ItemPickup _item in items)
+        foreach (ItemInfo _item in startingItems)
+        {
+            if (_item != null)
+            {
+                _item.ChangeState(ItemInfo.ItemState.pickup);
+                ItemPickup itemP = _item.GetComponent<ItemPickup>();
+                itemP.id = items.Count;
+                items.Add(itemP);
+            }
+
+        }
+
+        foreach (ItemPickup _item in items)
         {
             if(_item != null)
             {

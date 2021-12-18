@@ -290,7 +290,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.changeHealth, ClientHandle.ChangeHealth },
             { (int)ServerPackets.die, ClientHandle.Die },
             { (int)ServerPackets.respawn, ClientHandle.Respawn },
-            { (int)ServerPackets.serverDeploy, ClientHandle.Deploy }
+            { (int)ServerPackets.serverDeploy, ClientHandle.Deploy },
+            { (int)ServerPackets.sendMap, ClientHandle.SendMap }
         };
         Debug.Log("Initialised Packets...");
     }
@@ -329,6 +330,6 @@ public class Client : MonoBehaviour
             yield return null;
         }
 
-        ClientSend.WelcomeReceived();
+        ClientSend.MapLoaded();
     }
 }

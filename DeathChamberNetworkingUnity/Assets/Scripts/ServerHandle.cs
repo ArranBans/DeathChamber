@@ -14,7 +14,13 @@ public class ServerHandle
         {
             Debug.Log($"Player \"{_username}\" (ID: {_fromclient}) has assumed the wrong client ID ({_clientIdCheck})!!!");
         }
-        Server.clients[_fromclient].SendIntoGame(_username);
+        Server.clients[_fromclient].SetupPlayerManger(_username);
+        ServerSend.SendMap(_fromclient, testGameManager.instance.mapId);
+    }
+
+    public static void MapLoaded(int _fromclient, Packet _packet)
+    {
+        Server.clients[_fromclient].SendIntoGame();
     }
 
     public static void PlayerMovement(int _fromClient, Packet _packet)

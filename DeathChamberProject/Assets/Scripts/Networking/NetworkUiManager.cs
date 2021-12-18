@@ -27,11 +27,14 @@ public class NetworkUiManager : MonoBehaviour
 
     public void ConnectToServer()
     {
-        //startMenu.SetActive(false);
+        Client.instance.ConnectToServer();
+    }
+
+    public void ConnectedToServer()
+    {
         usernameField.interactable = false;
         IpField.interactable = false;
         options.fov = GetComponent<MenuOptions>().fov;
         options.sens = GetComponent<MenuOptions>().sens;
-        Client.instance.ConnectToServer();
     }
 }
