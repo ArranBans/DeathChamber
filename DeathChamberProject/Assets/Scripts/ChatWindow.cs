@@ -35,13 +35,22 @@ public class ChatWindow : MonoBehaviour
                         ClientSend.Command(0, _index);
                     }
 
-                    if (command.StartsWith("spawn")) // Give
+                    if (command.StartsWith("spawn")) // Spawn
                     {
                         command = command.Remove(0, 6);
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Spawn [{command}]");
                         ClientSend.Command(1, _index);
+                    }
+
+                    if (command.StartsWith("teleport")) // Teleport
+                    {
+                        command = command.Remove(0, 9);
+                        int _index;
+                        int.TryParse(command, out _index);
+                        Debug.Log($"Teleport to player [{command}]");
+                        ClientSend.Command(2, _index);
                     }
                 }
                 else // Chat

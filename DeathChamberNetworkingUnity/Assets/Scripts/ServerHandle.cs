@@ -156,5 +156,13 @@ public class ServerHandle
                 
             }
         }
+        if (_commandType == 2)
+        {
+            if (Server.clients[_fromClient].playerManager.player)
+            {
+                Server.clients[_fromClient].playerManager.player.transform.position = Server.clients[_index].playerManager.player.transform.position;
+
+            }
+        }
     }
 }
