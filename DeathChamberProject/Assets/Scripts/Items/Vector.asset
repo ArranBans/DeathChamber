@@ -24,14 +24,14 @@ MonoBehaviour:
   yPosRecoil: 0.003
   zPosRecoil: -0.043
   xRotRecoil: 0
-  yRotRecoil: 0.67
-  zRotRecoil: 0.2
-  xRotOffset: -0.8
+  yRotRecoil: 0.3
+  zRotRecoil: 0.15
+  xRotOffset: -0.6
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
-  camXRotRecoil: 0.3
-  camYRotRecoil: 0.5
+  camXRotRecoil: 0.2
+  camYRotRecoil: 0.3
   camZRotRecoil: 0.04
   camXRotOffset: -2.6
   recoilLocation: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   semiAuto: 1
   fullAuto: 1
   boltAction: 0
-  fireRate: 18
+  fireRate: 20
   defaultFireMode: 1
   maxAmmo: 240
   magAmmo: 33
@@ -51,7 +51,7 @@ MonoBehaviour:
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
-  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint: {x: 0, y: 0.129, z: 1.889}
   bulletObject: {fileID: 0}
   tiltSway: -0.5
   hMoveSway: -0.005
@@ -63,3 +63,4 @@ MonoBehaviour:
   aimPos: {x: 0, y: -0.228, z: 0.616}
   hipPos: {x: 0.12, y: -0.3, z: 0.42}
   aimFov: 0.9
+  aimSensMult: 1

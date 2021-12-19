@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sniper Scope 1
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: -6465566751694194690, guid: c650fd207280ae44a973c92ecfab6f8e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,6 +19,18 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_2312d19980324aa096a1c0a3f292dda0:
+        m_Texture: {fileID: 8400000, guid: 4cefa7e84b198074a9619610c6e74d93, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_32b902a89fe745b5a480156163309e22:
+        m_Texture: {fileID: 2800000, guid: 5f83dc01f1e10ba4d8de5591aee0a26c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_e68e985fb2ba408195bf7e3028c21b81:
+        m_Texture: {fileID: 8600000, guid: b256b9181ccccd04ea8329c31b6ae897, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -55,7 +67,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_04b449d1ddcb49208e97769861667392: 3
+    - Vector1_4d7f49497d4e413fa82289283a10b7b4: 0
+    - Vector1_9355a7397a4847c6a06e3f81a6a3ca23: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -73,6 +100,9 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
+    - Color_0f183aeadd19440aaabb3d144e655816: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_269d118c59874b4d9a50a936d225c467: {r: 0.0001, g: 0.0001, b: 0, a: 0}
+    - Vector2_4ce60bcf2c444520ba292e239a8a8000: {r: 0.91, g: 0.15, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

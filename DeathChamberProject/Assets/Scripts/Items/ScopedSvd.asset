@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
+  m_Name: ScopedSvd
+  m_EditorClassIdentifier: 
+  InventoryImage: {fileID: 0}
+  empty: {fileID: 4400310708802747665, guid: 0b9917491e4e91d4a83948731ccf51d7, type: 3}
+  itemName: Svd
+  itemId: 13
+  mass: 1
+  colliderCentre: {x: 0, y: 0.38369328, z: 1.8999997}
+  colliderSize: {x: 0.23000002, y: 1.067386, z: 6.4}
+  itemType: 2
+  xPosRecoil: 0
+  yPosRecoil: -0.0026
+  zPosRecoil: -0.003
+  xRotRecoil: 0.05
+  yRotRecoil: 0.25
+  zRotRecoil: 0
+  xRotOffset: -0.6
+  camXPosRecoil: 0
+  camYPosRecoil: 0
+  camZPosRecoil: 0
+  camXRotRecoil: 0.1
+  camYRotRecoil: 0.7
+  camZRotRecoil: 0.2
+  camXRotOffset: -1.35
+  recoilLocation: {fileID: 0}
+  recoilReturnSpeed: 9
+  recoilSnappiness: 1000
+  recoilTime: 0.008
+  cameraRecoilTime: 0.05
+  cameraReturn: 0
+  semiAuto: 1
+  fullAuto: 0
+  boltAction: 0
+  fireRate: 8
+  defaultFireMode: 0
+  maxAmmo: 0
+  magAmmo: 0
+  ammoType: 0
+  baseDamage: 0
+  bulletSpeed: 0
+  bulletMass: 0
+  bulletSpawnPoint: {x: 0, y: 0.453, z: 5.073}
+  bulletObject: {fileID: 0}
+  tiltSway: -0.3
+  hMoveSway: -0.006
+  vMoveSway: -0.004
+  aimSwayModifier: 0.2
+  muzzleFlash: {fileID: 0}
+  gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
+  aimSpeed: 10
+  aimPos: {x: 0, y: -0.245, z: 0.05}
+  hipPos: {x: 0.08, y: -0.31, z: 0.088}
+  aimFov: 0.55
+  aimSensMult: 0.5

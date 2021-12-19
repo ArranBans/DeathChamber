@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.43494126, g: 0.47801077, b: 0.509434, a: 1}
+  m_AmbientSkyColor: {r: 0.5720968, g: 0.6982284, b: 0.8018365, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -700,6 +700,28 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5468fd942fd62e34d90b1ef2a9e78d26, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2c79b2c1b9f3e1468e9bf73f0fc9ed5, type: 3}
+--- !u!1 &332955346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7361358685680390743, guid: c2c79b2c1b9f3e1468e9bf73f0fc9ed5, type: 3}
+  m_PrefabInstance: {fileID: 332955345}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &332955347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332955346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: cd00b97635bc776439809cc6d39fee83, type: 2}
 --- !u!1 &343397267
 GameObject:
   m_ObjectHideFlags: 0

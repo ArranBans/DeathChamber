@@ -36,6 +36,7 @@ public class Gun : Item
     void Start()
     {
         gunSO = (GunSO)itemInfo.iSO;
+        itemSO = gunSO;
         fireSource = ((GunInfo)itemInfo).fireAudio;
         fireSource.clip = gunSO.gunAudio;
 
@@ -143,12 +144,14 @@ public class Gun : Item
                 desiredPos = gunSO.aimPos;
                 aiming = true;
                 cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camFov * gunSO.aimFov, gunSO.aimSpeed * Time.deltaTime);
+                pTController.turnSpeed = Mathf.Lerp(pTController.turnSpeed, OptionsManager.instance.sens * gunSO.aimSensMult, gunSO.aimSpeed * Time.deltaTime);
             }
             else
             {
                 desiredPos = gunSO.hipPos;
                 aiming = false;
                 cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camFov, gunSO.aimSpeed * Time.deltaTime);
+                pTController.turnSpeed = Mathf.Lerp(pTController.turnSpeed, OptionsManager.instance.sens, gunSO.aimSpeed * Time.deltaTime);
             }
         }
 
@@ -207,10 +210,10 @@ public class Gun : Item
 
         //SpawnBullet on client and server
         fireSource.PlayOneShot(fireSource.clip);
-        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), pTController.bulletTransform.transform.position, pTController.bulletTransform.transform.rotation)).GetComponent<Bullet>();
+        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), cam.transform.rotation)).GetComponent<Bullet>();
         bullet.hitMarker = player.hitMarker;
         bullet.myId = Client.instance.myId;
-        ClientSend.FireWeapon();
+        ClientSend.FireWeapon(aiming);
 
         recoiling = true;
         timeToRecoilCompensate = Time.time + gunSO.recoilTime;

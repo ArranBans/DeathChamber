@@ -21,12 +21,12 @@ MonoBehaviour:
   colliderSize: {x: 0.23000002, y: 0.9, z: 6.4}
   itemType: 2
   xPosRecoil: 0
-  yPosRecoil: -0.0038
-  zPosRecoil: -0.09
+  yPosRecoil: -0.0033
+  zPosRecoil: -0.04
   xRotRecoil: 0.05
   yRotRecoil: 0.25
   zRotRecoil: 0
-  xRotOffset: -0.7
+  xRotOffset: -0.55
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
-  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint: {x: 0, y: 0.453, z: 5.073}
   bulletObject: {fileID: 0}
   tiltSway: -0.3
   hMoveSway: -0.006
@@ -63,3 +63,4 @@ MonoBehaviour:
   aimPos: {x: 0, y: -0.1995, z: 0}
   hipPos: {x: 0.08, y: -0.28, z: 0.088}
   aimFov: 0.8
+  aimSensMult: 0.9

@@ -94,10 +94,11 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void FireWeapon()
+    public static void FireWeapon(bool _aiming)
     {
         using (Packet _packet = new Packet((int)ClientPackets.fireWeapon))
         {
+            _packet.Write(_aiming);
             SendUDPData(_packet);
         }
     }

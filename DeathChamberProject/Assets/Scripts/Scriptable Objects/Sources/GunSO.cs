@@ -59,7 +59,7 @@ public class GunSO : ItemSO
     public float baseDamage;
     public float bulletSpeed;
     public float bulletMass;
-    public Transform bulletSpawnPoint;
+    public Vector3 bulletSpawnPoint;
     public GameObject bulletObject;
     [Header("Weapon Sway Variables")]
     public float tiltSway;
@@ -74,4 +74,5 @@ public class GunSO : ItemSO
     public Vector3 aimPos;
     public Vector3 hipPos;
     public float aimFov;
+    public float aimSensMult = 1;
 }

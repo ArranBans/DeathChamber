@@ -51,7 +51,7 @@ MonoBehaviour:
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
-  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint: {x: 0, y: 0.322, z: 1.241}
   bulletObject: {fileID: 0}
   tiltSway: -0.74
   hMoveSway: -0.013
@@ -63,3 +63,4 @@ MonoBehaviour:
   aimPos: {x: 0, y: -0.173, z: 0.76}
   hipPos: {x: 0.12, y: -0.43, z: 0.6}
   aimFov: 0.9
+  aimSensMult: 1

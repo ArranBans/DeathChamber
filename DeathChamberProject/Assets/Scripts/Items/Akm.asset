@@ -22,17 +22,17 @@ MonoBehaviour:
   itemType: 2
   xPosRecoil: 0
   yPosRecoil: -0.012
-  zPosRecoil: -0.08
+  zPosRecoil: -0.05
   xRotRecoil: 0
-  yRotRecoil: 0.5
-  zRotRecoil: 0.5
-  xRotOffset: -1.8
+  yRotRecoil: 0.35
+  zRotRecoil: 0.4
+  xRotOffset: -1.4
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
-  camXRotRecoil: 0.4
-  camYRotRecoil: 0.6
-  camZRotRecoil: 0.7
+  camXRotRecoil: 0.3
+  camYRotRecoil: 0.4
+  camZRotRecoil: 0.5
   camXRotOffset: -1.2
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 12
@@ -51,7 +51,7 @@ MonoBehaviour:
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
-  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint: {x: 0, y: 0.374, z: 4.815}
   bulletObject: {fileID: 0}
   tiltSway: -0.55
   hMoveSway: -0.0075
@@ -63,3 +63,4 @@ MonoBehaviour:
   aimPos: {x: 0, y: -0.255, z: 0.25}
   hipPos: {x: 0.132, y: -0.416, z: 0.263}
   aimFov: 0.9
+  aimSensMult: 1

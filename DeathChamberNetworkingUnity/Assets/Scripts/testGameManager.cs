@@ -84,6 +84,7 @@ public class testGameManager : MonoBehaviour
 
             }
             timeToNextUpdate = Time.time + updateTime;
+           // Debug.Log(timeToNextUpdate);
         }
     }
 

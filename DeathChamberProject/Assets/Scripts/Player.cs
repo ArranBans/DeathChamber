@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public testPlayerController TPController;
     [Header("Inventory")]
     public List<Item> inventory = new List<Item>();
     public int inventorySize = 5;
@@ -41,6 +42,25 @@ public class Player : MonoBehaviour
                 i.gameObject.SetActive(false);
             }
         }
+    }
+
+
+    
+    private void Update()
+    {
+        try
+        {
+            if (inventory[selectedItem].itemSO.itemType == ItemSO.ItemType.gun )
+            {
+
+            }
+        }
+        catch
+        {
+            TPController.turnSpeed = Mathf.Lerp(TPController.turnSpeed, OptionsManager.instance.sens, 15 * Time.deltaTime);
+            TPController.cam.fieldOfView = Mathf.Lerp(TPController.cam.fieldOfView, OptionsManager.instance.fov, 15 * Time.deltaTime);
+        }
+        
     }
 
     public void ChangeSelectedItem(int _index)

@@ -51,7 +51,7 @@ MonoBehaviour:
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
-  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint: {x: 0, y: 0.518, z: 6.781}
   bulletObject: {fileID: 0}
   tiltSway: 0
   hMoveSway: 0
@@ -60,6 +60,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 0
-  aimPos: {x: 0, y: 0, z: 0}
-  hipPos: {x: 0, y: 0, z: 0}
+  aimPos: {x: 0, y: -0.265, z: 0.054}
+  hipPos: {x: 0.184, y: -0.414, z: 0.242}
   aimFov: 0
