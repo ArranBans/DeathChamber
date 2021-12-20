@@ -114,11 +114,7 @@ public class ServerSend : MonoBehaviour
                 _packet.Write(_input);
             }
 
-            foreach(Client c in Server.clients.Values)
-            {
-                if(c.loaded)
-                    SendUDPData(c.id, _packet);
-            }
+            SendUDPDataToAll( _packet);
 
             
         }

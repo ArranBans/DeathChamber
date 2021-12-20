@@ -27,14 +27,14 @@ MonoBehaviour:
   xRotRecoil: 0
   yRotRecoil: 3
   zRotRecoil: 0
-  xRotOffset: -2.6
+  xRotOffset: -2.3
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: -0.01
   camXRotRecoil: 0
-  camYRotRecoil: 1
+  camYRotRecoil: 1.3
   camZRotRecoil: 2
-  camXRotOffset: -2.6
+  camXRotOffset: -2.1
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 6
   recoilSnappiness: 1000
