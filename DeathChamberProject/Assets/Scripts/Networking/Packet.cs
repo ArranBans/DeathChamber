@@ -39,7 +39,7 @@ public enum ClientPackets
     deploy,
     consumable,
     command,
-    mapLoaded
+    mapLoaded,
 }
 
 public class Packet : IDisposable

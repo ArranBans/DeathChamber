@@ -20,4 +20,6 @@ public class ItemSO : ScriptableObject
         gun
     }
     public ItemType itemType;
+    [Header("3rd Person Model")]
+    public Vector3 charPos;
 }

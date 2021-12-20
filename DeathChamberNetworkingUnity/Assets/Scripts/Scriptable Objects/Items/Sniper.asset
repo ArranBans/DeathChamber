@@ -60,6 +60,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 0
-  aimPos: {x: 0, y: -0.265, z: 0.054}
-  hipPos: {x: 0.184, y: -0.414, z: 0.242}
+  aimPos: {x: 0, y: -0.195, z: 0.05}
+  hipPos: {x: 0.11, y: -0.24, z: 0.17}
   aimFov: 0

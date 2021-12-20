@@ -75,4 +75,5 @@ public class GunSO : ItemSO
     public Vector3 hipPos;
     public float aimFov;
     public float aimSensMult = 1;
+    
 }

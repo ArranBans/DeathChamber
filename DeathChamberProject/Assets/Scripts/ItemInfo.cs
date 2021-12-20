@@ -7,6 +7,8 @@ public class ItemInfo : MonoBehaviour
     [Header("Static Info")]
     public ItemSO iSO;
     public List<GameObject> ViewmodelOnly = new List<GameObject>();
+    public Transform RightHandTarget;
+    public Transform LeftHandTarget;
     public enum ItemState
     {
         item,
@@ -58,12 +60,12 @@ public class ItemInfo : MonoBehaviour
                     
                     GunSO g = (GunSO)iSO;
                     ((GunInfo)this).fireAudio.clip = g.gunAudio;
-                    transform.localPosition = g.hipPos;
+                    transform.localPosition = g.charPos;
                 }
                 else if (iSO.itemType == ItemSO.ItemType.consumable)
                 {
                     ConsumableSO g = (ConsumableSO)iSO;
-                    transform.localPosition = g.idlePos;
+                    transform.localPosition = g.charPos;
                 }
 
 

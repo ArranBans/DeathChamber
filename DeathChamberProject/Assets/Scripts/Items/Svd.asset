@@ -20,6 +20,7 @@ MonoBehaviour:
   colliderCentre: {x: 0, y: 0.3, z: 1.8999997}
   colliderSize: {x: 0.23000002, y: 0.9, z: 6.4}
   itemType: 2
+  charPos: {x: 0.08, y: -0.26, z: 0.3}
   xPosRecoil: 0
   yPosRecoil: -0.0033
   zPosRecoil: -0.04
@@ -43,7 +44,7 @@ MonoBehaviour:
   semiAuto: 1
   fullAuto: 0
   boltAction: 0
-  fireRate: 8
+  fireRate: 7
   defaultFireMode: 0
   maxAmmo: 0
   magAmmo: 0
@@ -54,13 +55,13 @@ MonoBehaviour:
   bulletSpawnPoint: {x: 0, y: 0.453, z: 5.073}
   bulletObject: {fileID: 0}
   tiltSway: -0.3
-  hMoveSway: -0.006
+  hMoveSway: -0.0045
   vMoveSway: -0.004
   aimSwayModifier: 0.2
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
   aimSpeed: 10
-  aimPos: {x: 0, y: -0.1995, z: 0}
-  hipPos: {x: 0.08, y: -0.28, z: 0.088}
-  aimFov: 0.8
+  aimPos: {x: 0, y: -0.1855, z: 0}
+  hipPos: {x: 0.06, y: -0.25, z: 0.088}
+  aimFov: 0.7
   aimSensMult: 0.9

@@ -20,6 +20,7 @@ MonoBehaviour:
   colliderCentre: {x: 0, y: 0, z: 0}
   colliderSize: {x: 1, y: 1, z: 1}
   itemType: 0
+  charPos: {x: 0, y: -0.5, z: 0.3}
   value: 50
   useTime: 5
   beginUseTime: 8

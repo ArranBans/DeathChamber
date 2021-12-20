@@ -41,8 +41,14 @@ public class Bullet : MonoBehaviour
 
                 if(myId == Client.instance.myId)
                 {
-                    if (colliderHit.collider.GetComponent<NetPlayerController>() || colliderHit.collider.GetComponentInParent<NetPlayerController>())
+                    if (colliderHit.collider.GetComponent<NetPlayerController>())
                     {
+                        Instantiate(colliderHit.collider.GetComponent<NetPlayerController>().bloodFX, colliderHit.point, Quaternion.identity);
+                        hitMarker.PlayOneShot(hitMarker.clip);
+                    }
+                    else if (colliderHit.collider.GetComponentInParent<NetPlayerController>())
+                    {
+                        Instantiate(colliderHit.collider.GetComponentInParent<NetPlayerController>().bloodFX, colliderHit.point, Quaternion.identity);
                         hitMarker.PlayOneShot(hitMarker.clip);
                     }
                 }

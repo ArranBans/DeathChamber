@@ -21,6 +21,7 @@ public class ServerHandle
     public static void MapLoaded(int _fromclient, Packet _packet)
     {
         Server.clients[_fromclient].SendIntoGame();
+        Server.clients[_fromclient].loaded = true;
     }
 
     public static void PlayerMovement(int _fromClient, Packet _packet)

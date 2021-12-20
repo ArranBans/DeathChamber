@@ -190,8 +190,10 @@ public class ClientHandle : MonoBehaviour
         
         if(_itemId != 0)
         {
-            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem = (GameObject)Instantiate(Database.instance.GetItem(_itemId).empty, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform);
-            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.charModel);
+            NetPlayerController netPlayer = testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>();
+            netPlayer.selectedItem = (GameObject)Instantiate(Database.instance.GetItem(_itemId).empty, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform);
+            netPlayer.selectedItemInfo = testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<ItemInfo>();
+            netPlayer.selectedItemInfo.ChangeState(ItemInfo.ItemState.charModel);   
         }
         
         
@@ -204,7 +206,8 @@ public class ClientHandle : MonoBehaviour
         int _weaponId = _packet.ReadInt();
         
         Instantiate(Resources.Load($"Projectiles/{_name}_Projectile"), testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.position, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation);
-        testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.PlayOneShot(testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.clip);
+        if (testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem)
+            testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.PlayOneShot(testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.clip);
     }
 
     public static void ChangeHealth(Packet _packet)
@@ -212,9 +215,14 @@ public class ClientHandle : MonoBehaviour
         float _value = _packet.ReadFloat();
 
         Player p = testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>();
+        if (p.health > _value)
+        {
+            p.TakeDamage();
+        }
         p.health = _value;
         p.healthSlider.value = _value;
 
+        
     }
 
     public static void Die(Packet _packet)

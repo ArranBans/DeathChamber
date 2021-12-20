@@ -20,6 +20,7 @@ MonoBehaviour:
   colliderCentre: {x: 0, y: 0.20897359, z: 0.9059471}
   colliderSize: {x: 0.26, y: 1.3754786, z: 5.7102532}
   itemType: 2
+  charPos: {x: 0.153, y: -0.24, z: 0.46}
   xPosRecoil: 0
   yPosRecoil: 0.0007
   zPosRecoil: -0.022
@@ -60,7 +61,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 8300000, guid: e83c2d84f22ffa0469fb28fec4c2d41c, type: 3}
   aimSpeed: 10
-  aimPos: {x: 0, y: -0.25, z: 0.16}
-  hipPos: {x: 0.153, y: -0.358, z: 0.23}
+  aimPos: {x: 0, y: -0.196, z: 0.16}
+  hipPos: {x: 0.09, y: -0.27, z: 0.23}
   aimFov: 0.95
   aimSensMult: 1

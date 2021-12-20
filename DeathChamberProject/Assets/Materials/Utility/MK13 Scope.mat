@@ -134,7 +134,7 @@ Material:
     - Color_0f183aeadd19440aaabb3d144e655816: {r: 0, g: 0, b: 0, a: 0}
     - Color_8504fef6d2f0494b9f753cb47bb662fe: {r: 2.1185474, g: 0, b: 0, a: 0}
     - Vector2_269d118c59874b4d9a50a936d225c467: {r: 0.01, g: 0.01, b: 0, a: 0}
-    - Vector2_4ce60bcf2c444520ba292e239a8a8000: {r: 1.15, g: 0.3, b: 0, a: 0}
+    - Vector2_4ce60bcf2c444520ba292e239a8a8000: {r: 1.1, g: 0.3, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

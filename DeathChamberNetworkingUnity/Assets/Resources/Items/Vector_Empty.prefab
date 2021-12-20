@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6195218659586403418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 5941215414311718460}
   m_Father: {fileID: 0}
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iSO: {fileID: 11400000, guid: 6be200c003b7bd24a9b988b473e3a82d, type: 2}
   iState: 1
+  magAmmo: 0
+  fireMode: 0
 --- !u!1001 &6195218661332838871
 PrefabInstance:
   m_ObjectHideFlags: 0

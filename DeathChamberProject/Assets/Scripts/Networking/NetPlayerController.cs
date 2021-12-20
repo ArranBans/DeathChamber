@@ -9,10 +9,29 @@ public class NetPlayerController : MonoBehaviour
     public float interpolationRate;
     public Transform camTransform;
     public GameObject selectedItem;
+    public ItemInfo selectedItemInfo;
     public Animator anim;
     public float speedChange;
     int Direction = 0;
     bool sprinting = false;
+    public GameObject rightHandObj;
+    public GameObject leftHandObj;
+    Vector3 rightHandIdle;
+    Vector3 leftHandIdle;
+    Quaternion rightHandRotIdle;
+    Quaternion leftHandRotIdle;
+    public FastIK rightHandIK;
+    public FastIK leftHandIK;
+    public GameObject bloodFX;
+
+    private void Awake()
+    {
+        rightHandIdle = rightHandObj.transform.localPosition;
+        leftHandIdle = leftHandObj.transform.localPosition;
+
+        rightHandRotIdle = rightHandObj.transform.localRotation;
+        leftHandRotIdle = leftHandObj.transform.localRotation;
+    }
 
     void Update()
     {
@@ -34,6 +53,23 @@ public class NetPlayerController : MonoBehaviour
         {
             anim.SetFloat("MoveSpeed", Mathf.Lerp(anim.GetFloat("MoveSpeed"), 0f, speedChange * Time.deltaTime));
         }
+
+        if (selectedItem != null)// if i am holding an item
+        {
+            rightHandObj.transform.position = selectedItemInfo.RightHandTarget.position;
+            leftHandObj.transform.position = selectedItemInfo.LeftHandTarget.position;
+            rightHandIK.enabled = true;
+            leftHandIK.enabled = true;
+}
+        else // if i am not holding an item
+        {
+            rightHandObj.transform.localPosition = rightHandIdle;
+            leftHandObj.transform.localPosition = leftHandIdle;
+            rightHandIK.enabled = false;
+            leftHandIK.enabled = false;
+        }
+        rightHandObj.transform.localRotation = rightHandRotIdle;
+        leftHandObj.transform.localRotation = leftHandRotIdle;
     }
 
     public void PlayerMoved(bool[] inputs)

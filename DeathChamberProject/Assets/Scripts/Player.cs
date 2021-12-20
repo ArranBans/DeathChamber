@@ -17,14 +17,18 @@ public class Player : MonoBehaviour
     public Canvas HudCanvas;
     public Canvas InventoryCanvas;
     public Canvas InteractCanvas;
+    public Canvas TakeDamageCanvas;
     public bool inventoryOpen = false;
     [Header("Health")]
     public float maxHealth;
     public float health;
     public Slider healthSlider;
+    public float takeDamageSpeed;
+    float takeDamageAlpha;
+    public float takeDamageVisability;
     [Header("Audio")]
     public AudioSource hitMarker;
-
+    
 
     private void Awake()
     {
@@ -60,7 +64,14 @@ public class Player : MonoBehaviour
             TPController.turnSpeed = Mathf.Lerp(TPController.turnSpeed, OptionsManager.instance.sens, 15 * Time.deltaTime);
             TPController.cam.fieldOfView = Mathf.Lerp(TPController.cam.fieldOfView, OptionsManager.instance.fov, 15 * Time.deltaTime);
         }
-        
+
+
+        Image takeDamageImage = TakeDamageCanvas.GetComponentInChildren<Image>();
+        Color takeDamageColor = takeDamageImage.color;
+        takeDamageAlpha = Mathf.Lerp(takeDamageAlpha, 0f, takeDamageSpeed * Time.deltaTime);
+        takeDamageColor.a = takeDamageAlpha;
+        takeDamageImage.color = new Color(takeDamageImage.color.r, takeDamageImage.color.g, takeDamageImage.color.b, takeDamageColor.a);
+
     }
 
     public void ChangeSelectedItem(int _index)
@@ -136,4 +147,10 @@ public class Player : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+
+    public void TakeDamage()
+    {
+        takeDamageAlpha = takeDamageVisability;
+    }
+
 }

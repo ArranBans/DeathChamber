@@ -12,6 +12,7 @@ public class Client
     public PlayerManager playerManager;
     public TCP tcp;
     public UDP udp;
+    public bool loaded;
 
     public Client(int _clientId)
     {
