@@ -279,7 +279,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -348,12 +348,12 @@ MonoBehaviour:
   ViewmodelOnly:
   - {fileID: 2013192257751168917}
   - {fileID: 2535998820113146163}
+  RightHandTarget: {fileID: 7551121073434612646}
+  LeftHandTarget: {fileID: 3296239183340137056}
   iState: 0
   magAmmo: 0
   fireMode: 0
   fireAudio: {fileID: 8828398410838796835}
-  RightHandTarget: {fileID: 7551121073434612646}
-  LeftHandTarget: {fileID: 3296239183340137056}
 --- !u!1 &4634438130277761481
 GameObject:
   m_ObjectHideFlags: 0

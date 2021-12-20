@@ -4,57 +4,48 @@ using UnityEngine;
 
 public class RecoilTesting : MonoBehaviour
 {
-    
-    [Header("Positional Recoil")]
-    public float xPosRecoil;
-    public float yPosRecoil;
-    public float zPosRecoil;
-    [Header("Rotational Recoil")]
-    public float xRotRecoil;
-    public float yRotRecoil;
-    public float zRotRecoil;
-    [Header("Transforms")]
-    public Transform recoilLocation;
-    private Vector3 startPos;
-    private Quaternion startRot;
-    public float recoilReturnStrength;
-    public float errorMarginPos;
-    public float errorMarginRot;
 
-    private float _xPosRecoil;
-    private float _yRotRecoil;
-    private float _zRotRecoil;
+    public AnimationCurve recoilCurve;
+    public float recoilTime;
+    public Vector3 recoiliPosition;
+    public Vector3 recoilRotation;
+    public float delta;
+    public float deltaCorrectionSnappiness;
+    public float fireRate;
+
+    float timeToNextFire;
+    float timer = 0;
+    float normalisedRecoilTime = 0;
+    Vector3 startingPos;
+    Vector3 desiredPos;
 
     private void Start()
     {
-        startPos = transform.localPosition;
-        startRot = transform.localRotation;
-
-
+        timer = recoilTime;
+        startingPos = transform.localPosition;
+        desiredPos = transform.localPosition;
     }
+
     void Update()
     {
-        _xPosRecoil = Random.Range(+xPosRecoil, -xPosRecoil);
-        _yRotRecoil = Random.Range(+yRotRecoil, -yRotRecoil);
-        _zRotRecoil = Random.Range(+zRotRecoil, -zRotRecoil);
+        timer += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKey(KeyCode.Mouse0) && Time.time >= timeToNextFire)
         {
-            Fire();
+            timer = 0;
+            startingPos = transform.localPosition;
+            timeToNextFire += 1 / fireRate;
         }
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, recoilReturnStrength * Time.deltaTime);
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, startRot, recoilReturnStrength * Time.deltaTime);
-
-        /*if(transform.localPosition.x < startPos.x + errorMarginPos && transform.localPosition.x > startPos.x - errorMarginPos)
+        normalisedRecoilTime = timer / recoilTime;
+        float normalisedRecoil = recoilCurve.Evaluate(normalisedRecoilTime);
+        transform.localPosition = desiredPos + (recoiliPosition * normalisedRecoil);
+        transform.localRotation = Quaternion.Euler(recoilRotation * normalisedRecoil);
+        
+        if((transform.localPosition - startingPos).sqrMagnitude <= delta * delta)
         {
-            transform.localPosition = startPos;
-        }*/
-    }
+            transform.localPosition = Vector3.Lerp(transform.localPosition, startingPos, deltaCorrectionSnappiness * Time.deltaTime);
+        }
 
-    void Fire()
-    {
-        transform.localPosition = new Vector3(transform.localPosition.x + _xPosRecoil, transform.localPosition.y + yPosRecoil, transform.localPosition.z + zPosRecoil);
-        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x + xRotRecoil, transform.localRotation.eulerAngles.y + _yRotRecoil, transform.localRotation.eulerAngles.z + _zRotRecoil);
     }
 }

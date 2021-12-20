@@ -114,6 +114,8 @@ public class ServerHandle
     public static void FireWeapon(int _fromClient, Packet _packet)
     {
         bool _aiming = _packet.ReadBool();
+        float _gunXRot = _packet.ReadFloat();
+
         if(_aiming)
         {
             Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.localPosition = ((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).aimPos;
@@ -123,7 +125,7 @@ public class ServerHandle
             Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.localPosition = ((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).hipPos;
         }
 
-        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.TransformPoint(((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).bulletSpawnPoint), Server.clients[_fromClient].playerManager.player.camTransform.rotation);
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.TransformPoint(((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, Server.clients[_fromClient].playerManager.player.camTransform.rotation.eulerAngles.y, Server.clients[_fromClient].playerManager.player.camTransform.rotation.eulerAngles.z));
         ServerSend.FireWeapon(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName);
     }
 

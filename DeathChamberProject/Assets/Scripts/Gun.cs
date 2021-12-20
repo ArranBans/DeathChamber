@@ -210,10 +210,10 @@ public class Gun : Item
 
         //SpawnBullet on client and server
         fireSource.PlayOneShot(fireSource.clip);
-        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), cam.transform.rotation)).GetComponent<Bullet>();
+        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z))).GetComponent<Bullet>();
         bullet.hitMarker = player.hitMarker;
         bullet.myId = Client.instance.myId;
-        ClientSend.FireWeapon(aiming);
+        ClientSend.FireWeapon(aiming, transform.rotation.eulerAngles.x);
 
         recoiling = true;
         timeToRecoilCompensate = Time.time + gunSO.recoilTime;

@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
         oldRayPoint = rayLocation.transform.position;
         rb = gameObject.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * force);
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 2.5f);
     }
 
     private void Update()

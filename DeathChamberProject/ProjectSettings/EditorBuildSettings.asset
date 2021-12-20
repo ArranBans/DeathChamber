@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OutdoorMap.unity
     guid: 82c7c028b3e138d458cedd51fe91f023
+  - enabled: 1
+    path: Assets/Scenes/Urbanny.unity
+    guid: 1caf88be0be627b46949978b8733c95e
   m_configObjects: {}
