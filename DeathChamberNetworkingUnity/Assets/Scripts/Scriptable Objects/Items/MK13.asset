@@ -16,7 +16,7 @@ MonoBehaviour:
   item: {fileID: 0}
   id: 12
   empty: {fileID: 1303234783540754040, guid: 637a1677ebd4388449b573eed2f807bc, type: 3}
-  mass: 0
+  mass: 1
   colliderCentre: {x: 0, y: 0.2628133, z: 1.1362062}
   colliderSize: {x: 0.26, y: 1.4831586, z: 6.1707754}
   itemType: 2

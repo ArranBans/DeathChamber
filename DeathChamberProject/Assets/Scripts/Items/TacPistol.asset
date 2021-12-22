@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
+  m_Name: TacPistol
+  m_EditorClassIdentifier: 
+  InventoryImage: {fileID: 0}
+  empty: {fileID: 1118806866769469501, guid: 9b642a6ee02699045b4a1c5bd2d5de39, type: 3}
+  itemName: Pistol
+  itemId: 14
+  mass: 0.3
+  colliderCentre: {x: 0, y: 0.0056661954, z: 0.9790502}
+  colliderSize: {x: 0.18, y: 1.1313324, z: 2.7581007}
+  itemType: 2
+  charPos: {x: 0.12, y: -0.16, z: 0.7}
+  xPosRecoil: 0
+  yPosRecoil: -0.003
+  zPosRecoil: -0.05
+  xRotRecoil: 1
+  yRotRecoil: 0.35
+  zRotRecoil: 0
+  xRotOffset: -5.5
+  camXPosRecoil: 0
+  camYPosRecoil: 0
+  camZPosRecoil: -0.03
+  camXRotRecoil: 0.2
+  camYRotRecoil: 0.6
+  camZRotRecoil: 0.2
+  camXRotOffset: -1.3
+  recoilLocation: {fileID: 0}
+  recoilReturnSpeed: 18
+  recoilSnappiness: 5
+  recoilTime: 0.001
+  cameraRecoilTime: 0.05
+  cameraReturn: 1
+  semiAuto: 1
+  fullAuto: 0
+  boltAction: 0
+  fireRate: 12
+  defaultFireMode: 0
+  maxAmmo: 84
+  magAmmo: 17
+  ammoType: 1
+  baseDamage: 0
+  bulletSpeed: 0
+  bulletMass: 0
+  bulletSpawnPoint: {x: 0, y: 0.322, z: 2.363}
+  bulletObject: {fileID: 0}
+  tiltSway: -0.74
+  hMoveSway: -0.01
+  vMoveSway: -0.002
+  aimSwayModifier: 0.25
+  muzzleFlash: {fileID: 0}
+  gunAudio: {fileID: 8300000, guid: e83c2d84f22ffa0469fb28fec4c2d41c, type: 3}
+  aimSpeed: 20
+  aimPos: {x: 0, y: -0.13, z: 0.65}
+  hipPos: {x: 0.035, y: -0.26, z: 0.4}
+  aimFov: 0.9
+  aimSensMult: 1

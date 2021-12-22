@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adea6884c8963e2448ca4125a902f23a, type: 3}
-  m_Name: M41
+  m_Name: TacPistol
   m_EditorClassIdentifier: 
-  ItemName: M41
+  ItemName: Pistol
   item: {fileID: 0}
-  id: 11
-  empty: {fileID: 1303234783540754040, guid: 59a650bd8b7453146bfc16719ecac69c, type: 3}
-  mass: 0.8
-  colliderCentre: {x: 0, y: 0.20897359, z: 0.9059471}
-  colliderSize: {x: 0.26, y: 1.3754786, z: 5.7102532}
+  id: 14
+  empty: {fileID: 2244804558167897716, guid: 5b3c5be7adfffec41ad8cd5328d22429, type: 3}
+  mass: 0.3
+  colliderCentre: {x: 0, y: 0.0056661954, z: 0.9790502}
+  colliderSize: {x: 0.18, y: 1.1313324, z: 2.7581007}
   itemType: 2
   xPosRecoil: 0
   yPosRecoil: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   baseDamage: 0
   bulletSpeed: 0
   bulletMass: 0
-  bulletSpawnPoint: {x: 0, y: 0.453, z: 3.833}
+  bulletSpawnPoint: {x: 0, y: 0.322, z: 2.363}
   bulletObject: {fileID: 0}
   tiltSway: 0
   hMoveSway: 0
@@ -60,6 +60,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 0}
   aimSpeed: 0
-  aimPos: {x: 0, y: -0.196, z: 0.16}
-  hipPos: {x: 0.09, y: -0.27, z: 0.23}
+  aimPos: {x: 0, y: -0.13, z: 0.65}
+  hipPos: {x: 0.05, y: -0.26, z: 0.4}
   aimFov: 0
