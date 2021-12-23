@@ -23,7 +23,7 @@ MonoBehaviour:
   charPos: {x: 0.08, y: -0.26, z: 0.3}
   xPosRecoil: 0
   yPosRecoil: -0.0033
-  zPosRecoil: -0.04
+  zPosRecoil: -0.013
   xRotRecoil: 0.05
   yRotRecoil: 0.25
   zRotRecoil: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   boltAction: 0
   fireRate: 7
   defaultFireMode: 0
-  maxAmmo: 0
-  magAmmo: 0
+  maxAmmo: 160
+  magAmmo: 20
   ammoType: 0
   baseDamage: 0
   bulletSpeed: 0

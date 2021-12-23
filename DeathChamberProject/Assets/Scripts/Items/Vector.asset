@@ -22,17 +22,17 @@ MonoBehaviour:
   itemType: 2
   charPos: {x: 0.12, y: -0.22, z: 0.42}
   xPosRecoil: 0
-  yPosRecoil: 0.003
-  zPosRecoil: -0.02
+  yPosRecoil: 0.002
+  zPosRecoil: -0.015
   xRotRecoil: 0
-  yRotRecoil: 0.3
-  zRotRecoil: 0.15
+  yRotRecoil: 0.2
+  zRotRecoil: 0.11
   xRotOffset: -0.6
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
   camXRotRecoil: 0.2
-  camYRotRecoil: 0.3
+  camYRotRecoil: 0.35
   camZRotRecoil: 0.04
   camXRotOffset: -2.6
   recoilLocation: {fileID: 0}

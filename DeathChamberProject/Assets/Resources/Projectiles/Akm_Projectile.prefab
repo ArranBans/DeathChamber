@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b97bf2541a218e640854e650c6f81f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 460
+  force: 820
   hitforce: 0.5
   rb: {fileID: 0}
   SmokeEffect: {fileID: 0}

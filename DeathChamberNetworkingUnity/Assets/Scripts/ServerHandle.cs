@@ -64,7 +64,15 @@ public class ServerHandle
                 _item = _object.GetComponent<ItemPickup>();
                 if (Server.clients[_fromClient].playerManager.player.AddItemToInventory(_item.iSO.id))
                 {
-                    ServerSend.AddItemToInventory(_fromClient, _item.iSO.id);
+                    int _aux1 = 0;
+                    int _aux2 = 0;
+                    if (Database.instance.GetItem(_item.iSO.id).itemType == ItemSO.ItemType.gun)
+                    {
+                        _aux1 = ((GunSO)Database.instance.GetItem(_item.iSO.id)).magAmmo;
+                        _aux2 = ((GunSO)Database.instance.GetItem(_item.iSO.id)).maxAmmo;
+                    }
+
+                    ServerSend.AddItemToInventory(_fromClient, _item.iSO.id, _aux1, _aux2);
                     ServerSend.RemoveItem(_item.id);
                     testGameManager.instance.items[testGameManager.instance.items.IndexOf(_item)] = null;
                     UnityEngine.Object.Destroy(_item.gameObject);
@@ -88,24 +96,35 @@ public class ServerHandle
     public static void ChangeSelectedItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
-        Debug.Log(_index);
+        //Debug.Log(_index);
         Server.clients[_fromClient].playerManager.player.ChangeSelectedItem(_index);
 
         if (_index + 1 <= Server.clients[_fromClient].playerManager.player.inventory.Count)
         {
+
+            
+
             if (Server.clients[_fromClient].playerManager.player.inventory[_index] != null)
             {
+                int _aux1 = 0;
+                int _aux2 = 0;
+                if (Database.instance.GetItem(Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id).itemType == ItemSO.ItemType.gun)
+                {
+                    _aux1 = ((GunSO)Database.instance.GetItem(Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id)).magAmmo;
+                    _aux2 = ((GunSO)Database.instance.GetItem(Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id)).maxAmmo;
+                }
+
                 Debug.Log($"Player {_fromClient} changed item to {_index}");
-                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
+                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id, _aux1, _aux2);
             }
             else
             {
-                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
+                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id,0,0);
             }
         } 
         else
         {
-            ServerSend.ChangeSelectedItem(_fromClient, 0);
+            ServerSend.ChangeSelectedItem(_fromClient, 0,0,0);
         }
 
 
@@ -142,7 +161,18 @@ public class ServerHandle
         Consumable con = (Consumable)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem];
         Server.clients[_fromClient].playerManager.player.SetHealth(Server.clients[_fromClient].playerManager.player.health + con.conSO.value);
         Server.clients[_fromClient].playerManager.player.RemoveItemFromInventory(Server.clients[_fromClient].playerManager.player.selectedItem, false);
-        ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id);
+        int newItem = Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id;
+
+        int _aux1 = 0;
+        int _aux2 = 0;
+
+        if (Database.instance.GetItem(newItem).itemType == ItemSO.ItemType.gun)
+        {
+            _aux1 = ((GunSO)Database.instance.GetItem(newItem)).magAmmo;
+            _aux2 = ((GunSO)Database.instance.GetItem(newItem)).maxAmmo;
+        }
+
+        ServerSend.ChangeSelectedItem(_fromClient, newItem, _aux1, _aux2);
     }
 
     public static void Command(int _fromClient, Packet _packet)
@@ -156,7 +186,16 @@ public class ServerHandle
             {
                 if(Server.clients[_fromClient].playerManager.player.AddItemToInventory(_index))
                 {
-                    ServerSend.AddItemToInventory(_fromClient, _index);
+                    int _aux1 = 0;
+                    int _aux2 = 0;
+
+                    if (Database.instance.GetItem(_index).itemType == ItemSO.ItemType.gun)
+                    {
+                        _aux1 = ((GunSO)Database.instance.GetItem(_index)).magAmmo;
+                        _aux2 = ((GunSO)Database.instance.GetItem(_index)).maxAmmo;
+                    }
+
+                    ServerSend.AddItemToInventory(_fromClient, _index, _aux1, _aux2);
                 }
                 
             }

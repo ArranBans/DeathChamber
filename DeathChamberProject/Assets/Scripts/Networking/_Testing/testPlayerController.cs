@@ -313,7 +313,7 @@ public class testPlayerController : MonoBehaviour
 
             if (hit.collider.gameObject.GetComponent<ItemPickup>() || hit.collider.gameObject.GetComponentInParent<ItemPickup>())
             {
-                Debug.Log("caninteractwithitem");
+                //Debug.Log("caninteractwithitem");
                 return true;
                 
             }

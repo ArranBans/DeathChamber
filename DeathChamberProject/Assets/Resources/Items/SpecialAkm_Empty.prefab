@@ -80,12 +80,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iSO: {fileID: 11400000, guid: a5e21efeca1142548a49af540ed9d2e2, type: 2}
   ViewmodelOnly: []
+  RightHandTarget: {fileID: 8101307377533843619}
+  LeftHandTarget: {fileID: 1845539235120524632}
   iState: 1
   magAmmo: 0
   fireMode: 0
   fireAudio: {fileID: 7527470095487981877}
-  RightHandTarget: {fileID: 8101307377533843619}
-  LeftHandTarget: {fileID: 1845539235120524632}
 --- !u!1 &5232841723668726577
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +328,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c7f519056e8a4894ba3de4231e0eda94, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 2e8bfa08b1b621c44b26593f8fbee90b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98078fbba64180e429009fa5c1d34a6b, type: 2}
     - target: {fileID: 919132149155446097, guid: 2e8bfa08b1b621c44b26593f8fbee90b, type: 3}
       propertyPath: m_Name
       value: Akm Draft

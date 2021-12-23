@@ -100,10 +100,12 @@ public class ClientHandle : MonoBehaviour
         int _databaseId = _packet.ReadInt();
         Vector3 _pos = _packet.ReadVector3();
         Quaternion _rot = _packet.ReadQuaternion();
+        int _aux1 = _packet.ReadInt();
+        int _aux2 = _packet.ReadInt();
 
         Debug.Log($"Spawning: {_databaseId}");
         GameObject _item = (GameObject)Instantiate(Database.instance.GetItem(_databaseId).empty, _pos, _rot);
-        _item.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup);
+        _item.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup, _aux1, _aux2);
         _item.GetComponent<ItemPickup>().id = _id;
         testGameManager.itemPickups.Add(_item.GetComponent<ItemPickup>());
         //Debug.Log($"Spawned: {_databaseId}");
@@ -131,9 +133,11 @@ public class ClientHandle : MonoBehaviour
     public static void AddItemToInventory(Packet _packet)
     {
         int _ItemId = _packet.ReadInt();
+        int _aux1 = _packet.ReadInt();
+        int _aux2 = _packet.ReadInt();
 
         GameObject itemGO = (GameObject)Instantiate(Database.instance.GetItem(_ItemId).empty, testGameManager.players[Client.instance.myId].playerObj.GetComponent<testPlayerController>().cam.transform);
-        itemGO.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item);
+        itemGO.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item, _aux1, _aux2);
         testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().AddItemToInventory(itemGO.GetComponent<Item>());
         testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().ChangeSelectedItem(testGameManager.players[Client.instance.myId].playerObj.GetComponent<Player>().inventory.IndexOf(itemGO.GetComponent<Item>()));
 
@@ -180,6 +184,8 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         int _itemId = _packet.ReadInt();
+        int _aux1 = _packet.ReadInt();
+        int _aux2 = _packet.ReadInt();
 
         Debug.Log($"{_id} changing item to {_itemId}");
 
@@ -193,7 +199,7 @@ public class ClientHandle : MonoBehaviour
             NetPlayerController netPlayer = testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>();
             netPlayer.selectedItem = (GameObject)Instantiate(Database.instance.GetItem(_itemId).empty, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform);
             netPlayer.selectedItemInfo = testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<ItemInfo>();
-            netPlayer.selectedItemInfo.ChangeState(ItemInfo.ItemState.charModel);   
+            netPlayer.selectedItemInfo.ChangeState(ItemInfo.ItemState.charModel, _aux1, _aux2);   
         }
         
         

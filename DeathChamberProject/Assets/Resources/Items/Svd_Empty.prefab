@@ -207,12 +207,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iSO: {fileID: 11400000, guid: 36de145d826051b4ab5b01b54e036bd2, type: 2}
   ViewmodelOnly: []
+  RightHandTarget: {fileID: 3108698029286967213}
+  LeftHandTarget: {fileID: 2781463280566154060}
   iState: 0
   magAmmo: 0
   fireMode: 0
   fireAudio: {fileID: 6678890302054071818}
-  RightHandTarget: {fileID: 3108698029286967213}
-  LeftHandTarget: {fileID: 2781463280566154060}
 --- !u!1 &5982047340628231360
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +330,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: fc7008b29c0dc1f4faf32df785bf6286, type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66ba3416d7185a44a81fb853aecc0081, type: 2}
+    - target: {fileID: -7511558181221131132, guid: fc7008b29c0dc1f4faf32df785bf6286, type: 3}
+      propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 88f33dcad63f1e84ebb1f95f33751d56, type: 2}
     - target: {fileID: 919132149155446097, guid: fc7008b29c0dc1f4faf32df785bf6286, type: 3}

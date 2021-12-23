@@ -236,7 +236,15 @@ public class Client
                     {
                         if(_item != null)
                         {
-                            ServerSend.SpawnItem(id, _item.id, _item.iSO.id, _item.transform.position, _item.transform.rotation);
+                            int _aux1 = 0;
+                            int _aux2 = 0;
+                            if(_item.iSO.itemType == ItemSO.ItemType.gun)
+                            {
+                                _aux1 = _item.GetComponent<GunInfo>().magAmmo;
+                            }
+
+
+                            ServerSend.SpawnItem(id, _item.id, _item.iSO.id, _item.transform.position, _item.transform.rotation, _aux1, 0);
                         }
                         
                     }

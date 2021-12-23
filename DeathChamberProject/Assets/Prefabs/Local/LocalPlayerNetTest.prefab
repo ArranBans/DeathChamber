@@ -5436,7 +5436,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.012
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 85
   orthographic: 0
@@ -5503,7 +5503,7 @@ MonoBehaviour:
   m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
-  m_Dithering: 0
+  m_Dithering: 1
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0

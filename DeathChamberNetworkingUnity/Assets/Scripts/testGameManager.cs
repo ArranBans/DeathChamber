@@ -39,7 +39,15 @@ public class testGameManager : MonoBehaviour
         {
             if (_item != null)
             {
-                _item.ChangeState(ItemInfo.ItemState.pickup);
+                int _aux1 = 0;
+                int _aux2 = 0;
+
+                if(_item.iSO.itemType == ItemSO.ItemType.gun)
+                {
+                    _aux1 = ((GunSO)_item.iSO).magAmmo;
+                    _aux2 = ((GunSO)_item.iSO).maxAmmo;
+                }
+                _item.ChangeState(ItemInfo.ItemState.pickup, _aux1, _aux2);
                 ItemPickup itemP = _item.GetComponent<ItemPickup>();
                 itemP.id = items.Count;
                 items.Add(itemP);
@@ -91,11 +99,21 @@ public class testGameManager : MonoBehaviour
     public void SpawnItem(int id, Vector3 _location, Quaternion _rotation)
     {
         GameObject ItemGo = Instantiate(Database.instance.GetItem(id).empty, _location, _rotation);
-        ItemGo.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup);
+
+        int _aux1 = 0;
+        int _aux2 = 0;
+
+        if (Database.instance.GetItem(id).itemType == ItemSO.ItemType.gun)
+        {
+            _aux1 = ((GunSO)Database.instance.GetItem(id)).magAmmo;
+            _aux2 = ((GunSO)Database.instance.GetItem(id)).maxAmmo;
+        }
+        ItemGo.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup, _aux1, _aux2);
         ItemPickup iPickup = ItemGo.GetComponent<ItemPickup>();
         iPickup.id = items.Count;
         items.Add(iPickup);
-        ServerSend.SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation);
+            
+        ServerSend.SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation, _aux1, 0);
     }
 
     public void SpawnItemTest()
@@ -115,7 +133,7 @@ public class testGameManager : MonoBehaviour
         //Server.clients[_id].player = p;
         ServerSend.Respawn(_id);
         //p.ChangeSelectedItem(0);
-        ServerSend.ChangeSelectedItem(_id, 0);
+        ServerSend.ChangeSelectedItem(_id, 0,0,0);
     }
 
     public void Deploy(int _id)

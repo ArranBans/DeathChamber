@@ -141,7 +141,7 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void SpawnItem(int _id ,int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot)
+    public static void SpawnItem(int _id ,int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot, int _aux1, int _aux2)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnItems))
         {
@@ -149,12 +149,14 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_databaseId);
             _packet.Write(_pos);
             _packet.Write(_rot);
+            _packet.Write(_aux1);
+            _packet.Write(_aux2);
 
             SendTCPData(_id, _packet);
         }
     }
 
-    public static void SpawnItem(int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot)
+    public static void SpawnItem(int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot, int _aux1, int _aux2)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnItems))
         {
@@ -162,6 +164,8 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_databaseId);
             _packet.Write(_pos);
             _packet.Write(_rot);
+            _packet.Write(_aux1);
+            _packet.Write(_aux2);
 
             SendTCPDataToAll(_packet);
         }
@@ -189,11 +193,13 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void AddItemToInventory(int _id, int _itemId)
+    public static void AddItemToInventory(int _id, int _itemId,int _aux1, int _aux2)
     {
         using (Packet _packet = new Packet((int)ServerPackets.addItemToInventory))
         {
             _packet.Write(_itemId);
+            _packet.Write(_aux1);
+            _packet.Write(_aux2);
 
             SendTCPData(_id, _packet);
         }
@@ -210,12 +216,14 @@ public class ServerSend : MonoBehaviour
         }
     }
 
-    public static void ChangeSelectedItem(int _id, int _itemId)
+    public static void ChangeSelectedItem(int _id, int _itemId, int _aux1, int _aux2)
     {
         using (Packet _packet = new Packet((int)ServerPackets.changeSelectedItem))
         {
             _packet.Write(_id);
             _packet.Write(_itemId);
+            _packet.Write(_aux1);
+            _packet.Write(_aux2);
 
             SendTCPDataToAll(_id, _packet);
         }

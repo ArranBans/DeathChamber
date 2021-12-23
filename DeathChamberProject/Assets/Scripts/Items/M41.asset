@@ -22,10 +22,10 @@ MonoBehaviour:
   itemType: 2
   charPos: {x: 0.153, y: -0.24, z: 0.46}
   xPosRecoil: 0
-  yPosRecoil: 0.0007
-  zPosRecoil: -0.022
+  yPosRecoil: 0.0005
+  zPosRecoil: -0.012
   xRotRecoil: 0
-  yRotRecoil: 0.23
+  yRotRecoil: 0.2
   zRotRecoil: 0.1
   xRotOffset: -0.25
   camXPosRecoil: 0
@@ -36,8 +36,8 @@ MonoBehaviour:
   camZRotRecoil: 0
   camXRotOffset: -0.5
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 10
-  recoilSnappiness: 700
+  recoilReturnSpeed: 12
+  recoilSnappiness: 800
   recoilTime: 0.005
   cameraRecoilTime: 0.07
   cameraReturn: 0

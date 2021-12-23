@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iSO: {fileID: 11400000, guid: 170c54fe966647c42b68b77db5631d23, type: 2}
   ViewmodelOnly:
-  - {fileID: 0}
+  - {fileID: 4413560108967141184}
   RightHandTarget: {fileID: 2714486310491897570}
   LeftHandTarget: {fileID: 4871066462020196124}
   iState: 0

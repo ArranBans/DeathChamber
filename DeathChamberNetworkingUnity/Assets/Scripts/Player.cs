@@ -61,8 +61,16 @@ public class Player : MonoBehaviour
         if (inventory.Count < inventorySize)
         {
             
-            GameObject _invItemObj = Instantiate(Database.instance.itemDatabase.database[_item].empty, camTransform);
-            _invItemObj.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item);
+            GameObject _invItemObj = Instantiate(Database.instance.GetItem(_item).empty, camTransform);
+            int _aux1 = 0;
+            int _aux2 = 0;
+            if (Database.instance.GetItem(_item).itemType == ItemSO.ItemType.gun)
+            {
+                _aux1 = ((GunSO)Database.instance.GetItem(_item)).magAmmo;
+                _aux2 = ((GunSO)Database.instance.GetItem(_item)).maxAmmo;
+            }
+
+            _invItemObj.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item,_aux1,_aux2);
             _invItemObj.transform.localPosition = Vector3.zero;
             Item _invItem = _invItemObj.GetComponent<Item>();
             inventory.Add(_invItem);

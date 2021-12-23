@@ -18,7 +18,7 @@ public class ItemInfo : MonoBehaviour
     [Header("Runtime Stats")]
     public ItemState iState;
 
-    public void ChangeState(ItemState _state)
+    public void ChangeState(ItemState _state, int _aux1, int _aux2)
     {
         switch (_state)
         {
@@ -78,6 +78,11 @@ public class ItemInfo : MonoBehaviour
                     gameO.SetActive(false);
                 }
                 break;
+        }
+
+        if(iSO.itemType == ItemSO.ItemType.gun)
+        {
+            ((GunInfo)this).magAmmo = _aux1;
         }
     }
 }

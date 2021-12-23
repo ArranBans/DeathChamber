@@ -46,8 +46,8 @@ MonoBehaviour:
   boltAction: 0
   fireRate: 10
   defaultFireMode: 1
-  maxAmmo: 0
-  magAmmo: 0
+  maxAmmo: 300
+  magAmmo: 30
   ammoType: 0
   baseDamage: 0
   bulletSpeed: 0

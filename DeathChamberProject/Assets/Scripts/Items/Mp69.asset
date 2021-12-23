@@ -23,9 +23,9 @@ MonoBehaviour:
   charPos: {x: 0.12, y: -0.26, z: 0.33}
   xPosRecoil: 0.0015
   yPosRecoil: 0
-  zPosRecoil: -0.03
+  zPosRecoil: -0.013
   xRotRecoil: 0.5
-  yRotRecoil: 1.4
+  yRotRecoil: 1.1
   zRotRecoil: 0.2
   xRotOffset: -0.9
   camXPosRecoil: 0

@@ -23,7 +23,7 @@ MonoBehaviour:
   charPos: {x: 0.137, y: -0.36, z: 0.44}
   xPosRecoil: 0
   yPosRecoil: -0.0025
-  zPosRecoil: -0.01
+  zPosRecoil: -0.004
   xRotRecoil: 0.5
   yRotRecoil: 0.3
   zRotRecoil: 0.2
