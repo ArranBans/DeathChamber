@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Gun : Item
 {
@@ -25,6 +26,7 @@ public class Gun : Item
     public testPlayerController pTController;
     public Player player;
     AudioSource fireSource;
+    VisualEffect muzzleFlash;
 
     private Vector3 _posRecoil;
     private Vector3 _rotRecoil;
@@ -37,6 +39,7 @@ public class Gun : Item
     {
         gunSO = (GunSO)itemInfo.iSO;
         itemSO = gunSO;
+        muzzleFlash = ((GunInfo)itemInfo).muzzleFlash;
         fireSource = ((GunInfo)itemInfo).fireAudio;
         fireSource.clip = gunSO.gunAudio;
 
@@ -210,6 +213,7 @@ public class Gun : Item
 
         //SpawnBullet on client and server
         fireSource.PlayOneShot(fireSource.clip);
+        muzzleFlash.Play();
         Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z))).GetComponent<Bullet>();
         bullet.hitMarker = player.hitMarker;
         bullet.myId = Client.instance.myId;

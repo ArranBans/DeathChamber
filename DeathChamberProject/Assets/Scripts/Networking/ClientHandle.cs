@@ -214,6 +214,7 @@ public class ClientHandle : MonoBehaviour
         Instantiate(Resources.Load($"Projectiles/{_name}_Projectile"), testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.position, testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation);
         if (testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem)
             testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.PlayOneShot(testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.clip);
+        testGameManager.players[_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().muzzleFlash.Play();
     }
 
     public static void ChangeHealth(Packet _packet)

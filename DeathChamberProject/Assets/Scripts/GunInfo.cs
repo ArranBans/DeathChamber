@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class GunInfo : ItemInfo
 {
@@ -8,4 +9,5 @@ public class GunInfo : ItemInfo
     public int magAmmo;
     public GunSO.FireMode fireMode;
     public AudioSource fireAudio;
+    public VisualEffect muzzleFlash;
 }
