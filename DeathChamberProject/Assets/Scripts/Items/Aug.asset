@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
+  m_Name: Aug
+  m_EditorClassIdentifier: 
+  InventoryImage: {fileID: 0}
+  empty: {fileID: 3199234337347476203, guid: b27ab78ee3e004a44a891d7ce1effbf7, type: 3}
+  itemName: Aug
+  itemId: 15
+  mass: 0.8
+  colliderCentre: {x: 0, y: 0.21444769, z: 0.32896328}
+  colliderSize: {x: 0.27, y: 1.5610098, z: 5.0992165}
+  itemType: 2
+  charPos: {x: 0.153, y: -0.24, z: 0.46}
+  xPosRecoil: 0
+  yPosRecoil: 0.0006
+  zPosRecoil: -0.0015
+  xRotRecoil: 0
+  yRotRecoil: 0.2
+  zRotRecoil: 0.1
+  xRotOffset: -0.3
+  camXPosRecoil: 0
+  camYPosRecoil: 0
+  camZPosRecoil: 0
+  camXRotRecoil: 0
+  camYRotRecoil: 0.6
+  camZRotRecoil: 0
+  camXRotOffset: -0.65
+  recoilLocation: {fileID: 0}
+  recoilReturnSpeed: 11
+  recoilSnappiness: 800
+  recoilTime: 0.005
+  cameraRecoilTime: 0.07
+  cameraReturn: 0
+  semiAuto: 0
+  fullAuto: 1
+  boltAction: 0
+  fireRate: 12
+  defaultFireMode: 1
+  maxAmmo: 300
+  magAmmo: 30
+  ammoType: 0
+  baseDamage: 0
+  bulletSpeed: 0
+  bulletMass: 0
+  bulletSpawnPoint: {x: 0, y: 0.44, z: 2.931}
+  bulletObject: {fileID: 0}
+  tiltSway: -0.45
+  hMoveSway: -0.007
+  vMoveSway: -0.009
+  aimSwayModifier: 0.24
+  muzzleFlash: {fileID: 0}
+  gunAudio: {fileID: 8300000, guid: e83c2d84f22ffa0469fb28fec4c2d41c, type: 3}
+  aimSpeed: 10
+  aimPos: {x: 0, y: -0.2165, z: 0.19}
+  hipPos: {x: 0.08, y: -0.25, z: 0.25}
+  aimFov: 0.9
+  aimSensMult: 1

@@ -405,6 +405,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: vfx_MuzzleFlash
       objectReference: {fileID: 0}
+    - target: {fileID: 2633765363693314221, guid: 7782cd4a21ce7ad46bf9daf758ca2cfc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2633765363693314222, guid: 7782cd4a21ce7ad46bf9daf758ca2cfc, type: 3}
       propertyPath: m_RootOrder
       value: 0

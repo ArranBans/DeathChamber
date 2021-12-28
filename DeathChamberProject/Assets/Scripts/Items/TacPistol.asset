@@ -30,7 +30,7 @@ MonoBehaviour:
   xRotOffset: -5.5
   camXPosRecoil: 0
   camYPosRecoil: 0
-  camZPosRecoil: -0.03
+  camZPosRecoil: -0.01
   camXRotRecoil: 0.2
   camYRotRecoil: 0.6
   camZRotRecoil: 0.2

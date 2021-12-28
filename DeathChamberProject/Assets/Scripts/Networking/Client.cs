@@ -306,6 +306,13 @@ public class Client : MonoBehaviour
 
             Debug.Log("Disconnected from server...");
         }
+
+        testGameManager.players = new Dictionary<int, testPlayerManager>();
+        testGameManager.itemPickups = new List<ItemPickup>();
+        Destroy(testGameManager.instance);
+        SceneManager.LoadScene("Menu");
+        Destroy(Database.instance.gameObject);
+        Destroy(Client.instance.gameObject);
     }
 
     public void ChangeIp()
