@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e028d43f52b48d14a9ebb77e45be6aa7, type: 3}
+  m_Name: Tal
+  m_EditorClassIdentifier: 
+  id: 2
+  obj: {fileID: 7551025870913045343, guid: e491d7c368daaca438e33e952b788809, type: 3}

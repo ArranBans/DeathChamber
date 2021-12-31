@@ -283,5 +283,43 @@ public class ServerSend : MonoBehaviour
         }
     }
 
+    public static void SpawnEnemy(int _enemyId, int _enemyType, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            _packet.Write(_enemyId);
+            _packet.Write(_enemyType);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
+            Debug.Log($"Told players to spawn in Enemy: {_enemyId}");
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+    public static void SpawnEnemy(int _id, int _enemyId, int _enemyType, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.spawnEnemy))
+        {
+            _packet.Write(_enemyId);
+            _packet.Write(_enemyType);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
+            Debug.Log($"Told player {_id}, {Server.clients[_id].playerManager.username} to spawn in Enemy: {_enemyId}");
+
+            SendTCPData(_id, _packet);
+        }
+    }
+    public static void EnemyPosition(int _enemyId, Vector3 _pos, Quaternion _rot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.enemyPosition))
+        {
+            _packet.Write(_enemyId);
+            _packet.Write(_pos);
+            _packet.Write(_rot);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
     #endregion
 }

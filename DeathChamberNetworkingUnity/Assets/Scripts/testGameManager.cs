@@ -9,6 +9,7 @@ public class testGameManager : MonoBehaviour
     public Vector3 spawnPoint;
     public List<ItemPickup> items = new List<ItemPickup>();
     public List<ItemInfo> startingItems = new List<ItemInfo>();
+    public List<EnemyTest> enemies = new List<EnemyTest>();
     float timeToNextSpawn = 0;
     public int maxItems;
     public float itemSpawnInterval;
@@ -55,11 +56,11 @@ public class testGameManager : MonoBehaviour
 
         }
 
-        foreach (ItemPickup _item in items)
+        foreach (EnemyTest _enemy in enemies)
         {
-            if(_item != null)
+            if(_enemy != null)
             {
-                _item.id = items.IndexOf(_item);
+                _enemy.id = enemies.IndexOf(_enemy);
             }
             
         }
@@ -114,6 +115,16 @@ public class testGameManager : MonoBehaviour
         items.Add(iPickup);
             
         ServerSend.SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation, _aux1, 0);
+    }
+
+    public void SpawnEnemy(int enemyType, Vector3 _location, Quaternion _rotation)
+    {
+        GameObject EnemyGo = Instantiate(Database.instance.GetEnemy(enemyType).obj, _location, _rotation);
+        EnemyTest enemy = EnemyGo.GetComponent<EnemyTest>();
+        enemy.id = enemies.Count;
+        enemies.Add(enemy);
+
+        ServerSend.SpawnEnemy(enemy.id, enemy.eSO.id, _location, _rotation);
     }
 
     public void SpawnItemTest()

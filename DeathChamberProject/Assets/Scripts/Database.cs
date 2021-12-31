@@ -7,6 +7,7 @@ public class Database : MonoBehaviour
     public static Database instance;
     public ItemDatabase itemDatabase;
     public MapDatabase mapDatabase;
+    public EnemyDatabase enemyDatabase;
 
     public void Awake()
     {
@@ -31,5 +32,10 @@ public class Database : MonoBehaviour
     public string GetMap(int id)
     {
         return mapDatabase.database[id];
+    }
+
+    public EnemySO GetEnemy(int id)
+    {
+        return enemyDatabase.database[id];
     }
 }

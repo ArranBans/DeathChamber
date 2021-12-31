@@ -23,7 +23,9 @@ public enum ServerPackets
     die,
     respawn,
     serverDeploy,
-    sendMap
+    sendMap,
+    spawnEnemy,
+    enemyPosition
 }
 
 /// <summary>Sent from client to server.</summary>

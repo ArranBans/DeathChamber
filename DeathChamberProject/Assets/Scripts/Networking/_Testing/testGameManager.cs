@@ -6,7 +6,8 @@ public class testGameManager : MonoBehaviour
 {
     public static testGameManager instance;
     public static Dictionary<int, testPlayerManager> players = new Dictionary<int, testPlayerManager>();
-    [SerializeField]public static List<ItemPickup> itemPickups = new List<ItemPickup>();
+    [SerializeField] public static List<ItemPickup> itemPickups = new List<ItemPickup>();
+    [SerializeField] public static List<EnemyTest> enemies = new List<EnemyTest>();
 
     public GameObject localPlayerManagerPrefab;
     public GameObject playerManagerPrefab;

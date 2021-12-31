@@ -244,7 +244,7 @@ public class Client
                             }
 
 
-                            ServerSend.SpawnItem(id, _item.id, _item.iSO.id, _item.transform.position, _item.transform.rotation, _aux1, 0);
+                            ServerSend.SpawnItem(id, _item.id, _item.iSO.id, _item.transform.position, _item.transform.rotation, _aux1, _aux2);
                         }
                         
                     }
@@ -253,7 +253,31 @@ public class Client
             }
             else
             {
-                //Debug.Log($"Client {_client.id} has no player");
+                
+            }
+        }
+
+        foreach (Client _client in Server.clients.Values)//spawn Enemies on new joined client
+        {
+            if (_client.playerManager != null)
+            {
+                if (_client.id == id)
+                {
+
+                    foreach (EnemyTest _enemy in testGameManager.instance.enemies)
+                    {
+                        if (_enemy != null)
+                        {
+                            ServerSend.SpawnEnemy(id, _enemy.id, _enemy.eSO.id, _enemy.transform.position, _enemy.transform.rotation);
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                
             }
         }
     }

@@ -6,6 +6,7 @@ public class Database : MonoBehaviour
 {
     public static Database instance;
     public ItemDatabase itemDatabase;
+    public EnemyDatabase enemyDatabase;
 
     public void Awake()
     {
@@ -23,5 +24,10 @@ public class Database : MonoBehaviour
     public ItemSO GetItem(int id)
     {
         return itemDatabase.database[id];
+    }
+
+    public EnemySO GetEnemy(int id)
+    {
+        return enemyDatabase.database[id];
     }
 }

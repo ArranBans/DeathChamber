@@ -104,7 +104,7 @@ public class ClientHandle : MonoBehaviour
         int _aux2 = _packet.ReadInt();
 
         Debug.Log($"Spawning: {_databaseId}");
-        GameObject _item = (GameObject)Instantiate(Database.instance.GetItem(_databaseId).empty, _pos, _rot);
+        GameObject _item = Instantiate(Database.instance.GetItem(_databaseId).empty, _pos, _rot);
         _item.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup, _aux1, _aux2);
         _item.GetComponent<ItemPickup>().id = _id;
         testGameManager.itemPickups.Add(_item.GetComponent<ItemPickup>());
@@ -282,5 +282,37 @@ public class ClientHandle : MonoBehaviour
         }
         
 
+    }
+
+    public static void SpawnEnemy(Packet _packet)
+    {
+        int _enemyId = _packet.ReadInt();
+        int _enemyType = _packet.ReadInt();
+        Vector3 _pos = _packet.ReadVector3();
+        Quaternion _rot = _packet.ReadQuaternion();
+
+        Debug.Log($"Spawning Enemy: {_enemyType}");
+        GameObject _enemy = Instantiate(Database.instance.GetEnemy(_enemyType).obj, _pos, _rot);
+        _enemy.GetComponent<EnemyTest>().id = _enemyId;
+        testGameManager.enemies.Add(_enemy.GetComponent<EnemyTest>());
+    }
+
+    public static void EnemyPosition(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Vector3 _pos = _packet.ReadVector3();
+        Quaternion _rot = _packet.ReadQuaternion();
+
+        foreach (EnemyTest _enemy in testGameManager.enemies)
+        {
+            if (_enemy != null)
+            {
+                if (_enemy.id == _id)
+                {
+                    _enemy.UpdateEnemyState(_pos, _rot);
+                }
+            }
+
+        }
     }
 }

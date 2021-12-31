@@ -866,7 +866,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Alpha 0.9
+  m_Text: Alpha 1.0
 --- !u!222 &1055572617
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -906,6 +906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: 9d705549677b81c489552f85a707fba3, type: 2}
   mapDatabase: {fileID: 11400000, guid: f4a25ab254bcde04196d12d8b7d8de02, type: 2}
+  enemyDatabase: {fileID: 11400000, guid: b03ba7ed69e941f4ba2bb4dcd4a4cb9d, type: 2}
 --- !u!4 &1262647976
 Transform:
   m_ObjectHideFlags: 0

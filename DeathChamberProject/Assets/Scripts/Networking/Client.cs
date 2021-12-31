@@ -291,7 +291,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.die, ClientHandle.Die },
             { (int)ServerPackets.respawn, ClientHandle.Respawn },
             { (int)ServerPackets.serverDeploy, ClientHandle.Deploy },
-            { (int)ServerPackets.sendMap, ClientHandle.SendMap }
+            { (int)ServerPackets.sendMap, ClientHandle.SendMap },
+            { (int)ServerPackets.spawnEnemy, ClientHandle.SpawnEnemy },
+            { (int)ServerPackets.enemyPosition, ClientHandle.EnemyPosition }
         };
         Debug.Log("Initialised Packets...");
     }
