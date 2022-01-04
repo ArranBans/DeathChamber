@@ -62,6 +62,6 @@ MonoBehaviour:
   gunAudio: {fileID: 8300000, guid: e83c2d84f22ffa0469fb28fec4c2d41c, type: 3}
   aimSpeed: 10
   aimPos: {x: 0, y: -0.196, z: 0.16}
-  hipPos: {x: 0.09, y: -0.27, z: 0.23}
+  hipPos: {x: 0.09, y: -0.25, z: 0.2}
   aimFov: 0.95
   aimSensMult: 1

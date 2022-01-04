@@ -315,4 +315,46 @@ public class ClientHandle : MonoBehaviour
 
         }
     }
+
+    public static void EnemyFire(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Quaternion _fireRot = _packet.ReadQuaternion();
+
+        foreach (EnemyTest e in testGameManager.enemies)
+        {
+            if (e.id == _id)
+            {
+                GameObject projectile = Instantiate(e.eSO.projectile, e.attackPoint.position, _fireRot);
+                break;
+            }
+            else
+            {
+                continue;
+            }
+
+        }
+
+        
+    }
+
+    public static void EnemyDie(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Debug.Log($"Enemy: {_id} has died!");
+        foreach(EnemyTest e in testGameManager.enemies)
+        {
+            if(e.id == _id)
+            {
+                Destroy(e.gameObject);
+                break;
+            }
+            else
+            {
+                continue;
+            }
+            
+        }
+        
+    }
 }

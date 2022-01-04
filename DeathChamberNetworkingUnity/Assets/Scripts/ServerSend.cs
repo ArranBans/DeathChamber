@@ -317,6 +317,27 @@ public class ServerSend : MonoBehaviour
             _packet.Write(_pos);
             _packet.Write(_rot);
 
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void EnemyFire(int _enemyId, Quaternion _fireRot)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.enemyFire))
+        {
+            _packet.Write(_enemyId);
+            _packet.Write(_fireRot);
+
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void EnemyDie(int _enemyId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.enemyDie))
+        {
+            _packet.Write(_enemyId);
+
             SendTCPDataToAll(_packet);
         }
     }

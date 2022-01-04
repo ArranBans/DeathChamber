@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
     private void FixedUpdate()
     {
         Debug.DrawRay(oldRayPoint, rayLocation.position - oldRayPoint, Color.blue, 15f);
-        if (Physics.Raycast(oldRayPoint, rayLocation.position - oldRayPoint, out colliderHit, Vector3.Distance(oldRayPoint, rayLocation.position))) ;
+        if (Physics.Raycast(oldRayPoint, rayLocation.position - oldRayPoint, out colliderHit, Vector3.Distance(oldRayPoint, rayLocation.position)))
         {
             if (colliderHit.collider)
             {
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour
                     colliderHit.collider.GetComponent<Rigidbody>().AddForce(rb.velocity * hitforce);
                 }
                 Player colliderplayer;
+                EnemyTest colliderenemy;
 
                 if (colliderHit.collider.GetComponent<Player>())
                 {
@@ -50,6 +51,16 @@ public class Bullet : MonoBehaviour
                 {
                     colliderplayer = colliderHit.collider.GetComponentInParent<Player>();
                     colliderplayer.SetHealth(colliderplayer.health - damage);
+                }
+                else if (colliderHit.collider.GetComponent<EnemyTest>())
+                {
+                    colliderenemy = colliderHit.collider.GetComponent<EnemyTest>();
+                    colliderenemy.SetHealth(colliderenemy.health - damage);
+                }
+                else if (colliderHit.collider.GetComponentInParent<EnemyTest>())
+                {
+                    colliderenemy = colliderHit.collider.GetComponentInParent<EnemyTest>();
+                    colliderenemy.SetHealth(colliderenemy.health - damage);
                 }
 
                 Destroy(gameObject);

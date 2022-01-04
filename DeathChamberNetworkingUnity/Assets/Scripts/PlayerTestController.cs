@@ -14,7 +14,7 @@ public class PlayerTestController : MonoBehaviour
     public float colliderWidth;
     private int tick = 0;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
     bool[] pInputs;
 
     private void Start()

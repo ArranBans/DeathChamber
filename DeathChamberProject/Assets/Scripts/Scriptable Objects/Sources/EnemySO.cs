@@ -7,4 +7,5 @@ public class EnemySO : ScriptableObject
 {
     public int id;
     public GameObject obj;
+    public GameObject projectile;
 }

@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public float maxHealth;
     public float health;
     public GameObject capsule;
+    public Transform enemyTarget;
 
     public void Initialise()
     {

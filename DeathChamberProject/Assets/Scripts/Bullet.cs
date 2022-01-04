@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
 
                 if(myId == Client.instance.myId)
                 {
-                    if (colliderHit.collider.GetComponent<NetPlayerController>())
+                    if (colliderHit.collider.GetComponent<NetPlayerController>())// Do we hit a player?
                     {
                         Instantiate(colliderHit.collider.GetComponent<NetPlayerController>().bloodFX, colliderHit.point, Quaternion.identity);
                         hitMarker.PlayOneShot(hitMarker.clip);
@@ -49,6 +49,16 @@ public class Bullet : MonoBehaviour
                     else if (colliderHit.collider.GetComponentInParent<NetPlayerController>())
                     {
                         Instantiate(colliderHit.collider.GetComponentInParent<NetPlayerController>().bloodFX, colliderHit.point, Quaternion.identity);
+                        hitMarker.PlayOneShot(hitMarker.clip);
+                    }
+                    else if (colliderHit.collider.GetComponent<EnemyTest>())// Do we hit an enemy?
+                    {
+                        Instantiate(colliderHit.collider.GetComponent<EnemyTest>().bloodFX, colliderHit.point, Quaternion.identity);
+                        hitMarker.PlayOneShot(hitMarker.clip);
+                    }
+                    else if (colliderHit.collider.GetComponentInParent<EnemyTest>())
+                    {
+                        Instantiate(colliderHit.collider.GetComponentInParent<EnemyTest>().bloodFX, colliderHit.point, Quaternion.identity);
                         hitMarker.PlayOneShot(hitMarker.clip);
                     }
                 }

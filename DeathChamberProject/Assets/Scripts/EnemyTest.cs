@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class EnemyTest : MonoBehaviour
     public float id;
     Vector3 ServerPos;
     Quaternion ServerRot;
+    public Transform attackPoint;
+
+    public GameObject bloodFX;
 
     private void Update()
     {

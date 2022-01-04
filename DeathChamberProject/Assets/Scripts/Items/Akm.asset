@@ -22,19 +22,19 @@ MonoBehaviour:
   itemType: 2
   charPos: {x: 0.125, y: -0.18, z: 0.43}
   xPosRecoil: 0
-  yPosRecoil: -0.003
-  zPosRecoil: -0.012
+  yPosRecoil: -0.002
+  zPosRecoil: -0.01
   xRotRecoil: 0
   yRotRecoil: 0.3
-  zRotRecoil: 0.4
-  xRotOffset: -1.1
+  zRotRecoil: 0.25
+  xRotOffset: -0.8
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
-  camXRotRecoil: 0.15
-  camYRotRecoil: 0.4
-  camZRotRecoil: 0.5
-  camXRotOffset: -1.35
+  camXRotRecoil: 0.05
+  camYRotRecoil: 0.3
+  camZRotRecoil: 0.3
+  camXRotOffset: -0.9
   recoilLocation: {fileID: 0}
   recoilReturnSpeed: 12
   recoilSnappiness: 1000
@@ -62,6 +62,6 @@ MonoBehaviour:
   gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
   aimSpeed: 10
   aimPos: {x: 0, y: -0.1685, z: 0.11}
-  hipPos: {x: 0.09, y: -0.24, z: 0.2}
+  hipPos: {x: 0.09, y: -0.24, z: 0.165}
   aimFov: 0.9
   aimSensMult: 1

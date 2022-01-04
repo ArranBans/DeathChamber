@@ -61,5 +61,5 @@ MonoBehaviour:
   gunAudio: {fileID: 0}
   aimSpeed: 0
   aimPos: {x: 0, y: -0.2165, z: 0.19}
-  hipPos: {x: 0.08, y: -0.25, z: 0.25}
+  hipPos: {x: 0.08, y: -0.24, z: 0.25}
   aimFov: 0

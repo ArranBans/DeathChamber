@@ -19,8 +19,11 @@ public class EnemyTest : MonoBehaviour
 
     [Header("Attacking")]
     public float attackRate;
+    float timeToNextFire = 0;
     bool alreadyAttacked;
     public int targetedPlayer;
+    public Transform attackPoint;
+    public float turnSpeed;
 
     [Header("States")]
     public float sightRange;
@@ -28,10 +31,12 @@ public class EnemyTest : MonoBehaviour
     public float attackRange;
     public bool playerInSightRange;
     public bool playerInAttackRange;
+    public float health;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        health = eSO.maxHealth;
     }
 
     private void FixedUpdate()
@@ -89,7 +94,27 @@ public class EnemyTest : MonoBehaviour
             float sqrDistance = (Server.clients[targetedPlayer].playerManager.player.transform.position - transform.position).sqrMagnitude;
             if (sqrDistance <= attackRange * attackRange)
             {
-                playerInAttackRange = true;
+                RaycastHit hitInfo;
+                if(Physics.Raycast(attackPoint.position, (Server.clients[targetedPlayer].playerManager.player.enemyTarget.position - attackPoint.position), out hitInfo))
+                {
+                    if (hitInfo.collider.GetComponent<Player>())
+                    {
+                        playerInAttackRange = true;
+                    }
+                    else if (hitInfo.collider.GetComponentInParent<Player>())
+                    {
+                        playerInAttackRange = true;
+                    }
+                    else
+                    {
+                        playerInAttackRange = false;
+                    }
+                }
+                else
+                {
+                    playerInAttackRange = false;
+                }
+                
             }
             else
             {
@@ -127,13 +152,31 @@ public class EnemyTest : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(Server.clients[targetedPlayer].playerManager.player.transform.position);
+        Vector3 lookPos = new Vector3(Server.clients[targetedPlayer].playerManager.player.enemyTarget.position.x, transform.position.y, Server.clients[targetedPlayer].playerManager.player.enemyTarget.position.z);
+        Quaternion lookRot = Quaternion.LookRotation(lookPos - transform.position);
+        Quaternion.Lerp(transform.rotation, lookRot, turnSpeed * Time.deltaTime);
+        
+        walkPointSet = false;
     }
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
 
-        transform.LookAt(new Vector3(Server.clients[targetedPlayer].playerManager.player.transform.position.x, transform.position.y, Server.clients[targetedPlayer].playerManager.player.transform.position.z));
-        Debug.Log("Attacking...");
+        Vector3 lookPos = Server.clients[targetedPlayer].playerManager.player.enemyTarget.position;
+        transform.LookAt(new Vector3(lookPos.x, transform.position.y, lookPos.z));
+        
+        if(Time.time >= timeToNextFire)
+        {
+            GameObject projectile = Instantiate(eSO.projectile);
+            projectile.transform.position = attackPoint.position;
+            projectile.transform.LookAt(Server.clients[targetedPlayer].playerManager.player.enemyTarget.position);
+            Quaternion fireRot = projectile.transform.rotation;
+            ServerSend.EnemyFire(id, fireRot);
+
+            timeToNextFire = Time.time + attackRate;
+        }
+        
+        //Debug.Log("Attacking...");
     }
 
     private void SearchWalkPoint()
@@ -150,6 +193,17 @@ public class EnemyTest : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.isStatic) 
                 walkPointSet = true;
+        }
+    }
+
+    public void SetHealth(float _value)
+    {
+        health = Mathf.Clamp(_value, -1, eSO.maxHealth);
+
+        if (health <= 0)
+        {
+            ServerSend.EnemyDie(id);
+            Destroy(gameObject);
         }
     }
 }

@@ -293,7 +293,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.serverDeploy, ClientHandle.Deploy },
             { (int)ServerPackets.sendMap, ClientHandle.SendMap },
             { (int)ServerPackets.spawnEnemy, ClientHandle.SpawnEnemy },
-            { (int)ServerPackets.enemyPosition, ClientHandle.EnemyPosition }
+            { (int)ServerPackets.enemyPosition, ClientHandle.EnemyPosition },
+            { (int)ServerPackets.enemyFire, ClientHandle.EnemyFire },
+            { (int)ServerPackets.enemyDie, ClientHandle.EnemyDie }
         };
         Debug.Log("Initialised Packets...");
     }
@@ -309,8 +311,11 @@ public class Client : MonoBehaviour
             Debug.Log("Disconnected from server...");
         }
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         testGameManager.players = new Dictionary<int, testPlayerManager>();
         testGameManager.itemPickups = new List<ItemPickup>();
+        testGameManager.enemies = new List<EnemyTest>();
         Destroy(testGameManager.instance);
         SceneManager.LoadScene("Menu");
         Destroy(Database.instance.gameObject);

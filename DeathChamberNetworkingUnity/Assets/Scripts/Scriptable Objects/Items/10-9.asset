@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adea6884c8963e2448ca4125a902f23a, type: 3}
+  m_Name: 10-9
+  m_EditorClassIdentifier: 
+  ItemName: 10-9
+  item: {fileID: 0}
+  id: 16
+  empty: {fileID: 847293850577363671, guid: 750369243c24e4241967390c9d6b04fb, type: 3}
+  mass: 0.7
+  colliderCentre: {x: 0, y: 0.12550992, z: 1.2090167}
+  colliderSize: {x: 0.20000012, y: 1.2510237, z: 5.3681912}
+  itemType: 2
+  xPosRecoil: 0
+  yPosRecoil: 0
+  zPosRecoil: 0
+  xRotRecoil: 0
+  yRotRecoil: 0
+  zRotRecoil: 0
+  xRotOffset: 0
+  camXPosRecoil: 0
+  camYPosRecoil: 0
+  camZPosRecoil: 0
+  camXRotRecoil: 0
+  camYRotRecoil: 0
+  camZRotRecoil: 0
+  camXRotOffset: 0
+  recoilLocation: {fileID: 0}
+  recoilReturnSpeed: 0
+  recoilSnappiness: 0
+  recoilTime: 0
+  cameraRecoilTime: 0
+  cameraReturn: 0
+  semiAuto: 0
+  fullAuto: 0
+  boltAction: 0
+  fireRate: 0
+  defaultFireMode: 0
+  maxAmmo: 0
+  magAmmo: 0
+  ammoType: 0
+  baseDamage: 0
+  bulletSpeed: 0
+  bulletMass: 0
+  bulletSpawnPoint: {x: 0, y: 0.341, z: 3.999}
+  bulletObject: {fileID: 0}
+  tiltSway: 0
+  hMoveSway: 0
+  vMoveSway: 0
+  aimSwayModifier: 0
+  muzzleFlash: {fileID: 0}
+  gunAudio: {fileID: 0}
+  aimSpeed: 0
+  aimPos: {x: 0, y: -0.18, z: 0.04}
+  hipPos: {x: 0.07, y: -0.2, z: 0.13}
+  aimFov: 0

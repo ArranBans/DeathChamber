@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   obj: {fileID: 7551025870913045343, guid: e491d7c368daaca438e33e952b788809, type: 3}
+  projectile: {fileID: 3831899741543000322, guid: 9734288f9aaf44546a7908bf2f64587f, type: 3}
+  maxHealth: 370

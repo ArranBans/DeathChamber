@@ -24,7 +24,9 @@ public enum ServerPackets
     serverDeploy,
     sendMap,
     spawnEnemy,
-    enemyPosition
+    enemyPosition,
+    enemyFire,
+    enemyDie
 }
 
 
