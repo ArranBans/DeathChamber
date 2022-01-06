@@ -302,7 +302,10 @@ public class Client : MonoBehaviour
 
     public void Disconnect()
     {
-        if(isConnected)
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (isConnected)
         {
             isConnected = false;
             tcp.socket.Close();
@@ -310,13 +313,12 @@ public class Client : MonoBehaviour
 
             Debug.Log("Disconnected from server...");
         }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        
         testGameManager.players = new Dictionary<int, testPlayerManager>();
         testGameManager.itemPickups = new List<ItemPickup>();
         testGameManager.enemies = new List<EnemyTest>();
         Destroy(testGameManager.instance);
+        Cursor.visible = true;
         SceneManager.LoadScene("Menu");
         Destroy(Database.instance.gameObject);
         Destroy(Client.instance.gameObject);
