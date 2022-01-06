@@ -10,6 +10,6 @@ public class SpawnItem : MonoBehaviour, IButtonActivated
 
     public void Activated()
     {
-        testGameManager.instance.SpawnItem(ItemToSpawn, spawnPos, Quaternion.Euler(spawnRot));
+        //               testGameManager.instance.SpawnItem(ItemToSpawn, spawnPos, Quaternion.Euler(spawnRot));
     }
 }

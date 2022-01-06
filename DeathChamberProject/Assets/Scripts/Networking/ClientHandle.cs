@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
 {
+    /*
     public static void Welcome(Packet _packet)
     {
         string msg = _packet.ReadString();
@@ -13,11 +14,11 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"Message from server: {msg}");
         Client.instance.myId = _myId;
 
-        ClientSend.WelcomeReceived();// Also Calls welcomeRecieved
+        //          ClientSend.WelcomeReceived();// Also Calls welcomeRecieved
         NetworkUiManager.instance.ConnectedToServer();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-        ClientSend.UDPTest("Hello Server!");
+        //          ClientSend.UDPTest("Hello Server!");
     }
 
     public static void SendMap(Packet _packet)
@@ -36,7 +37,7 @@ public class ClientHandle : MonoBehaviour
 
         if (_id != Client.instance.myId)
         {
-            //ClientSend.ChangeSelectedItem(testGameManager.players[Client.instance.myId].GetComponent<Player>().selectedItem);
+            ////          ClientSend.ChangeSelectedItem(testGameManager.players[Client.instance.myId].GetComponent<Player>().selectedItem);
         }
 
         Debug.Log($"Spawning Player {_id}, {_username}");
@@ -357,4 +358,5 @@ public class ClientHandle : MonoBehaviour
         }
         
     }
+    */
 }

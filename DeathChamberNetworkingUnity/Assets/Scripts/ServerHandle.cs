@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/*
 public class ServerHandle
 {
     public static void WelcomeReceived(int _fromclient, Packet _packet)
@@ -218,3 +219,4 @@ public class ServerHandle
         }
     }
 }
+*/

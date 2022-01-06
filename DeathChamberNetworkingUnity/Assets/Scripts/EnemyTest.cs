@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyTest : MonoBehaviour
 {
+    /*
     public NavMeshAgent agent;
     public LayerMask whatIsGround;
 
@@ -206,4 +208,5 @@ public class EnemyTest : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 }

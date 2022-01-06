@@ -90,12 +90,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        ClientSend.ChangeSelectedItem(_index);
+        //          ClientSend.ChangeSelectedItem(_index);
     }
 
     public void DropItem(int _index)
     {
-        ClientSend.DropItem(_index);
+        //          ClientSend.DropItem(_index);
     }
 
     public bool AddItemToInventory(Item _item)

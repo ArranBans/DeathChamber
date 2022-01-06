@@ -32,7 +32,7 @@ public class ChatWindow : MonoBehaviour
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Give [{command}]");
-                        ClientSend.Command(0, _index);
+                        //          ClientSend.Command(0, _index);
                     }
 
                     if (command.StartsWith("spawn")) // Spawn
@@ -41,7 +41,7 @@ public class ChatWindow : MonoBehaviour
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Spawn [{command}]");
-                        ClientSend.Command(1, _index);
+                        //          ClientSend.Command(1, _index);
                     }
 
                     if (command.StartsWith("teleport")) // Teleport
@@ -50,7 +50,7 @@ public class ChatWindow : MonoBehaviour
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Teleport to player [{command}]");
-                        ClientSend.Command(2, _index);
+                        //          ClientSend.Command(2, _index);
                     }
                 }
                 else // Chat

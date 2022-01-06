@@ -17,8 +17,6 @@ public class testGameManager : MonoBehaviour
     public float updateFrequency = 15;
     float updateTime;
     public int mapId;
-    
-
 
 
     public void Awake()
@@ -43,7 +41,7 @@ public class testGameManager : MonoBehaviour
                 int _aux1 = 0;
                 int _aux2 = 0;
 
-                if(_item.iSO.itemType == ItemSO.ItemType.gun)
+                if (_item.iSO.itemType == ItemSO.ItemType.gun)
                 {
                     _aux1 = ((GunSO)_item.iSO).magAmmo;
                     _aux2 = ((GunSO)_item.iSO).maxAmmo;
@@ -55,12 +53,14 @@ public class testGameManager : MonoBehaviour
             }
 
         }
-
+    }
+}
+        /*
         foreach (EnemyTest _enemy in enemies)
         {
             if(_enemy != null)
             {
-                _enemy.id = enemies.IndexOf(_enemy);
+                //                      _enemy.id = enemies.IndexOf(_enemy);
             }
             
         }
@@ -157,3 +157,4 @@ public class testGameManager : MonoBehaviour
     }
 
 }
+*/

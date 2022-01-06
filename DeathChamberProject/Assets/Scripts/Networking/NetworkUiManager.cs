@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using RiptideNetworking;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,7 +26,7 @@ public class NetworkUiManager : MonoBehaviour
 
     public void ConnectToServer()
     {
-        Client.instance.ConnectToServer();
+        NetworkManager.instance.Connect();
     }
 
     public void ConnectedToServer()
@@ -36,5 +35,17 @@ public class NetworkUiManager : MonoBehaviour
         IpField.interactable = false;
         options.fov = GetComponent<MenuOptions>().fov;
         options.sens = GetComponent<MenuOptions>().sens;
+    }
+
+    public void BackToMain()
+    {
+
+    }
+
+    public void SendName()
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ClientToServerId.name);
+        message.AddString(usernameField.text);
+        NetworkManager.instance.Client.Send(message);
     }
 }

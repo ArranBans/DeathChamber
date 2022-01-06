@@ -33,7 +33,9 @@ public class testGameManager : MonoBehaviour
     {
         //Debug.Log($"{itemPickups.Count}");
     }
+}
 
+    /*
     public void SpawnPlayerManager(int _id, string _username)
     {
         GameObject _player;
@@ -71,3 +73,4 @@ public class testGameManager : MonoBehaviour
         players[_id].playerObj = _player;
     }
 }
+*/

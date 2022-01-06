@@ -216,8 +216,8 @@ public class Gun : Item
         muzzleFlash.Play();
         Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z))).GetComponent<Bullet>();
         bullet.hitMarker = player.hitMarker;
-        bullet.myId = Client.instance.myId;
-        ClientSend.FireWeapon(aiming, transform.rotation.eulerAngles.x);
+        //          bullet.myId = Client.instance.myId;
+        //          ClientSend.FireWeapon(aiming, transform.rotation.eulerAngles.x);
 
         recoiling = true;
         timeToRecoilCompensate = Time.time + gunSO.recoilTime;

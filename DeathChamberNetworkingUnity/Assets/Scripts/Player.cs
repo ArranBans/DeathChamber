@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
-{
+{/*
     public PlayerManager pManager;
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -191,5 +191,5 @@ public class Player : MonoBehaviour
         
             
         
-    }
+    }*/
 }

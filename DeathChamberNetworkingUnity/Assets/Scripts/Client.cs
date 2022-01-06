@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 
+/*
 public class Client
 {
     public static int dataBufferSize = 4096;
@@ -314,3 +315,4 @@ public class Client
         ServerSend.PlayerDisconnected(id);
     }
 }
+*/

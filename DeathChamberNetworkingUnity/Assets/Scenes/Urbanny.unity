@@ -1664,7 +1664,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1180615056}
   - component: {fileID: 1180615055}
-  - component: {fileID: 1180615054}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -1672,18 +1671,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1180615054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180615053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcc16bc79168f054ea953696f862c580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1180615055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,6 +1685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManagerPrefab: {fileID: 1128939309456633370, guid: eea6b133f9aab774e9af979d0b3341e8, type: 3}
   playerObject: {fileID: 1033502077037468300, guid: 1fe0d5c982604044eb2f1a98e521c5fc, type: 3}
+  port: 16699
+  maxClientCount: 30
 --- !u!4 &1180615056
 Transform:
   m_ObjectHideFlags: 0
@@ -1776,9 +1765,12 @@ MonoBehaviour:
   - {fileID: 123741931}
   - {fileID: 610620033}
   enemies: []
+  timeToNextSpawn: 0
   maxItems: -1
   itemSpawnInterval: 0
+  timeToNextUpdate: 0
   updateFrequency: 15
+  updateTime: 0
   mapId: 3
 --- !u!4 &1292847994
 Transform:

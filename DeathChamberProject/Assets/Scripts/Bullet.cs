@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
                     colliderHit.collider.GetComponent<Rigidbody>().AddForce(rb.velocity*hitforce);
                 }
 
-                if(myId == Client.instance.myId)
+                /*if(myId == Client.instance.myId)
                 {
                     if (colliderHit.collider.GetComponent<NetPlayerController>())// Do we hit a player?
                     {
@@ -61,7 +61,7 @@ public class Bullet : MonoBehaviour
                         Instantiate(colliderHit.collider.GetComponentInParent<EnemyTest>().bloodFX, colliderHit.point, Quaternion.identity);
                         hitMarker.PlayOneShot(hitMarker.clip);
                     }
-                }
+                }*/
                 
                 Destroy(gameObject);
             }

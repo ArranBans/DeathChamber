@@ -161,7 +161,7 @@ public class testPlayerController : MonoBehaviour
         }
 
         //Debug.Log($"Sent Server ({_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]})");
-        ClientSend.PlayerMovement(_inputs, tick);
+        //          ClientSend.PlayerMovement(_inputs, tick);
         predictedState.rotation = transform.rotation;
         PositionState _newState = PredictMovement(_inputs, predictedState, tick);
         ClientPositionStates.Add(new PositionState(_newState.position, _newState.rotation, _newState.tick, _inputs));
@@ -335,7 +335,7 @@ public class testPlayerController : MonoBehaviour
 
     private void Interact()
     {
-        ClientSend.Interact();
+        //          ClientSend.Interact();
     }
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/*
 public class ServerSend : MonoBehaviour
 {
     private static void SendTCPData(int _toClient, Packet _packet)
@@ -344,3 +345,4 @@ public class ServerSend : MonoBehaviour
 
     #endregion
 }
+*/

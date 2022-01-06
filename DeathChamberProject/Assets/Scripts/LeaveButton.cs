@@ -1,3 +1,5 @@
+using RiptideNetworking;
+using RiptideNetworking.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +9,6 @@ public class LeaveButton : MonoBehaviour
 {
     public void LeaveGame()
     {
-        Client.instance.Disconnect();
+        NetworkManager.instance.Client.Disconnect();
     }
 }

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ClientSend : MonoBehaviour
+/*
+public class //          ClientSend : MonoBehaviour
 {
     private static void SendTCPData(Packet _packet)
     {
@@ -132,3 +132,4 @@ public class ClientSend : MonoBehaviour
 
     #endregion
 }
+*/

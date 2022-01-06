@@ -33,7 +33,7 @@ public class Consumable : Item
         if(currentUsage >= conSO.useTime)
         {
             Debug.Log("Item used");
-            ClientSend.Consumable();
+            //          ClientSend.Consumable();
             currentUsage = 0;
         }
     }
