@@ -42,10 +42,12 @@ public class NetworkUiManager : MonoBehaviour
 
     }
 
-    public void SendName()
+    #region Messages
+    public void S_SendName()
     {
         Message message = Message.Create(MessageSendMode.reliable, (ushort)ClientToServerId.name);
         message.AddString(usernameField.text);
         NetworkManager.instance.Client.Send(message);
     }
+    #endregion
 }

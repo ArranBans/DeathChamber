@@ -1,5 +1,4 @@
 using RiptideNetworking;
-using RiptideNetworking.Utils;
 using UnityEngine;
 
 public static class MessageExtensionsUnity

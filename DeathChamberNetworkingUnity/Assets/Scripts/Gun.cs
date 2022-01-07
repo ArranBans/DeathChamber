@@ -21,10 +21,4 @@ public class Gun : Item
         fireRate = 1 / gunSO.fireRate;
 
     }
-
-    public void Fire()
-    {
-        //Debug.Log("Firing");
-        //GameObject bullet = Instantiate(gunSO.bulletObject, gunSO.bulletSpawnPoint.position, gunSO.bulletSpawnPoint.rotation); <-------------- SPAWN BULLET TO KILL THINGS
-    }
 }

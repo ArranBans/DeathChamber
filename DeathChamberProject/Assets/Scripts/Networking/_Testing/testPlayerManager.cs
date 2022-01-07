@@ -1,7 +1,9 @@
 using RiptideNetworking;
 using RiptideNetworking.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class testPlayerManager : MonoBehaviour
 {
@@ -38,12 +40,32 @@ public class testPlayerManager : MonoBehaviour
         list.Add(_id, playerM);
     }
 
+
+
     #region Messages
     [MessageHandler((ushort)ServerToClientId.spawnPlayer)]
-    private static void SpawnPlayerManager(Message message)
+    private static void R_SpawnPlayerManager(Message message)
     {
         SpawnManager(message.GetUShort(), message.GetString(), message.GetVector3());
     }
 
+    [MessageHandler((ushort)ServerToClientId.serverDeploy)]
+    private static void R_Deploy(Message message)
+    {
+        int _id = message.GetUShort();
+        Vector3 _pos = message.GetVector3();
+        Quaternion _rot = message.GetQuaternion();
+
+        Debug.Log($"Player {_id} has Deployed!!!");
+
+        if (!list[(ushort)_id].playerObj)
+        {
+            testGameManager.instance.SpawnPlayer(_id, _pos, _rot);
+        }
+        else
+        {
+            Debug.Log($"Player {_id} is already deployed!!!");
+        }
+    }
     #endregion
 }

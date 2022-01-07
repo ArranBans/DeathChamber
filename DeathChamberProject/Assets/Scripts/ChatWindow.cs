@@ -1,3 +1,4 @@
+using RiptideNetworking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class ChatWindow : MonoBehaviour
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Give [{command}]");
-                        //          ClientSend.Command(0, _index);
+                        S_Command(0, _index);
                     }
 
                     if (command.StartsWith("spawn")) // Spawn
@@ -41,7 +42,7 @@ public class ChatWindow : MonoBehaviour
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Spawn [{command}]");
-                        //          ClientSend.Command(1, _index);
+                        S_Command(1, _index);
                     }
 
                     if (command.StartsWith("teleport")) // Teleport
@@ -50,7 +51,16 @@ public class ChatWindow : MonoBehaviour
                         int _index;
                         int.TryParse(command, out _index);
                         Debug.Log($"Teleport to player [{command}]");
-                        //          ClientSend.Command(2, _index);
+                        S_Command(2, _index);
+                    }
+
+                    if (command.StartsWith("summon")) // Teleport
+                    {
+                        command = command.Remove(0, 7);
+                        int _index;
+                        int.TryParse(command, out _index);
+                        Debug.Log($"Summon AI [{command}]");
+                        S_Command(3, _index);
                     }
                 }
                 else // Chat
@@ -87,4 +97,15 @@ public class ChatWindow : MonoBehaviour
             chatWindowOpen = false;
         }
     }
+
+    #region Messages
+    private static void S_Command(int _type, int _aux)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ClientToServerId.command);
+        message.AddInt(_type);
+        message.AddInt(_aux);
+        
+        NetworkManager.instance.Client.Send(message);
+    }
+    #endregion
 }

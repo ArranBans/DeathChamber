@@ -9,6 +9,6 @@ public class LeaveButton : MonoBehaviour
 {
     public void LeaveGame()
     {
-        NetworkManager.instance.Client.Disconnect();
+        NetworkManager.instance.Disconnect();
     }
 }

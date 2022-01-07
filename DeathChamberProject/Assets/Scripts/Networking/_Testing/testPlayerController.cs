@@ -1,4 +1,4 @@
-using System.Collections;
+using RiptideNetworking;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -124,10 +124,7 @@ public class testPlayerController : MonoBehaviour
         //Debug.Log($"{_xRot}");
         camObj.localRotation = Quaternion.Euler(_xRot, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, _yRot, transform.localRotation.eulerAngles.z);
-
         transform.position = Vector3.Lerp(transform.position, predictedState.position, interpolationSpeed * 15 * Time.deltaTime);
-        
-
     }
 
 
@@ -161,7 +158,7 @@ public class testPlayerController : MonoBehaviour
         }
 
         //Debug.Log($"Sent Server ({_inputs[0]}, {_inputs[1]}, {_inputs[2]}, {_inputs[3]})");
-        //          ClientSend.PlayerMovement(_inputs, tick);
+        S_PlayerMovement(_inputs, tick);
         predictedState.rotation = transform.rotation;
         PositionState _newState = PredictMovement(_inputs, predictedState, tick);
         ClientPositionStates.Add(new PositionState(_newState.position, _newState.rotation, _newState.tick, _inputs));
@@ -265,7 +262,7 @@ public class testPlayerController : MonoBehaviour
 
 
           Vector3 moveVector = _pState.rotation * new Vector3(_xMovement, 0, _zMovement) * moveSpeed;
-          Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z);
+          Vector3 newPos = new Vector3(_pState.position.x + moveVector.x, _pState.position.y, _pState.position.z + moveVector.z);
         //rb.MovePosition(new Vector3(_pState.position.x + moveVector.x, rb.position.y, _pState.position.z + moveVector.z));
         return new PositionState(newPos, _pState.rotation, _tick, _pInputs);
         //return new PositionState(rb.position, rb.rotation, _tick, _pInputs);
@@ -275,7 +272,6 @@ public class testPlayerController : MonoBehaviour
     public void OnServerState(PositionState _ServerState)
     {
         predictedState = _ServerState;
-
         foreach (PositionState posState in ClientPositionStates)
         {
             if(posState.tick >= _ServerState.tick)//<<<<-_---
@@ -335,8 +331,75 @@ public class testPlayerController : MonoBehaviour
 
     private void Interact()
     {
-        //          ClientSend.Interact();
+        S_Interact();
     }
+
+    #region Messages
+    private static void S_PlayerMovement(bool[] _inputs, int _tick)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ClientToServerId.playeMovement);
+
+        message.Add(_inputs.Length);
+        foreach (bool _input in _inputs)
+        {
+            message.Add(_input);
+        }
+
+        message.Add(testPlayerManager.list[NetworkManager.instance.Client.Id].playerObj.transform.rotation);
+        message.Add(testPlayerManager.list[NetworkManager.instance.Client.Id].playerObj.GetComponent<testPlayerController>().cam.transform.rotation);
+
+        message.Add(_tick);
+
+        NetworkManager.instance.Client.Send(message);
+    }
+
+    private static void S_Interact()
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ClientToServerId.interact);
+        NetworkManager.instance.Client.Send(message);
+    }
+
+    [MessageHandler((ushort)ServerToClientId.playerPosition)]
+    private static void R_PlayerPosition(Message message)
+    {
+        int _id = message.GetInt();
+        Vector3 _position = message.GetVector3();
+        Quaternion _rotation = message.GetQuaternion();
+        int _tick = message.GetInt();
+
+        bool[] _inputs = new bool[message.GetInt()];
+        for (int i = 0; i < _inputs.Length; i++)
+        {
+            _inputs[i] = message.GetBool();
+        }
+
+        if (!testPlayerManager.list[(ushort)_id].playerObj)
+        {
+            return;
+        }
+
+        if (_id == NetworkManager.instance.Client.Id)
+        {
+            testPlayerManager.list[(ushort)_id].playerObj.GetComponent<testPlayerController>().OnServerState(new PositionState(_position, _rotation, _tick));
+        }
+        else
+        {
+            testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().DesiredPos = _position;
+            testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().DesiredRot = _rotation;
+            testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().PlayerMoved(_inputs);
+        }
+    }
+
+    [MessageHandler((ushort)ServerToClientId.playerRotation)]
+    private static void R_PlayerRotation(Message message)
+    {
+        int _id = message.GetInt();
+        Quaternion _camRotation = message.GetQuaternion();
+
+        if (_id != NetworkManager.instance.Client.Id)
+            testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation = _camRotation;
+    }
+    #endregion
 }
 
 

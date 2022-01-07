@@ -1,4 +1,5 @@
 using System.Collections;
+using RiptideNetworking;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class testGameManager : MonoBehaviour
     float timeToNextUpdate;
     public float updateFrequency = 15;
     float updateTime;
-    public int mapId;
+    public ushort mapId;
 
 
     public void Awake()
@@ -53,14 +54,12 @@ public class testGameManager : MonoBehaviour
             }
 
         }
-    }
-}
-        /*
+        
         foreach (EnemyTest _enemy in enemies)
         {
             if(_enemy != null)
             {
-                //                      _enemy.id = enemies.IndexOf(_enemy);
+                _enemy.id = enemies.IndexOf(_enemy);
             }
             
         }
@@ -70,7 +69,6 @@ public class testGameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
 
         if(Time.time >= timeToNextSpawn && items.Count <= maxItems)
         {
@@ -88,9 +86,8 @@ public class testGameManager : MonoBehaviour
             {
                 if (_item != null)
                 {
-                    ServerSend.ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
+                    S_ItemPosition(_item.id, _item.gameObject.transform.position, _item.gameObject.transform.rotation);
                 }
-
             }
             timeToNextUpdate = Time.time + updateTime;
            // Debug.Log(timeToNextUpdate);
@@ -114,7 +111,7 @@ public class testGameManager : MonoBehaviour
         iPickup.id = items.Count;
         items.Add(iPickup);
             
-        ServerSend.SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation, _aux1, 0);
+        S_SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation, _aux1, 0);
     }
 
     public void SpawnEnemy(int enemyType, Vector3 _location, Quaternion _rotation)
@@ -124,7 +121,7 @@ public class testGameManager : MonoBehaviour
         enemy.id = enemies.Count;
         enemies.Add(enemy);
 
-        ServerSend.SpawnEnemy(enemy.id, enemy.eSO.id, _location, _rotation);
+        S_SpawnEnemy(enemy.id, enemy.eSO.id, _location, _rotation);
     }
 
     public void SpawnItemTest()
@@ -132,29 +129,107 @@ public class testGameManager : MonoBehaviour
         SpawnItem(1, new Vector3(0, 10, 0), Quaternion.identity);
     }
 
-    public void Respawner(int _id)
-    {
-        StartCoroutine(Server.clients[_id].Respawn(_id));
-    }
-
-    public void Respawn(int _id)
-    {
-        //Player p = NetworkManager.instance.InstantiatePlayerManager();
-        //p.SetHealth(p.maxHealth);
-        //Server.clients[_id].player = p;
-        ServerSend.Respawn(_id);
-        //p.ChangeSelectedItem(0);
-        ServerSend.ChangeSelectedItem(_id, 0,0,0);
-    }
-
-    public void Deploy(int _id)
+    public void Deploy(ushort _id)
     {
         int _spawnPI = Mathf.FloorToInt(Random.Range(0, spawnPoints.Count));
-        Server.clients[_id].playerManager.player = NetworkManager.instance.InstantiatePlayer(Server.clients[_id].playerManager, spawnPoints[_spawnPI].position);
-        Server.clients[_id].playerManager.player.Initialise();
-        Server.clients[_id].playerManager.player.pManager = Server.clients[_id].playerManager;
-        ServerSend.Deploy(_id, Server.clients[_id].playerManager.player.transform.position, Server.clients[_id].playerManager.player.transform.rotation);
+        PlayerManager.list[_id].player = NetworkManager.instance.InstantiatePlayer(PlayerManager.list[_id], spawnPoints[_spawnPI].position);
+        PlayerManager.list[_id].player.Initialise();
+        PlayerManager.list[_id].player.pManager = PlayerManager.list[_id];
+        S_Deploy(_id, PlayerManager.list[_id].player.transform.position, PlayerManager.list[_id].player.transform.rotation);
     }
 
+    #region Messages
+    public void S_Deploy(ushort _id, Vector3 pos, Quaternion rot)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.serverDeploy);
+        message.Add(_id);
+        message.Add(pos);
+        message.Add(rot);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+
+    public void S_SpawnItem(int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot, int _aux1, int _aux2) // Spawn Item 2
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.spawnItems);
+        message.Add(_itemId);
+        message.Add(_databaseId);
+        message.Add(_pos);
+        message.Add(_rot);
+        message.Add(_aux1);
+        message.Add(_aux2);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    public void S_SpawnItem(int _id, int _itemId, int _databaseId, Vector3 _pos, Quaternion _rot, int _aux1, int _aux2)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.spawnItems);
+        message.Add(_itemId);
+        message.Add(_databaseId);
+        message.Add(_pos);
+        message.Add(_rot);
+        message.Add(_aux1);
+        message.Add(_aux2);
+
+        NetworkManager.instance.Server.Send(message, (ushort)_id);
+    }
+
+    public void S_SpawnEnemy(int _enemyId, int _enemyType, Vector3 _pos, Quaternion _rot) // Spawn Enemy 2
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.spawnEnemy);
+        message.Add(_enemyId);
+        message.Add(_enemyType);
+        message.Add(_pos);
+        message.Add(_rot);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    public void S_SpawnEnemy(int _id, int _enemyId, int _enemyType, Vector3 _pos, Quaternion _rot)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.spawnEnemy);
+        message.Add(_enemyId);
+        message.Add(_enemyType);
+        message.Add(_pos);
+        message.Add(_rot);
+
+        NetworkManager.instance.Server.Send(message, (ushort)_id);
+    }
+
+    public void S_ItemPosition(int _itemId, Vector3 _pos, Quaternion _rot)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ServerToClientId.itemPosition);
+        message.Add(_itemId);
+        message.Add(_pos);
+        message.Add(_rot);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    public void S_EnemyPosition(int _enemyId, Vector3 _pos, Quaternion _rot)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ServerToClientId.enemyPosition);
+        message.Add(_enemyId);
+        message.Add(_pos);
+        message.Add(_rot);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    public void S_RemoveItem(int _itemId)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.removeItemPickup);
+        message.Add(_itemId);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    [MessageHandler((ushort)ClientToServerId.deploy)]
+    private static void R_Deploy(ushort _fromClient, Message message)
+    {
+        if(PlayerManager.list[_fromClient].player == null)
+        {
+            instance.Deploy(_fromClient);
+        }
+        
+    }
+    #endregion
 }
-*/
+
+

@@ -82,5 +82,4 @@ public class PlayerTestController : MonoBehaviour
         sprintSpeed = _sprintSpeed;
         tick = _tick;
     }
-
 }

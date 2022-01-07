@@ -21,7 +21,7 @@ public class //          ClientSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
-            _packet.Write(Client.instance.myId);
+            _packet.Write(NetworkManager.instance.Client.Id);
             _packet.Write(NetworkUiManager.instance.usernameField.text);
 
             SendTCPData(_packet);
@@ -46,8 +46,8 @@ public class //          ClientSend : MonoBehaviour
                 _packet.Write(_input);
             }
 
-            _packet.Write(testGameManager.players[Client.instance.myId].playerObj.transform.rotation);
-            _packet.Write(testGameManager.players[Client.instance.myId].playerObj.GetComponent<testPlayerController>().cam.transform.rotation);
+            _packet.Write(testPlayerManager.list[NetworkManager.instance.Client.Id].playerObj.transform.rotation);
+            _packet.Write(testPlayerManager.list[NetworkManager.instance.Client.Id].playerObj.GetComponent<testPlayerController>().cam.transform.rotation);
 
             _packet.Write(_tick);
 

@@ -36,7 +36,7 @@ public class ServerHandle
         Quaternion _camRotation = _packet.ReadQuaternion();
         int _tick = _packet.ReadInt();
 
-        Server.clients[_fromClient].playerManager.player.SetInput(_inputs, _rotation, _camRotation, _tick);
+        PlayerManager.list[_fromClient].player.SetInput(_inputs, _rotation, _camRotation, _tick);
     }
 
     public static void UDPTest(int _fromClient, Packet _packet)
@@ -50,7 +50,7 @@ public class ServerHandle
     {
         ItemPickup _item;
         GameObject _object;
-        if(Server.clients[_fromClient].playerManager.player.InteractRaycast(out _object))
+        if(PlayerManager.list[_fromClient].player.InteractRaycast(out _object))
         {
 
            //Debug.Log($"client {_fromClient} interacted with {_item}");
@@ -63,7 +63,7 @@ public class ServerHandle
             {
 
                 _item = _object.GetComponent<ItemPickup>();
-                if (Server.clients[_fromClient].playerManager.player.AddItemToInventory(_item.iSO.id))
+                if (PlayerManager.list[_fromClient].player.AddItemToInventory(_item.iSO.id))
                 {
                     int _aux1 = 0;
                     int _aux2 = 0;
@@ -87,40 +87,40 @@ public class ServerHandle
     public static void DropItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
-        int _id = Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id;
+        int _id = PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id;
 
 
-        Server.clients[_fromClient].playerManager.player.RemoveItemFromInventory(_index, false);
-        testGameManager.instance.SpawnItem(_id, Server.clients[_fromClient].playerManager.player.dropTransform.position, Server.clients[_fromClient].playerManager.player.transform.rotation);
+        PlayerManager.list[_fromClient].player.RemoveItemFromInventory(_index, false);
+        testGameManager.instance.SpawnItem(_id, PlayerManager.list[_fromClient].player.dropTransform.position, PlayerManager.list[_fromClient].player.transform.rotation);
     }
 
     public static void ChangeSelectedItem(int _fromClient, Packet _packet)
     {
         int _index = _packet.ReadInt();
         //Debug.Log(_index);
-        Server.clients[_fromClient].playerManager.player.ChangeSelectedItem(_index);
+        PlayerManager.list[_fromClient].player.ChangeSelectedItem(_index);
 
-        if (_index + 1 <= Server.clients[_fromClient].playerManager.player.inventory.Count)
+        if (_index + 1 <= PlayerManager.list[_fromClient].player.inventory.Count)
         {
 
             
 
-            if (Server.clients[_fromClient].playerManager.player.inventory[_index] != null)
+            if (PlayerManager.list[_fromClient].player.inventory[_index] != null)
             {
                 int _aux1 = 0;
                 int _aux2 = 0;
-                if (Database.instance.GetItem(Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id).itemType == ItemSO.ItemType.gun)
+                if (Database.instance.GetItem(PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id).itemType == ItemSO.ItemType.gun)
                 {
-                    _aux1 = ((GunSO)Database.instance.GetItem(Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id)).magAmmo;
-                    _aux2 = ((GunSO)Database.instance.GetItem(Server.clients[_fromClient].playerManager.player.inventory[_index].itemSO.id)).maxAmmo;
+                    _aux1 = ((GunSO)Database.instance.GetItem(PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id)).magAmmo;
+                    _aux2 = ((GunSO)Database.instance.GetItem(PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id)).maxAmmo;
                 }
 
                 Debug.Log($"Player {_fromClient} changed item to {_index}");
-                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id, _aux1, _aux2);
+                ServerSend.ChangeSelectedItem(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id, _aux1, _aux2);
             }
             else
             {
-                ServerSend.ChangeSelectedItem(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id,0,0);
+                ServerSend.ChangeSelectedItem(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id,0,0);
             }
         } 
         else
@@ -138,20 +138,20 @@ public class ServerHandle
 
         if(_aiming)
         {
-            Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.localPosition = ((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).aimPos;
+            PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.localPosition = ((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).aimPos;
         }
         else
         {
-            Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.localPosition = ((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).hipPos;
+            PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.localPosition = ((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).hipPos;
         }
 
-        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName}_Projectile"), Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].transform.TransformPoint(((GunSO)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, Server.clients[_fromClient].playerManager.player.camTransform.rotation.eulerAngles.y, Server.clients[_fromClient].playerManager.player.camTransform.rotation.eulerAngles.z));
-        ServerSend.FireWeapon(_fromClient, Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.ItemName);
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.TransformPoint(((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.y, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.z));
+        ServerSend.FireWeapon(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.ItemName);
     }
 
     public static void Deploy(int _fromClient, Packet _packet)
     {
-        if(!Server.clients[_fromClient].playerManager.player)
+        if(!PlayerManager.list[_fromClient].player)
         {
             testGameManager.instance.Deploy(_fromClient);
         }
@@ -159,10 +159,10 @@ public class ServerHandle
 
     public static void ConsumableUse(int _fromClient, Packet _packet)
     {
-        Consumable con = (Consumable)Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem];
-        Server.clients[_fromClient].playerManager.player.SetHealth(Server.clients[_fromClient].playerManager.player.health + con.conSO.value);
-        Server.clients[_fromClient].playerManager.player.RemoveItemFromInventory(Server.clients[_fromClient].playerManager.player.selectedItem, false);
-        int newItem = Server.clients[_fromClient].playerManager.player.inventory[Server.clients[_fromClient].playerManager.player.selectedItem].itemSO.id;
+        Consumable con = (Consumable)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem];
+        PlayerManager.list[_fromClient].player.SetHealth(PlayerManager.list[_fromClient].player.health + con.conSO.value);
+        PlayerManager.list[_fromClient].player.RemoveItemFromInventory(PlayerManager.list[_fromClient].player.selectedItem, false);
+        int newItem = PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id;
 
         int _aux1 = 0;
         int _aux2 = 0;
@@ -183,9 +183,9 @@ public class ServerHandle
 
         if (_commandType == 0)
         {
-            if(Server.clients[_fromClient].playerManager.player)
+            if(PlayerManager.list[_fromClient].player)
             {
-                if(Server.clients[_fromClient].playerManager.player.AddItemToInventory(_index))
+                if(PlayerManager.list[_fromClient].player.AddItemToInventory(_index))
                 {
                     int _aux1 = 0;
                     int _aux2 = 0;
@@ -203,17 +203,17 @@ public class ServerHandle
         }
         if (_commandType == 1)
         {
-            if (Server.clients[_fromClient].playerManager.player)
+            if (PlayerManager.list[_fromClient].player)
             {
-                testGameManager.instance.SpawnItem(_index, Server.clients[_fromClient].playerManager.player.dropTransform.position, Server.clients[_fromClient].playerManager.player.transform.rotation);
+                testGameManager.instance.SpawnItem(_index, PlayerManager.list[_fromClient].player.dropTransform.position, PlayerManager.list[_fromClient].player.transform.rotation);
                 
             }
         }
         if (_commandType == 2)
         {
-            if (Server.clients[_fromClient].playerManager.player)
+            if (PlayerManager.list[_fromClient].player)
             {
-                Server.clients[_fromClient].playerManager.player.transform.position = Server.clients[_index].playerManager.player.transform.position;
+                PlayerManager.list[_fromClient].player.transform.position = Server.clients[_index].playerManager.player.transform.position;
 
             }
         }

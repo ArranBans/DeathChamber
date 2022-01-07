@@ -1,9 +1,9 @@
-using System.Collections;
+using RiptideNetworking;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
-{/*
+{
     public PlayerManager pManager;
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -44,8 +44,8 @@ public class Player : MonoBehaviour
 
     private void MovePlayer()
     {
-        ServerSend.PlayerPosition(this, tick, inputs);
-        ServerSend.PlayerRotation(this);
+        S_PlayerPosition(this, tick, inputs);
+        S_PlayerRotation(this);
         //Debug.Log($"{pManager.id} moved and rotated");
     }
 
@@ -113,17 +113,15 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Item: {_i} removed from inventory of {pManager.id}");
         Item _item = inventory[_i];
         Destroy(inventory[_i].gameObject);
-        //Destroy(inventory[_i]);
         inventory.RemoveAt(_i);
-        ServerSend.RemoveItemFromInventory(pManager.id, _i, _clear);
+        S_RemoveItemFromInventory(pManager.id, _i, _clear);
     }
     public void SetHealth(float _value)
     {
         health = Mathf.Clamp(_value, -1, maxHealth);
-        ServerSend.ChangeHealth(pManager.id, _value);
+        S_ChangeHealth(pManager.id, _value);
 
         if(health <= 0)
         {
@@ -137,7 +135,7 @@ public class Player : MonoBehaviour
                 }       
             }
 
-            ServerSend.Die(pManager.id);
+            S_Die(pManager.id);
             Debug.Log($"player {pManager.id} has died");
             //testGameManager.instance.Respawner(pManager.id);
             Destroy(gameObject);
@@ -188,8 +186,292 @@ public class Player : MonoBehaviour
             _object = null;
             return false;
         }
-        
-            
-        
-    }*/
+    }
+
+    #region Messages
+    public void S_PlayerPosition(Player _player, int _tick, bool[] _inputs)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ServerToClientId.playerPosition);
+        message.AddInt(_player.pManager.id);
+        message.AddVector3(_player.transform.position);
+        message.AddQuaternion(_player.transform.rotation);
+        message.AddInt(_tick);
+
+        message.AddInt(_inputs.Length);
+        foreach (bool _input in _inputs)
+        {
+            message.AddBool(_input);
+        }
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    public void S_PlayerRotation(Player _player)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ServerToClientId.playerRotation);
+        message.AddInt(_player.pManager.id);
+        message.AddQuaternion(_player.camTransform.rotation);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    //inventory
+    public static void S_AddItemToInventory(int _id, int _itemId, int _aux1, int _aux2)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.addItemToInventory);
+        message.AddInt(_itemId);
+        message.AddInt(_aux1);
+        message.AddInt(_aux2);
+
+        NetworkManager.instance.Server.Send(message, (ushort)_id);
+    }
+    public void S_RemoveItemFromInventory(ushort _id, int _index, bool _clear)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.removeItemFromInventory);
+        message.AddInt(_index);
+        message.AddBool(_clear);
+
+        NetworkManager.instance.Server.Send(message, _id);
+    }
+
+    public static void S_ChangeSelectedItem(int _id, int _item, int _aux1, int _aux2)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.changeSelectedItem);
+        message.Add(_id);
+        message.Add(_item);
+        message.Add(_aux1);
+        message.Add(_aux2);
+
+        foreach (PlayerManager p in PlayerManager.list.Values)
+        {
+            if(p.id != _id)
+             NetworkManager.instance.Server.Send(message, p.id);
+        }
+    }
+
+    public static void S_FireWeapon(ushort _id, int _weaponId)
+    {
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)ServerToClientId.fireWeapon);
+        message.AddUShort(_id);
+        message.AddInt(_weaponId);
+
+        foreach (PlayerManager p in PlayerManager.list.Values)
+        {
+            if (p.id != _id)
+                NetworkManager.instance.Server.Send(message, p.id);
+        }
+    }
+
+    public static void S_ChangeHealth(ushort _id, float _value)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.changeHealth);
+        message.AddFloat(_value);
+
+        NetworkManager.instance.Server.Send(message, _id);
+    }
+
+    public static void S_Die(ushort _id)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.die);
+        message.AddUShort(_id);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+
+    [MessageHandler((ushort)ClientToServerId.playeMovement)]
+    private static void R_PlayerMovement(ushort _fromClient, Message message)
+    {
+        bool[] _inputs = new bool[message.GetInt()];
+        for (int i = 0; i < _inputs.Length; i++)
+        {
+            _inputs[i] = message.GetBool();
+        }
+        Quaternion _rotation = message.GetQuaternion();
+        Quaternion _camRotation = message.GetQuaternion();
+        int _tick = message.GetInt();
+
+        PlayerManager.list[_fromClient].player.SetInput(_inputs, _rotation, _camRotation, _tick);
+    }
+
+    [MessageHandler((ushort)ClientToServerId.interact)]
+    private static void R_Interact(ushort _fromClient, Message message)
+    {
+        ItemPickup _item;
+        GameObject _object;
+
+        if (PlayerManager.list[_fromClient].player.InteractRaycast(out _object))
+        {
+            if (_object.GetComponent(typeof(IInteractable)))
+            {
+                IInteractable i = (IInteractable)_object.GetComponent(typeof(IInteractable));
+                i.Interacted();
+            }
+            else if (_object.GetComponent<ItemPickup>())
+            {
+
+                _item = _object.GetComponent<ItemPickup>();
+                if (PlayerManager.list[_fromClient].player.AddItemToInventory(_item.iSO.id))
+                {
+                    int _aux1 = 0;
+                    int _aux2 = 0;
+                    if (Database.instance.GetItem(_item.iSO.id).itemType == ItemSO.ItemType.gun)
+                    {
+                        _aux1 = ((GunSO)Database.instance.GetItem(_item.iSO.id)).magAmmo;
+                        _aux2 = ((GunSO)Database.instance.GetItem(_item.iSO.id)).maxAmmo;
+                    }
+
+                    S_AddItemToInventory(_fromClient, _item.iSO.id, _aux1, _aux2);
+                    testGameManager.instance.S_RemoveItem(_item.id);
+                    testGameManager.instance.items[testGameManager.instance.items.IndexOf(_item)] = null;
+                    Destroy(_item.gameObject);
+                }
+            }
+
+
+        }
+    }
+
+    [MessageHandler((ushort)ClientToServerId.changeSelectedItem)]
+    private static void R_ChangeSelectedItem(ushort _fromClient, Message message)
+    {
+        int _index = message.GetInt();
+
+        PlayerManager.list[_fromClient].player.ChangeSelectedItem(_index);
+
+        if (_index + 1 <= PlayerManager.list[_fromClient].player.inventory.Count)
+        {
+
+
+
+            if (PlayerManager.list[_fromClient].player.inventory[_index] != null)
+            {
+                int _aux1 = 0;
+                int _aux2 = 0;
+                if (Database.instance.GetItem(PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id).itemType == ItemSO.ItemType.gun)
+                {
+                    _aux1 = ((GunSO)Database.instance.GetItem(PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id)).magAmmo;
+                    _aux2 = ((GunSO)Database.instance.GetItem(PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id)).maxAmmo;
+                }
+
+                Debug.Log($"Player {_fromClient} changed item to {_index}");
+                S_ChangeSelectedItem(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id, _aux1, _aux2);
+            }
+            else
+            {
+                S_ChangeSelectedItem(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id, 0, 0);
+            }
+        }
+        else
+        {
+            S_ChangeSelectedItem(_fromClient, 0, 0, 0);
+        }
+
+    }
+
+    [MessageHandler((ushort)ClientToServerId.dropItem)]
+    private static void R_DropItem(ushort _fromClient, Message message)
+    {
+        int _index = message.GetInt();
+        int _id = PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id;
+
+        PlayerManager.list[_fromClient].player.RemoveItemFromInventory(_index, false);
+        testGameManager.instance.SpawnItem(_id, PlayerManager.list[_fromClient].player.dropTransform.position, PlayerManager.list[_fromClient].player.transform.rotation);
+    }
+
+    [MessageHandler((ushort)ClientToServerId.fireWeapon)]
+    private static void R_FireWeapon(ushort _fromClient, Message message)
+    {
+        bool _aiming = message.GetBool();
+        float _gunXRot = message.GetFloat();
+
+        if (_aiming)
+        {
+            PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.localPosition = ((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).aimPos;
+        }
+        else
+        {
+            PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.localPosition = ((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).hipPos;
+        }
+
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.TransformPoint(((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.y, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.z));
+        S_FireWeapon(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id);
+    }
+
+    [MessageHandler((ushort)ClientToServerId.consumable)]
+    private static void R_Consumable(ushort _fromClient, Message message)
+    {
+        Consumable con = (Consumable)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem];
+        PlayerManager.list[_fromClient].player.SetHealth(PlayerManager.list[_fromClient].player.health + con.conSO.value);
+        PlayerManager.list[_fromClient].player.RemoveItemFromInventory(PlayerManager.list[_fromClient].player.selectedItem, false);
+        int newItem = PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id;
+
+        int _aux1 = 0;
+        int _aux2 = 0;
+
+        if (Database.instance.GetItem(newItem).itemType == ItemSO.ItemType.gun)
+        {
+            _aux1 = ((GunSO)Database.instance.GetItem(newItem)).magAmmo;
+            _aux2 = ((GunSO)Database.instance.GetItem(newItem)).maxAmmo;
+        }
+
+        S_ChangeSelectedItem(_fromClient, newItem, _aux1, _aux2);
+    }
+
+    [MessageHandler((ushort)ClientToServerId.command)]
+    private static void R_Command(ushort _fromClient, Message message)
+    {
+        int _commandType = message.GetInt();
+        int _index = message.GetInt();
+
+        if (_commandType == 0)
+        {
+            if (PlayerManager.list[_fromClient].player)
+            {
+                if (PlayerManager.list[_fromClient].player.AddItemToInventory(_index))
+                {
+                    int _aux1 = 0;
+                    int _aux2 = 0;
+
+                    if (Database.instance.GetItem(_index).itemType == ItemSO.ItemType.gun)
+                    {
+                        _aux1 = ((GunSO)Database.instance.GetItem(_index)).magAmmo;
+                        _aux2 = ((GunSO)Database.instance.GetItem(_index)).maxAmmo;
+                    }
+
+                    S_AddItemToInventory(_fromClient, _index, _aux1, _aux2);
+                }
+
+            }
+        }
+        if (_commandType == 1)
+        {
+            if (PlayerManager.list[_fromClient].player)
+            {
+                testGameManager.instance.SpawnItem(_index, PlayerManager.list[_fromClient].player.dropTransform.position, PlayerManager.list[_fromClient].player.transform.rotation);
+
+            }
+        }
+        if (_commandType == 2)
+        {
+            if (PlayerManager.list[_fromClient].player)
+            {
+                PlayerManager.list[_fromClient].player.transform.position = PlayerManager.list[(ushort)_index].player.transform.position;
+
+            }
+        }
+        if (_commandType == 3)
+        {
+            if (PlayerManager.list[_fromClient].player)
+            {
+                Ray ray = new Ray(PlayerManager.list[_fromClient].player.camTransform.position, PlayerManager.list[_fromClient].player.camTransform.forward);
+                RaycastHit hitInfo;
+
+                if(Physics.Raycast(ray, out hitInfo))
+                {
+                    Debug.Log($"Summoning Enemy {_index} at {hitInfo.point}");
+                    testGameManager.instance.SpawnEnemy(_index, hitInfo.point, Quaternion.identity);
+                }
+
+            }
+        }
+    }
+    #endregion
 }

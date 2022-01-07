@@ -45,22 +45,22 @@ public class Bullet : MonoBehaviour
                 if (colliderHit.collider.GetComponent<Player>())
                 {
                     colliderplayer = colliderHit.collider.GetComponent<Player>();
-                    //             colliderplayer.SetHealth(colliderplayer.health - damage);
+                    colliderplayer.SetHealth(colliderplayer.health - damage);
                 }
                 else if (colliderHit.collider.GetComponentInParent<Player>())
                 {
                     colliderplayer = colliderHit.collider.GetComponentInParent<Player>();
-                    //            colliderplayer.SetHealth(colliderplayer.health - damage);
+                    colliderplayer.SetHealth(colliderplayer.health - damage);
                 }
                 else if (colliderHit.collider.GetComponent<EnemyTest>())
                 {
                     colliderenemy = colliderHit.collider.GetComponent<EnemyTest>();
-                    //           colliderenemy.SetHealth(colliderenemy.health - damage);
+                    colliderenemy.SetHealth(colliderenemy.health - damage);
                 }
                 else if (colliderHit.collider.GetComponentInParent<EnemyTest>())
                 {
                     colliderenemy = colliderHit.collider.GetComponentInParent<EnemyTest>();
-                    //          colliderenemy.SetHealth(colliderenemy.health - damage);
+                    colliderenemy.SetHealth(colliderenemy.health - damage);
                 }
 
                 Destroy(gameObject);

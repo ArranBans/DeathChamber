@@ -1,3 +1,4 @@
+using RiptideNetworking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,8 +34,16 @@ public class Consumable : Item
         if(currentUsage >= conSO.useTime)
         {
             Debug.Log("Item used");
-            //          ClientSend.Consumable();
+            S_Consumable();
             currentUsage = 0;
         }
     }
+
+    #region Messages
+    private void S_Consumable()
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ClientToServerId.consumable);
+        NetworkManager.instance.Client.Send(message);
+    }
+    #endregion
 }

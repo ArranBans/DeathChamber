@@ -1,3 +1,4 @@
+using RiptideNetworking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 
 public class EnemyTest : MonoBehaviour
 {
-    /*
+    
     public NavMeshAgent agent;
     public LayerMask whatIsGround;
 
@@ -43,25 +44,25 @@ public class EnemyTest : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ServerSend.EnemyPosition(id, transform.position, transform.rotation);
+        testGameManager.instance.S_EnemyPosition(id, transform.position, transform.rotation);
     }
 
     private void Update()
     {
         #region VisionCone
         float closestSqrDistance = (sightRange * sightRange) + 1;
-        foreach(Client c in Server.clients.Values)
+        foreach(PlayerManager c in PlayerManager.list.Values)
         {
-            if(c.playerManager == null)
+            if(c == null)
             {
                 continue;
             }
-            if (c.playerManager.player == null)
+            if (c.player == null)
             {
                 continue;
             }
 
-            Player p = c.playerManager.player;
+            Player p = c.player;
             Vector3 playerVector = p.transform.position;
             Vector3 direction = (playerVector - transform.position).normalized;
             float angle = Vector3.Angle(transform.forward, direction);
@@ -93,11 +94,11 @@ public class EnemyTest : MonoBehaviour
 
         if(targetedPlayer != -1)
         {
-            float sqrDistance = (Server.clients[targetedPlayer].playerManager.player.transform.position - transform.position).sqrMagnitude;
+            float sqrDistance = (PlayerManager.list[(ushort)targetedPlayer].player.transform.position - transform.position).sqrMagnitude;
             if (sqrDistance <= attackRange * attackRange)
             {
                 RaycastHit hitInfo;
-                if(Physics.Raycast(attackPoint.position, (Server.clients[targetedPlayer].playerManager.player.enemyTarget.position - attackPoint.position), out hitInfo))
+                if(Physics.Raycast(attackPoint.position, (PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position - attackPoint.position), out hitInfo))
                 {
                     if (hitInfo.collider.GetComponent<Player>())
                     {
@@ -153,8 +154,8 @@ public class EnemyTest : MonoBehaviour
     }
     private void ChasePlayer()
     {
-        agent.SetDestination(Server.clients[targetedPlayer].playerManager.player.transform.position);
-        Vector3 lookPos = new Vector3(Server.clients[targetedPlayer].playerManager.player.enemyTarget.position.x, transform.position.y, Server.clients[targetedPlayer].playerManager.player.enemyTarget.position.z);
+        agent.SetDestination(PlayerManager.list[(ushort)targetedPlayer].player.transform.position);
+        Vector3 lookPos = new Vector3(PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position.x, transform.position.y, PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position.z);
         Quaternion lookRot = Quaternion.LookRotation(lookPos - transform.position);
         Quaternion.Lerp(transform.rotation, lookRot, turnSpeed * Time.deltaTime);
         
@@ -164,16 +165,16 @@ public class EnemyTest : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
-        Vector3 lookPos = Server.clients[targetedPlayer].playerManager.player.enemyTarget.position;
+        Vector3 lookPos = PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position;
         transform.LookAt(new Vector3(lookPos.x, transform.position.y, lookPos.z));
         
         if(Time.time >= timeToNextFire)
         {
             GameObject projectile = Instantiate(eSO.projectile);
             projectile.transform.position = attackPoint.position;
-            projectile.transform.LookAt(Server.clients[targetedPlayer].playerManager.player.enemyTarget.position);
+            projectile.transform.LookAt(PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position);
             Quaternion fireRot = projectile.transform.rotation;
-            ServerSend.EnemyFire(id, fireRot);
+            S_EnemyFire(id, fireRot);
 
             timeToNextFire = Time.time + attackRate;
         }
@@ -204,9 +205,28 @@ public class EnemyTest : MonoBehaviour
 
         if (health <= 0)
         {
-            ServerSend.EnemyDie(id);
+            S_EnemyDie(id);
             Destroy(gameObject);
         }
     }
-    */
+
+    #region Messages
+    public static void S_EnemyFire(int _enemyId, Quaternion _fireRot)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.enemyFire);
+        message.AddInt(_enemyId);
+        message.Add(_fireRot);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+
+    public static void S_EnemyDie(int _enemyId)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, (ushort)ServerToClientId.enemyDie);
+        message.AddInt(_enemyId);
+
+        NetworkManager.instance.Server.SendToAll(message);
+    }
+    #endregion
+
 }
