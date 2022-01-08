@@ -22,21 +22,21 @@ MonoBehaviour:
   itemType: 2
   charPos: {x: 0.08, y: -0.26, z: 0.3}
   xPosRecoil: 0
-  yPosRecoil: -0.0033
+  yPosRecoil: -0.002
   zPosRecoil: -0.013
   xRotRecoil: 0.05
   yRotRecoil: 0.25
   zRotRecoil: 0
-  xRotOffset: -0.55
+  xRotOffset: -0.3
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
   camXRotRecoil: 0.1
   camYRotRecoil: 0.6
   camZRotRecoil: 0.2
-  camXRotOffset: -1.3
+  camXRotOffset: -0.85
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 9
+  recoilReturnSpeed: 7
   recoilSnappiness: 1000
   recoilTime: 0.008
   cameraRecoilTime: 0.05
@@ -55,12 +55,12 @@ MonoBehaviour:
   bulletSpawnPoint: {x: 0, y: 0.453, z: 5.073}
   bulletObject: {fileID: 0}
   tiltSway: -0.3
-  hMoveSway: -0.0045
-  vMoveSway: -0.004
+  hMoveSway: -0.004
+  vMoveSway: -0.003
   aimSwayModifier: 0.2
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
-  aimSpeed: 10
+  aimSpeed: 7
   aimPos: {x: 0, y: -0.1855, z: 0}
   hipPos: {x: 0.06, y: -0.25, z: 0.088}
   aimFov: 0.7

@@ -23,6 +23,8 @@ public class Gun : Item
     private Vector3 camPosRecoil;
     private Vector3 camRotRecoil;
     private Vector3 desiredPos;
+    public Vector3 offset;
+    private Vector3 desiredAimState;
     private Vector3 desiredRot;
     public testPlayerController pTController;
     public Player player;
@@ -145,14 +147,14 @@ public class Gun : Item
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                desiredPos = gunSO.aimPos;
+                transform.localPosition = Vector3.Lerp(transform.localPosition, gunSO.aimPos + offset, gunSO.aimSpeed * Time.deltaTime);
                 aiming = true;
                 cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camFov * gunSO.aimFov, gunSO.aimSpeed * Time.deltaTime);
                 pTController.turnSpeed = Mathf.Lerp(pTController.turnSpeed, OptionsManager.instance.sens * gunSO.aimSensMult, gunSO.aimSpeed * Time.deltaTime);
             }
             else
             {
-                desiredPos = gunSO.hipPos;
+                transform.localPosition = Vector3.Lerp(transform.localPosition, gunSO.hipPos + offset, gunSO.aimSpeed * Time.deltaTime);
                 aiming = false;
                 cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camFov, gunSO.aimSpeed * Time.deltaTime);
                 pTController.turnSpeed = Mathf.Lerp(pTController.turnSpeed, OptionsManager.instance.sens, gunSO.aimSpeed * Time.deltaTime);
@@ -170,7 +172,7 @@ public class Gun : Item
         if (Time.time >= timeToRecoilCompensate)
         {
             recoiling = false;
-            transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, gunSO.recoilReturnSpeed * Time.deltaTime);
+            offset = Vector3.Lerp(offset, Vector3.zero, gunSO.recoilReturnSpeed * Time.deltaTime);
             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, gunSO.recoilReturnSpeed * Time.deltaTime);
         }
 
@@ -233,7 +235,7 @@ public class Gun : Item
         //cam.transform.localPosition = new Vector3(cam.transform.localPosition.x + camPosRecoil.x, cam.transform.localPosition.y + camPosRecoil.y, cam.transform.localPosition.z + camPosRecoil.z);
         //cam.transform.localRotation = Quaternion.Euler(cam.transform.localRotation.eulerAngles.x + _camRotRecoil.x, cam.transform.localRotation.eulerAngles.y + _camRotRecoil.y, cam.transform.localRotation.eulerAngles.z + _camRotRecoil.z);
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x + _posRecoil.x, transform.localPosition.y + posRecoil.y, transform.localPosition.z + posRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
+        offset = Vector3.Lerp(offset, new Vector3(offset.x + _posRecoil.x, offset.y + posRecoil.y, offset.z + posRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localRotation.eulerAngles.x + _rotRecoil.x, transform.localRotation.eulerAngles.y + _rotRecoil.y, transform.localRotation.eulerAngles.z + _rotRecoil.z), gunSO.recoilSnappiness * Time.deltaTime * 10000);
 
         if(gunSO.cameraReturn)

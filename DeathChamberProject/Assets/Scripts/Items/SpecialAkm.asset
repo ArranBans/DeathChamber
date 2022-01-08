@@ -54,13 +54,13 @@ MonoBehaviour:
   bulletMass: 0
   bulletSpawnPoint: {x: 0, y: 0.374, z: 4.815}
   bulletObject: {fileID: 0}
-  tiltSway: -0.7
-  hMoveSway: -0.012
-  vMoveSway: -0.006
+  tiltSway: -0.6
+  hMoveSway: -0.004
+  vMoveSway: -0.003
   aimSwayModifier: 0.6
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
-  aimSpeed: 10
+  aimSpeed: 2
   aimPos: {x: 0, y: -0.1685, z: 0.11}
   hipPos: {x: 0.09, y: -0.21, z: 0.2}
   aimFov: 0.9

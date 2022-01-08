@@ -82,7 +82,7 @@ public class ChatWindow : MonoBehaviour
         
     }
 
-    void ChatWindowOpen(bool open)
+    public void ChatWindowOpen(bool open)
     {
         if(open)
         {

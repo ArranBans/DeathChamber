@@ -41,6 +41,15 @@ public class testGameManager : MonoBehaviour
             testPlayerManager.list[(ushort)_id].GetComponent<PauseManager>().player = testPlayerManager.list[(ushort)_id].playerObj.GetComponent<Player>();
             testPlayerManager.list[(ushort)_id].GetComponent<DeployScreen>().deployScreen.SetActive(false);
             testPlayerManager.list[(ushort)_id].playerObj.GetComponent<Player>().HudCanvas.gameObject.SetActive(true);
+
+            if(testPlayerManager.list[(ushort)_id].GetComponent<ChatWindow>().chatWindowOpen)
+            {
+                testPlayerManager.list[(ushort)_id].GetComponent<ChatWindow>().ChatWindowOpen(true);
+            }
+            else
+            {
+                testPlayerManager.list[(ushort)_id].GetComponent<ChatWindow>().ChatWindowOpen(false);
+            }
         }
         else
         {

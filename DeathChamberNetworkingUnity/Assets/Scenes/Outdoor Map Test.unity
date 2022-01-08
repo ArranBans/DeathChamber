@@ -935,6 +935,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManagerPrefab: {fileID: 1128939309456633370, guid: eea6b133f9aab774e9af979d0b3341e8, type: 3}
   playerObject: {fileID: 1033502077037468300, guid: 1fe0d5c982604044eb2f1a98e521c5fc, type: 3}
+  port: 16699
+  maxClientCount: 30
 --- !u!4 &294127617
 Transform:
   m_ObjectHideFlags: 0
@@ -4078,7 +4080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: e0078533e152f604090bb3bbb8f26393, type: 2}
-  enemyDatabase: {fileID: 0}
+  enemyDatabase: {fileID: 11400000, guid: 58e2b3df1e539e842925645aa6fd8474, type: 2}
 --- !u!4 &1429588205
 Transform:
   m_ObjectHideFlags: 0

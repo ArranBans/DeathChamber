@@ -60,6 +60,7 @@ public class NetworkManager : MonoBehaviour
             else if (_instance != value)
             {
                 Debug.Log($"{nameof(NetworkManager)} instance already exists, destroying duplicate!");
+                Destroy(value);
             }
         }
     }

@@ -23,11 +23,11 @@ MonoBehaviour:
   charPos: {x: 0.125, y: -0.18, z: 0.43}
   xPosRecoil: 0
   yPosRecoil: -0.002
-  zPosRecoil: -0.01
+  zPosRecoil: -0.017
   xRotRecoil: 0
   yRotRecoil: 0.3
   zRotRecoil: 0.25
-  xRotOffset: -0.8
+  xRotOffset: -0.5
   camXPosRecoil: 0
   camYPosRecoil: 0
   camZPosRecoil: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
   tiltSway: -0.55
   hMoveSway: -0.0075
   vMoveSway: -0.008
-  aimSwayModifier: 0.3
+  aimSwayModifier: 0.2
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
   aimSpeed: 10

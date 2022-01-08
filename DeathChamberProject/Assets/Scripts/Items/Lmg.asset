@@ -36,7 +36,7 @@ MonoBehaviour:
   camZRotRecoil: 0.34
   camXRotOffset: -5
   recoilLocation: {fileID: 0}
-  recoilReturnSpeed: 5
+  recoilReturnSpeed: 8
   recoilSnappiness: 800
   recoilTime: 0.007
   cameraRecoilTime: 0.04
@@ -55,13 +55,13 @@ MonoBehaviour:
   bulletSpawnPoint: {x: 0, y: 0.538, z: 6.781}
   bulletObject: {fileID: 0}
   tiltSway: -0.5
-  hMoveSway: -0.0075
-  vMoveSway: -0.0045
+  hMoveSway: -0.003
+  vMoveSway: -0.003
   aimSwayModifier: 0.15
   muzzleFlash: {fileID: 0}
   gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
-  aimSpeed: 8
-  aimPos: {x: 0, y: -0.176, z: 0.27}
-  hipPos: {x: 0.1, y: -0.26, z: 0.3}
+  aimSpeed: 5
+  aimPos: {x: 0, y: -0.176, z: 0.25}
+  hipPos: {x: 0.1, y: -0.225, z: 0.27}
   aimFov: 0.9
   aimSensMult: 1
