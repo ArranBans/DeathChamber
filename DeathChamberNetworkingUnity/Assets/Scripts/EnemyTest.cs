@@ -35,6 +35,7 @@ public class EnemyTest : MonoBehaviour
     public bool playerInSightRange;
     public bool playerInAttackRange;
     public float health;
+    public bool moving;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class EnemyTest : MonoBehaviour
 
     private void FixedUpdate()
     {
-        testGameManager.instance.S_EnemyPosition(id, transform.position, transform.rotation);
+        testGameManager.instance.S_EnemyPosition(id, transform.position, transform.rotation, moving);
     }
 
     private void Update()
@@ -142,14 +143,26 @@ public class EnemyTest : MonoBehaviour
     private void Patrolling()
     {
         if (!walkPointSet)
+        {
             SearchWalkPoint();
+            moving = false;
+        }   
         else
+        {
             agent.SetDestination(walkPoint);
+            moving = true;
+        }
+            
 
         float sqrDistance = (walkPoint - transform.position).sqrMagnitude;
 
         if (sqrDistance < 1f)
+        {
             walkPointSet = false;
+            moving = false;
+        }
+            
+        
         
     }
     private void ChasePlayer()
@@ -158,7 +171,8 @@ public class EnemyTest : MonoBehaviour
         Vector3 lookPos = new Vector3(PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position.x, transform.position.y, PlayerManager.list[(ushort)targetedPlayer].player.enemyTarget.position.z);
         Quaternion lookRot = Quaternion.LookRotation(lookPos - transform.position);
         Quaternion.Lerp(transform.rotation, lookRot, turnSpeed * Time.deltaTime);
-        
+
+        moving = true;
         walkPointSet = false;
     }
     private void AttackPlayer()

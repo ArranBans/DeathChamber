@@ -257,6 +257,7 @@ MonoBehaviour:
   eSO: {fileID: 11400000, guid: 6ab05880a99d52d449ed4ccd15b90391, type: 2}
   id: 0
   attackPoint: {fileID: 3752684062403821026}
+  anim: {fileID: 35208232768816588}
   bloodFX: {fileID: 7260971779759526595, guid: aab4b1fbf24b7bb43a43310c88589650, type: 3}
 --- !u!1001 &5843279892918728797
 PrefabInstance:
@@ -325,6 +326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jewish Stickman
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 9c4b71a3680f3874d8847bd47705b425, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 69370a7c23857c6449b102655041e99d, type: 2}
     - target: {fileID: 8417361359673230750, guid: 9c4b71a3680f3874d8847bd47705b425, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -334,5 +339,10 @@ PrefabInstance:
 --- !u!4 &6241207777346658230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c4b71a3680f3874d8847bd47705b425, type: 3}
+  m_PrefabInstance: {fileID: 5843279892918728797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &35208232768816588 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9c4b71a3680f3874d8847bd47705b425, type: 3}
   m_PrefabInstance: {fileID: 5843279892918728797}
   m_PrefabAsset: {fileID: 0}

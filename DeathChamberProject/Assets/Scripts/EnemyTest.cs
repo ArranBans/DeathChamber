@@ -11,6 +11,7 @@ public class EnemyTest : MonoBehaviour
     Vector3 ServerPos;
     Quaternion ServerRot;
     public Transform attackPoint;
+    public Animator anim;
 
     public GameObject bloodFX;
 
@@ -21,10 +22,22 @@ public class EnemyTest : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, ServerRot, rotationCap);
     }
 
-    public void UpdateEnemyState(Vector3 _pos, Quaternion _rot)
+    public void UpdateEnemyState(Vector3 _pos, Quaternion _rot, bool _moving)
     {
         ServerPos = _pos;
         ServerRot = _rot;
+        if(anim != null)
+        {
+            if (_moving)
+            {
+                anim.SetBool("Moving", true);
+            }
+            else
+            {
+                anim.SetBool("Moving", false);
+            }
+        }
+        
     }
 
     #region Messages
@@ -38,6 +51,10 @@ public class EnemyTest : MonoBehaviour
         {
             if (e.id == _enemyId)
             {
+                if (e.anim != null)
+                {
+                    e.anim.SetTrigger("Attack");
+                }
                 GameObject projectile = Instantiate(e.eSO.projectile, e.attackPoint.position, _fireRot);
                 break;
             }

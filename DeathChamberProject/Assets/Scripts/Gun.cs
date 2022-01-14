@@ -10,6 +10,8 @@ public class Gun : Item
     private float timeToNextFire;
     private float timeToRecoilCompensate;
     private float timeToCamRecoilCompensate;
+    private float timeToLightOff;
+    private bool lightOn = false;
     private float fireRate;
     private Camera cam;
     private float camFov;
@@ -208,6 +210,12 @@ public class Gun : Item
             transform.localPosition = new Vector3(transform.localPosition.x + inputs[0] * _hsway, transform.localPosition.y + inputs[1] * _vsway, transform.localPosition.z);
             transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z + inputs[0] * _tiltsway);    
         #endregion
+
+        if(Time.time >= timeToLightOff && lightOn)
+        {
+            ((GunInfo)itemInfo).muzzleLight.enabled = false;
+            lightOn = false;
+        }
     }
 
     void Fire()
@@ -217,14 +225,17 @@ public class Gun : Item
         //SpawnBullet on client and server
         fireSource.PlayOneShot(fireSource.clip);
         muzzleFlash.Play();
-        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), Quaternion.Euler(transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z))).GetComponent<Bullet>();
+        Bullet bullet = ((GameObject)Instantiate(Resources.Load($"Projectiles/{gunSO.itemName}_Projectile"), transform.TransformPoint(gunSO.bulletSpawnPoint), Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z))).GetComponent<Bullet>();
         bullet.hitMarker = player.hitMarker;
         bullet.myId = NetworkManager.instance.Client.Id;
-        S_Fire(aiming, transform.rotation.eulerAngles.x);
+        ((GunInfo)itemInfo).muzzleLight.enabled = true;
+        S_Fire(aiming, transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y);
 
+        lightOn = true;
         recoiling = true;
         timeToRecoilCompensate = Time.time + gunSO.recoilTime;
         timeToCamRecoilCompensate = Time.time + gunSO.cameraRecoilTime;
+        timeToLightOff = Time.time + 0.015f;
     }
 
     void Recoil()
@@ -256,11 +267,12 @@ public class Gun : Item
     }
 
     #region Messages
-    private void S_Fire(bool _aiming, float _gunXRot)
+    private void S_Fire(bool _aiming, float _gunXRot, float _gunYRot)
     {
         Message message = Message.Create(MessageSendMode.unreliable, (ushort)ClientToServerId.fireWeapon);
         message.AddBool(_aiming);
         message.AddFloat(_gunXRot);
+        message.AddFloat(_gunYRot);
         NetworkManager.instance.Client.Send(message);
     }
 

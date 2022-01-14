@@ -171,6 +171,7 @@ MonoBehaviour:
   fireMode: 0
   fireAudio: {fileID: 7519594341464480681}
   muzzleFlash: {fileID: 2619778144293328267}
+  muzzleLight: {fileID: 0}
 --- !u!1 &2026330131136454518
 GameObject:
   m_ObjectHideFlags: 0

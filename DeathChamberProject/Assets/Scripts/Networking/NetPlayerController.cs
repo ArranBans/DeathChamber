@@ -23,6 +23,8 @@ public class NetPlayerController : MonoBehaviour
     public FastIK rightHandIK;
     public FastIK leftHandIK;
     public GameObject bloodFX;
+    float timeToLightOff;
+    bool lightOn;
 
     private void Awake()
     {
@@ -70,6 +72,13 @@ public class NetPlayerController : MonoBehaviour
         }
         rightHandObj.transform.localRotation = rightHandRotIdle;
         leftHandObj.transform.localRotation = leftHandRotIdle;
+
+
+        if(lightOn && Time.time >= timeToLightOff)
+        {
+            selectedItem.GetComponent<GunInfo>().muzzleLight.enabled = false;
+            lightOn = false;
+        }
     }
 
     public void PlayerMoved(bool[] inputs)
@@ -107,5 +116,17 @@ public class NetPlayerController : MonoBehaviour
         {
             sprinting = true;
         }
+    }
+
+    public void FireWeapon(int _id)
+    {
+        Instantiate(Resources.Load($"Projectiles/{Database.instance.GetItem(_id).itemName}_Projectile"), camTransform.position, camTransform.rotation);
+        if (selectedItem)
+           selectedItem.GetComponent<GunInfo>().fireAudio.PlayOneShot(selectedItem.GetComponent<GunInfo>().fireAudio.clip);
+        selectedItem.GetComponent<GunInfo>().muzzleFlash.Play();
+        selectedItem.GetComponent<GunInfo>().muzzleLight.enabled = true;
+
+        timeToLightOff = Time.time + 0.015f;
+        lightOn = true;
     }
 }

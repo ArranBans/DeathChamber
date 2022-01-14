@@ -381,6 +381,7 @@ public class Player : MonoBehaviour
     {
         bool _aiming = message.GetBool();
         float _gunXRot = message.GetFloat();
+        float _gunYRot = message.GetFloat();
 
         if (_aiming)
         {
@@ -391,7 +392,7 @@ public class Player : MonoBehaviour
             PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.localPosition = ((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).hipPos;
         }
 
-        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.TransformPoint(((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.y, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.z));
+        GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.TransformPoint(((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, _gunYRot, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.z));
         S_FireWeapon(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id);
     }
 

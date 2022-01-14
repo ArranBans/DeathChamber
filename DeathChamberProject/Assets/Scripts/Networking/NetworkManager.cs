@@ -235,11 +235,12 @@ public class NetworkManager : MonoBehaviour
         int _enemyId = message.GetInt();
         Vector3 _pos = message.GetVector3();
         Quaternion _rot = message.GetQuaternion();
+        bool _moving = message.GetBool();
 
         foreach (EnemyTest e in testGameManager.enemies)
         {
             if (e != null && e.id == _enemyId)
-                e.UpdateEnemyState(_pos, _rot);
+                e.UpdateEnemyState(_pos, _rot, _moving);
         }
     }
 

@@ -204,12 +204,13 @@ public class testGameManager : MonoBehaviour
 
         NetworkManager.instance.Server.SendToAll(message);
     }
-    public void S_EnemyPosition(int _enemyId, Vector3 _pos, Quaternion _rot)
+    public void S_EnemyPosition(int _enemyId, Vector3 _pos, Quaternion _rot, bool _moving)
     {
         Message message = Message.Create(MessageSendMode.unreliable, (ushort)ServerToClientId.enemyPosition);
         message.Add(_enemyId);
         message.Add(_pos);
         message.Add(_rot);
+        message.Add(_moving);
 
         NetworkManager.instance.Server.SendToAll(message);
     }

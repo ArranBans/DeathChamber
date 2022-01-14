@@ -10,4 +10,10 @@ public class GunInfo : ItemInfo
     public GunSO.FireMode fireMode;
     public AudioSource fireAudio;
     public VisualEffect muzzleFlash;
+    public Light muzzleLight;
+
+    private void Awake()
+    {
+        muzzleLight = muzzleFlash.GetComponent<Light>();
+    }
 }

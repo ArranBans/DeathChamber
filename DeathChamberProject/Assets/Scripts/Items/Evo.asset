@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35ea901e9a1a3e42aeb3c21a12acfe6, type: 3}
+  m_Name: Evo
+  m_EditorClassIdentifier: 
+  InventoryImage: {fileID: 0}
+  empty: {fileID: 9192666785742479510, guid: 328f4dbafd9639c4c8b4f6a09ea4a324, type: 3}
+  itemName: Evo
+  itemId: 17
+  mass: 0.7
+  colliderCentre: {x: 0, y: 0.2875689, z: 0.21241948}
+  colliderSize: {x: 0.24000002, y: 1.4899192, z: 3.7999394}
+  itemType: 2
+  charPos: {x: 0.12, y: -0.22, z: 0.42}
+  xPosRecoil: 0
+  yPosRecoil: 0.001
+  zPosRecoil: -0.007
+  xRotRecoil: 0.2
+  yRotRecoil: 0.36
+  zRotRecoil: 0.16
+  xRotOffset: -0.2
+  camXPosRecoil: 0
+  camYPosRecoil: 0
+  camZPosRecoil: 0
+  camXRotRecoil: 0.2
+  camYRotRecoil: 0.3
+  camZRotRecoil: 0.03
+  camXRotOffset: -0.105
+  recoilLocation: {fileID: 0}
+  recoilReturnSpeed: 7.265
+  recoilSnappiness: 1000
+  recoilTime: 0.005
+  cameraRecoilTime: 0.04
+  cameraReturn: 0
+  semiAuto: 1
+  fullAuto: 1
+  boltAction: 0
+  fireRate: 16
+  defaultFireMode: 1
+  maxAmmo: 240
+  magAmmo: 33
+  ammoType: 1
+  baseDamage: 0
+  bulletSpeed: 0
+  bulletMass: 0
+  bulletSpawnPoint: {x: 0, y: 0.38, z: 2.152}
+  bulletObject: {fileID: 0}
+  tiltSway: -0.6
+  hMoveSway: -0.008
+  vMoveSway: -0.006
+  aimSwayModifier: 0.3
+  muzzleFlash: {fileID: 0}
+  gunAudio: {fileID: 8300000, guid: b4ed657578d12084a830ac7f52ae5486, type: 3}
+  aimSpeed: 12
+  aimPos: {x: 0, y: -0.23, z: 0.17}
+  hipPos: {x: 0.07, y: -0.24, z: 0.25}
+  aimFov: 0.85
+  aimSensMult: 1

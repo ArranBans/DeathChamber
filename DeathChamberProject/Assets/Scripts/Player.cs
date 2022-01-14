@@ -230,10 +230,9 @@ public class Player : MonoBehaviour
         int _id = message.GetUShort();
         int _weaponId = message.GetInt();
 
-        Instantiate(Resources.Load($"Projectiles/{Database.instance.GetItem(_weaponId).itemName}_Projectile"), testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().camTransform.position, testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().camTransform.rotation);
-        if (testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().selectedItem)
-            testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.PlayOneShot(testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().fireAudio.clip);
-        testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().selectedItem.GetComponent<GunInfo>().muzzleFlash.Play();
+        testPlayerManager.list[(ushort)_id].playerObj.GetComponent<NetPlayerController>().FireWeapon(_weaponId);
+
+        
     }
 
     [MessageHandler((ushort)ServerToClientId.changeHealth)]
