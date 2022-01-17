@@ -46,6 +46,7 @@ public class ItemInfo : MonoBehaviour
         if(iSO.itemType == ItemSO.ItemType.gun)
         {
             ((GunInfo)this).magAmmo = _aux1;
+            ((GunInfo)this).reserveAmmo = _aux2;
         }
     }
 }

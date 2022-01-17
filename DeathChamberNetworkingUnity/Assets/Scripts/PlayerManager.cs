@@ -29,7 +29,10 @@ public class PlayerManager : MonoBehaviour
         {
             foreach (Item _i in player.inventory)
             {
-                testGameManager.instance.SpawnItem(_i.itemSO.id, player.dropTransform.position, player.dropTransform.rotation);
+                int aux1 = ((GunInfo)_i.itemInfo).magAmmo;
+                int aux2 = ((GunInfo)_i.itemInfo).reserveAmmo;
+
+                testGameManager.instance.SpawnItem(_i.itemSO.id, player.dropTransform.position, player.dropTransform.rotation, aux1, aux2);
             }
         }
 

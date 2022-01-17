@@ -83,6 +83,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool AddItemToInventory(int _item, int _aux1, int _aux2)
+    {
+        if (inventory.Count < inventorySize)
+        {
+
+            GameObject _invItemObj = Instantiate(Database.instance.GetItem(_item).empty, camTransform);
+
+            _invItemObj.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.item, _aux1, _aux2);
+            _invItemObj.transform.localPosition = Vector3.zero;
+            Item _invItem = _invItemObj.GetComponent<Item>();
+            inventory.Add(_invItem);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void ChangeSelectedItem(int _index)
     {
         selectedItem = _index;
@@ -131,7 +150,13 @@ public class Player : MonoBehaviour
             {
                 if(i != null)
                 {
-                    testGameManager.instance.SpawnItem(i.itemSO.id, dropTransform.position, transform.rotation);
+                    int aux1 = 0, aux2 = 0;
+                    if(i.itemSO.itemType == ItemSO.ItemType.gun)
+                    {
+                        aux1 = ((GunInfo)i.itemInfo).magAmmo;
+                        aux2 = ((GunInfo)i.itemInfo).reserveAmmo;
+                    }
+                    testGameManager.instance.SpawnItem(i.itemSO.id, dropTransform.position, transform.rotation, aux1, aux2);
                 }       
             }
 
@@ -308,15 +333,17 @@ public class Player : MonoBehaviour
             {
 
                 _item = _object.GetComponent<ItemPickup>();
-                if (PlayerManager.list[_fromClient].player.AddItemToInventory(_item.iSO.id))
+
+                int _aux1 = 0;
+                int _aux2 = 0;
+                if (Database.instance.GetItem(_item.iSO.id).itemType == ItemSO.ItemType.gun)
                 {
-                    int _aux1 = 0;
-                    int _aux2 = 0;
-                    if (Database.instance.GetItem(_item.iSO.id).itemType == ItemSO.ItemType.gun)
-                    {
-                        _aux1 = ((GunSO)Database.instance.GetItem(_item.iSO.id)).magAmmo;
-                        _aux2 = ((GunSO)Database.instance.GetItem(_item.iSO.id)).maxAmmo;
-                    }
+                    _aux1 = ((GunInfo)_item.GetComponent<GunInfo>()).magAmmo;
+                    _aux2 = ((GunInfo)_item.GetComponent<GunInfo>()).reserveAmmo;
+                }
+
+                if (PlayerManager.list[_fromClient].player.AddItemToInventory(_item.iSO.id, _aux1, _aux2))
+                {
 
                     S_AddItemToInventory(_fromClient, _item.iSO.id, _aux1, _aux2);
                     testGameManager.instance.S_RemoveItem(_item.id);
@@ -372,8 +399,11 @@ public class Player : MonoBehaviour
         int _index = message.GetInt();
         int _id = PlayerManager.list[_fromClient].player.inventory[_index].itemSO.id;
 
+        int aux1 = ((GunInfo)PlayerManager.list[_fromClient].player.inventory[_index].itemInfo).magAmmo;
+        int aux2 = ((GunInfo)PlayerManager.list[_fromClient].player.inventory[_index].itemInfo).reserveAmmo;
+
         PlayerManager.list[_fromClient].player.RemoveItemFromInventory(_index, false);
-        testGameManager.instance.SpawnItem(_id, PlayerManager.list[_fromClient].player.dropTransform.position, PlayerManager.list[_fromClient].player.transform.rotation);
+        testGameManager.instance.SpawnItem(_id, PlayerManager.list[_fromClient].player.dropTransform.position, PlayerManager.list[_fromClient].player.transform.rotation, aux1, aux2);
     }
 
     [MessageHandler((ushort)ClientToServerId.fireWeapon)]
@@ -394,6 +424,9 @@ public class Player : MonoBehaviour
 
         GameObject bullet = (GameObject)GameObject.Instantiate(Resources.Load($"Projectiles/{PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.ItemName}_Projectile"), PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].transform.TransformPoint(((GunSO)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO).bulletSpawnPoint), Quaternion.Euler(_gunXRot, _gunYRot, PlayerManager.list[_fromClient].player.camTransform.rotation.eulerAngles.z));
         S_FireWeapon(_fromClient, PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemSO.id);
+        
+        if(((GunInfo)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemInfo).magAmmo > 0)
+            ((GunInfo)PlayerManager.list[_fromClient].player.inventory[PlayerManager.list[_fromClient].player.selectedItem].itemInfo).magAmmo -= 1;
     }
 
     [MessageHandler((ushort)ClientToServerId.consumable)]

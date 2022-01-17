@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public Canvas InventoryCanvas;
     public Canvas InteractCanvas;
     public Canvas TakeDamageCanvas;
+    public Text ItemText;
+    public Text AmmoText;
     public bool inventoryOpen = false;
     [Header("Health")]
     public float maxHealth;
@@ -47,6 +49,9 @@ public class Player : MonoBehaviour
                 i.gameObject.SetActive(false);
             }
         }
+
+        ItemText.text = "Empty";
+        AmmoText.text = "--/--";
     }
 
 
@@ -91,6 +96,30 @@ public class Player : MonoBehaviour
             }
         }
 
+        if(inventory.Count > selectedItem)
+        {
+            if (inventory[selectedItem])
+            {
+                ItemText.text = inventory[selectedItem].itemInfo.iSO.itemName;
+                if (inventory[selectedItem].itemInfo.iSO.itemType == ItemSO.ItemType.gun)
+                {
+                    AmmoText.text = $"{((GunInfo)inventory[selectedItem].itemInfo).magAmmo}/{((GunInfo)inventory[selectedItem].itemInfo).reserveAmmo}";
+                }
+            }
+            else
+            {
+                ItemText.text = "Empty";
+                AmmoText.text = "--/--";
+            }
+        }
+        else
+        {
+            ItemText.text = "Empty";
+            AmmoText.text = "--/--";
+        }
+
+
+
         S_ChangeSelectedItem();
     }
 
@@ -104,6 +133,19 @@ public class Player : MonoBehaviour
         if (inventory.Count < inventorySize)
         {
             inventory.Add(_item);
+            if (_item != null)
+            {
+                ItemText.text = _item.itemInfo.iSO.itemName;
+                if (_item.itemInfo.iSO.itemType == ItemSO.ItemType.gun)
+                {
+                    AmmoText.text = $"{((GunInfo)_item.itemInfo).magAmmo}/{((GunInfo)_item.itemInfo).reserveAmmo}";
+                }
+            }
+            else
+            {
+                ItemText.text = "Empty";
+                AmmoText.text = "--/--";
+            }
             return true;
         }
         else

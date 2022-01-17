@@ -17,8 +17,6 @@ public class Gun : Item
     private float camFov;
     private Vector3 camDPos;
     private Vector3 camDRot;
-    private float magAmmo;
-    private float reserveAmmo;
     public GunSO.FireMode fireMode;
     private Vector3 posRecoil;
     private Vector3 rotRecoil;
@@ -60,8 +58,6 @@ public class Gun : Item
         camDPos = cam.transform.localPosition;
         camDRot = new Vector3(cam.transform.localRotation.eulerAngles.x, cam.transform.localRotation.eulerAngles.y, cam.transform.localRotation.eulerAngles.z);
         fireMode = gunSO.defaultFireMode;
-        reserveAmmo = gunSO.maxAmmo;
-        magAmmo = gunSO.magAmmo;
         fireRate = 1 / gunSO.fireRate;
 
         posRecoil = new Vector3(gunSO.xPosRecoil, gunSO.yPosRecoil, gunSO.zPosRecoil);
@@ -119,7 +115,7 @@ public class Gun : Item
                     {
                         if (Input.GetKeyDown(KeyCode.Mouse0)) 
                         {
-                            if (Time.time >= timeToNextFire)
+                            if (Time.time >= timeToNextFire && ((GunInfo)itemInfo).magAmmo > 0)
                             {
                                 Fire();
                                 timeToNextFire = Time.time + fireRate;
@@ -131,7 +127,7 @@ public class Gun : Item
                     {
                         if (Input.GetKey(KeyCode.Mouse0))
                         {
-                            if (Time.time >= timeToNextFire)
+                            if (Time.time >= timeToNextFire && ((GunInfo)itemInfo).magAmmo > 0)
                             {
                                 Fire();
                                 timeToNextFire = Time.time + fireRate;
@@ -236,6 +232,9 @@ public class Gun : Item
         timeToRecoilCompensate = Time.time + gunSO.recoilTime;
         timeToCamRecoilCompensate = Time.time + gunSO.cameraRecoilTime;
         timeToLightOff = Time.time + 0.015f;
+
+        ((GunInfo)itemInfo).magAmmo -= 1;
+        player.AmmoText.text = $"{((GunInfo)itemInfo).magAmmo}/{((GunInfo)itemInfo).reserveAmmo}";
     }
 
     void Recoil()

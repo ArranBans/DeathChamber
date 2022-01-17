@@ -17,28 +17,28 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.4831921, b: 0.4504717, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.007
+  m_FogDensity: 0.0045
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.64695436, g: 0.7000626, b: 0.8014509, a: 1}
+  m_AmbientSkyColor: {r: 0.066037714, g: 0.062126387, b: 0.05762725, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.43320575, g: 0.45744973, b: 0.5188679, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 33ca87ba262202641b136b1d50b1a45c, type: 2}
   m_HaloStrength: 0
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
+  m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1798442490}
-  m_IndirectSpecularColor: {r: 0.45797473, g: 0.538364, b: 0.6322254, a: 1}
+  m_IndirectSpecularColor: {r: 0.17432703, g: 0.24778596, b: 0.3516882, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &594938207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +339,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 16.21, y: -76.5, z: 0}
+--- !u!1 &902097563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 902097565}
+  - component: {fileID: 902097564}
+  m_Layer: 0
+  m_Name: Reflection Probe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!215 &902097564
+ReflectionProbe:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902097563}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Type: 0
+  m_Mode: 0
+  m_RefreshMode: 0
+  m_TimeSlicingMode: 0
+  m_Resolution: 128
+  m_UpdateFrequency: 0
+  m_BoxSize: {x: 125, y: 30, z: 125}
+  m_BoxOffset: {x: 0, y: 0, z: 0}
+  m_NearClip: 0.3
+  m_FarClip: 1000
+  m_ShadowDistance: 100
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IntensityMultiplier: 0.4
+  m_BlendDistance: 1
+  m_HDR: 1
+  m_BoxProjection: 0
+  m_RenderDynamicObjects: 0
+  m_UseOcclusionCulling: 1
+  m_Importance: 1
+  m_CustomBakedTexture: {fileID: 0}
+--- !u!4 &902097565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902097563}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.86, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &968191315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1255,10 +1319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540f26d566586f141859168972997f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localPlayerManagerPrefab: {fileID: 8497053108068278566, guid: 943898f8641957a4bbd75ec9b65d6b77, type: 3}
-  playerManagerPrefab: {fileID: 8497053108068278566, guid: 89931f460fdfb564fa7ec7446e79bf71, type: 3}
-  localPlayerPrefab: {fileID: 683690461319548108, guid: 6bceda31c4aa00848b60e66215a5042b, type: 3}
-  playerPrefab: {fileID: 4498029245668548569, guid: 40350eee37a95b94eafe452248f2ee6a, type: 3}
   StateInterp: 40
 --- !u!4 &1240699543
 Transform:

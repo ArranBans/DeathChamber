@@ -114,6 +114,18 @@ public class testGameManager : MonoBehaviour
         S_SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation, _aux1, 0);
     }
 
+    public void SpawnItem(int id, Vector3 _location, Quaternion _rotation, int _aux1, int _aux2)
+    {
+        GameObject ItemGo = Instantiate(Database.instance.GetItem(id).empty, _location, _rotation);
+
+        ItemGo.GetComponent<ItemInfo>().ChangeState(ItemInfo.ItemState.pickup, _aux1, _aux2);
+        ItemPickup iPickup = ItemGo.GetComponent<ItemPickup>();
+        iPickup.id = items.Count;
+        items.Add(iPickup);
+
+        S_SpawnItem(iPickup.id, iPickup.iSO.id, _location, _rotation, _aux1, 0);
+    }
+
     public void SpawnEnemy(int enemyType, Vector3 _location, Quaternion _rotation)
     {
         GameObject EnemyGo = Instantiate(Database.instance.GetEnemy(enemyType).obj, _location, _rotation);
